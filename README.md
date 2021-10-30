@@ -12,4 +12,3 @@
 - Redux
 - CSS-in-JS
 - Material UI
-- 
