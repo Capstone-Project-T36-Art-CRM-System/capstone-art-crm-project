@@ -1,5 +1,5 @@
-# art-crm-project
- Business Management Tools for Art Organizations using MERN full-stack solution, following the traditional 3-tier architectural pattern, including the front-end display tier (React.js), application tier (Express.js and Node.js), and database tier (MongoDB).
+# Art Organizations CRM System 
+Business Management Tools for Art Organizations using MERN full-stack solution, following the traditional 3-tier architectural pattern, including the front-end display tier (React.js), application tier (Express.js and Node.js), and database tier (MongoDB).
  
 **Stack:**
 
