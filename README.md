@@ -10,8 +10,7 @@ This is a CRM System for an art gallery/organization. The main idea is to automa
 - Oliksii Pedko
 - Sergey Pavlov
 
-
-### Technology Stack:
+### Technology Stack
 
 - Material UI v5+
 - React Router for Navigation
