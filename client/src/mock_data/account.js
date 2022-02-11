@@ -1,7 +1,7 @@
 const account = {
-    displayName: 'Alexander Kudin',
-    email: 'alexanderkudin@artlead.ca',
-    photoURL: '/static/logo.svg'
-  };
+  displayName: 'Alexander Kudin',
+  email: 'alexanderkudin@artlead.ca',
+  photoURL: '/static/logo.svg'
+};
   
-  export default account;
+export default account;

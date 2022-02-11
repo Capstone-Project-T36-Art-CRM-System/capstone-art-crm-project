@@ -1,17 +1,20 @@
 import ReactDOM from 'react-dom';
 
-// third party
+// React Helmet
+import { HelmetProvider } from 'react-helmet-async';
+
+// React Routing
 import { BrowserRouter } from 'react-router-dom';
 
-// project imports
+// Project Imports
 import App from './App';
 
-// style + assets
-// import './assets/scss/style.scss';
-
 ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <HelmetProvider>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </HelmetProvider>,
+    
     document.getElementById('root')
 );

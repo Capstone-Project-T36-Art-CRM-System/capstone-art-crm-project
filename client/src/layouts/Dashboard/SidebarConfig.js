@@ -1,3 +1,4 @@
+// Iconify
 import { Icon } from '@iconify/react';
 import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
 import peopleFill from '@iconify/icons-eva/people-fill';
@@ -5,11 +6,9 @@ import colorPaletteFill from '@iconify/icons-eva/color-palette-fill';
 import homeFill from '@iconify/icons-eva/home-fill';
 import listFill from '@iconify/icons-eva/list-fill';
 import trendingUpFill from '@iconify/icons-eva/trending-up-fill';
-import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 import briefcaseFill from '@iconify/icons-eva/briefcase-fill';
 import checkmarkSquare2Fill from '@iconify/icons-eva/checkmark-square-2-fill';
 import calendarFill from '@iconify/icons-eva/calendar-fill';
-// ----------------------------------------------------------------------
 
 const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
 

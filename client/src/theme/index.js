@@ -1,16 +1,20 @@
-import PropTypes from 'prop-types';
 import { useMemo } from 'react';
-// material
+import PropTypes from 'prop-types';
+
+
+// Material UI
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 
+// Custom Theme Options Import
 import palette from './palette';
 import typography from './typography';
 import shadows, { customShadows } from './shadows';
 
+// Custom Theme Components Import
 import Lists from './overrides/Lists';
 
-
+// Prop Types
 ThemeConfig.propTypes = {
   children: PropTypes.node
 };

@@ -1,5 +1,7 @@
-import { Icon } from '@iconify/react';
 import { useRef, useState } from 'react';
+
+// Iconify
+import { Icon } from '@iconify/react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
@@ -14,6 +16,7 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 // Shared Components Import
 import MenuPopover from '../../components/MenuPopover';
 
+// Mockup Data
 import account from '../../mock_data/account';
 
 
@@ -68,7 +71,7 @@ export default function AccountPopover() {
           })
         }}
       >
-        <Avatar src='url' alt="photoURL" />
+        <Avatar src='url' alt="A" />
       </IconButton>
 
       <MenuPopover

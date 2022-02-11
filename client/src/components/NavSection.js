@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from '@iconify/react';
+
+// React Routing
 import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
+
+// Iconify
+import { Icon } from '@iconify/react';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
-// material
+
+// Material UI
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
 
-// ----------------------------------------------------------------------
-
+// Styling Components
 const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(
   ({ theme }) => ({
     ...theme.typography.body2,
@@ -42,8 +46,8 @@ const ListItemIconStyle = styled(ListItemIcon)({
   justifyContent: 'center'
 });
 
-// ----------------------------------------------------------------------
 
+// Prop Types
 NavItem.propTypes = {
   item: PropTypes.object,
   active: PropTypes.func
