@@ -1,6 +1,17 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App.js';
+// third party
+import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+// project imports
+import App from './App';
+
+// style + assets
+// import './assets/scss/style.scss';
+
+ReactDOM.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    document.getElementById('root')
+);
