@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-
 // Material UI
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
