@@ -7,7 +7,7 @@ This is a CRM System for an art gallery/organization. The main idea is to automa
 ### Student Dev Team
 
 - Alexander Kudin
-- Oliksii Pedko
+- Oleksii Pedko
 - Sergey Pavlov
 
 ### Technology Stack
