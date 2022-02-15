@@ -8,7 +8,9 @@ import {
     MainNewCustomers,
     MainClassesComplited,
     MainLeads,
-    MainFinancesGraph
+    MainFinancesGraph,
+    MainSocialsStats,
+    MainTasks
 } from '../components/_dashboard/main/index';
 
 export default function DashboardMain() {
@@ -39,6 +41,14 @@ export default function DashboardMain() {
                 <Grid item xs={12} md={6} lg={8}>
                     <MainFinancesGraph />
                 </Grid>
+                <Grid item xs={12} md={6} lg={4}>
+                    <MainTasks />
+                </Grid>
+
+                {/* <Grid item xs={12} md={6} lg={4}>
+                    <MainSocialsStats />
+                </Grid> */}
+
             </Grid>
             {/* Page Content End */}
         </Container>
