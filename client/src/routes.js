@@ -6,6 +6,7 @@ import DashboardLayout from './layouts/Dashboard';
 
 // Outlet Pages Import
 import DashboardMain from './pages/DashboardMain';
+import ClientsMain from './pages/ClientsMain';
 import NotFound from './pages/Page404';
 
 export default function Router() {
@@ -16,6 +17,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardMain /> },
+        { path: 'clients', element: <ClientsMain /> },
       ]
     },
 
