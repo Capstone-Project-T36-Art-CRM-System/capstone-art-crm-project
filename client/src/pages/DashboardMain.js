@@ -7,7 +7,8 @@ import {
     MainActiveStudents,
     MainNewCustomers,
     MainClassesComplited,
-    MainLeads
+    MainLeads,
+    MainFinancesGraph
 } from '../components/_dashboard/main/index';
 
 export default function DashboardMain() {
@@ -15,7 +16,7 @@ export default function DashboardMain() {
     <Page title="Dashboard | Main">
         <Container maxWidth="xl">
             {/* Page Title */}
-            <Box sx={{ pb: 5 }}>
+            <Box sx={{ pb: 5  }}>
                 <Typography variant="h3">Dashboard</Typography>
             </Box>
             {/* Page Title End*/}
@@ -33,6 +34,10 @@ export default function DashboardMain() {
                 </Grid>
                 <Grid item xs={6} sm={6} md={3}>
                     <MainLeads />
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={8}>
+                    <MainFinancesGraph />
                 </Grid>
             </Grid>
             {/* Page Content End */}
