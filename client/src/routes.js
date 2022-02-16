@@ -11,7 +11,7 @@ import NotFound from './pages/Page404';
 
 export default function Router() {
   return useRoutes([
-    {
+     {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [

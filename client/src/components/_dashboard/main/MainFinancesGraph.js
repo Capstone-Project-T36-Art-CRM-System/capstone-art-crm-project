@@ -4,13 +4,10 @@ import ApexCharts from 'apexcharts';
 import Chart from 'react-apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
-// material
+// Material UI
 import { Card, CardHeader, Box } from '@mui/material';
 
-//
 import { BaseOptionChart } from '../../charts';
-
-// ----------------------------------------------------------------------
 
 const CHART_DATA = [
   {
