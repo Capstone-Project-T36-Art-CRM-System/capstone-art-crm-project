@@ -6,19 +6,18 @@ import { Card, Typography } from '@mui/material';
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   padding: theme.spacing(3.5, 3),
-  color: '#1F0E5D',
-  backgroundColor: '#F8F1FD',
+  color: '#7C200F',
+  backgroundColor: '#FDF2EA',
   borderRadius: 10,
-
 }));
 
-export default function MainClassesComplited() {
+export default function MainLeads() {
   return (
     <RootStyle>
       <Typography variant="subtitle3">
-        Classes complited
+        Leads
       </Typography>
-      <Typography variant="h2">138</Typography>
+      <Typography variant="h2">23</Typography>
     </RootStyle>
   );
 }

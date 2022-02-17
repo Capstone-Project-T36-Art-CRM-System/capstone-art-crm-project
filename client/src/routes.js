@@ -11,6 +11,7 @@ import Artworks from './pages/Artworks';
 import Schedule from './pages/Schedule';
 import Classes from './pages/Classes';
 import Tasks from './pages/Tasks';
+import Finances from './pages/Finances';
 
 import NotFound from './pages/Page404';
 
@@ -28,7 +29,7 @@ export default function Router() {
         { path: 'tasks', element: <Tasks /> }, 
         { path: 'company', element: <NotFound /> }, // Misssing
         { path: 'salaries', element: <NotFound /> }, // Misssing
-        { path: 'finances', element: <NotFound /> }, // Misssing
+        { path: 'finances', element: <Finances /> }, 
         { path: 'artworks', element: <Artworks /> },
       ]
     },

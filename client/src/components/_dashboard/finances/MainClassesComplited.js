@@ -9,16 +9,16 @@ const RootStyle = styled(Card)(({ theme }) => ({
   color: '#1F0E5D',
   backgroundColor: '#F8F1FD',
   borderRadius: 10,
-
+    marginBottom: 20,
 }));
 
 export default function MainClassesComplited() {
   return (
     <RootStyle>
       <Typography variant="subtitle3">
-        Classes complited
+        Income
       </Typography>
-      <Typography variant="h2">138</Typography>
+      <Typography variant="h2">132</Typography>
     </RootStyle>
   );
 }
