@@ -37,7 +37,7 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
 ];
 
-export default function DataTable() {
+export default function CustomersTable() {
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid

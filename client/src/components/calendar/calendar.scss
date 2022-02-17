@@ -1,0 +1,47 @@
+.rbc-day-slot .rbc-event-label {
+  flex: none;
+  padding-right: 0;
+  width: auto;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rbc-time-slot .rbc-label {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.rbc-time-header-content .rbc-allday-cell {
+  display: none;
+}
+
+.rbc-header {
+  border-bottom: none;
+}
+
+.rbc-current-time-indicator {
+  background-color: #e13b33;
+  height: 3px;
+}
+
+.rbc-current-time-indicator::before {
+  content: '';
+  position: absolute;
+  top: -0.2rem;
+  left: -0.3rem;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #e13b33;
+}
+
+.rbc-current-time-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100vh;
+  width: 100vh;
+  height: 3px;
+  background-color: #e13b3378;
+}

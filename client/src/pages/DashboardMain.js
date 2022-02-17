@@ -9,7 +9,6 @@ import {
     MainClassesComplited,
     MainLeads,
     MainFinancesGraph,
-    MainSocialsStats,
     MainTasks
 } from '../components/_dashboard/main/index';
 

@@ -1,7 +1,5 @@
 import { merge } from 'lodash';
 
-import ApexCharts from 'apexcharts';
-import Chart from 'react-apexcharts';
 import ReactApexChart from 'react-apexcharts';
 
 // Material UI

@@ -4,6 +4,9 @@ import { Box, Button, Typography, Container } from '@mui/material';
 // Page Components Import
 import Page from '../components/Page';
 
+// React Routing
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+
 export default function Page404() {
   return (
     <Page title="404 Page Not Found">
@@ -14,7 +17,7 @@ export default function Page404() {
         </Box>
         {/* Page Title End*/}
 
-        <Button component='a' href="/dashboard" size="large" variant="contained">
+        <Button component={RouterLink} to="/dashboard" size="large" variant="contained" sx={{ display: 'inline-flex', textDecoration: 'none' }}>
           Dashboard
         </Button>
       </Container>

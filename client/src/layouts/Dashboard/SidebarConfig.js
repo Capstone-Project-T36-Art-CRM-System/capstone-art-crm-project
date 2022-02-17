@@ -19,8 +19,8 @@ const sidebarConfig = [
     icon: getIcon(pieChart2Fill)
   },
   {
-    title: 'clients',
-    path: '/dashboard/clients',
+    title: 'customers',
+    path: '/dashboard/customers',
     icon: getIcon(peopleFill)
   },
   {
@@ -54,8 +54,8 @@ const sidebarConfig = [
     icon: getIcon(trendingUpFill)
   },
   {
-    title: 'warehouse',
-    path: '/dashboard/warehouse',
+    title: 'artworks',
+    path: '/dashboard/artworks',
     icon: getIcon(colorPaletteFill)
   }
 ];

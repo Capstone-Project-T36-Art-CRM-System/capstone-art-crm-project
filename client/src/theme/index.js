@@ -12,6 +12,7 @@ import shadows, { customShadows } from './shadows';
 
 // Custom Theme Components Import
 import Lists from './overrides/Lists';
+import Button from './overrides/Button';
 
 // Prop Types
 ThemeConfig.propTypes = {
@@ -31,6 +32,7 @@ export default function ThemeConfig({ children }) {
 
   const theme = createTheme(themeOptions);
   theme.components = Lists(theme);
+  theme.components = Button(theme);
 
   return (
     <StyledEngineProvider injectFirst>
