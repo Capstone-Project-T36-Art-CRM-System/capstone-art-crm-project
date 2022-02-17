@@ -59,8 +59,6 @@ export default function Artworks() {
                 <Grid item xs={12} sm={12} md={12}>
                 <Pagination count={10} disabled />
                 </Grid>
-                
-                
             </Grid>
             {/* Page Content End */}
         </Container>

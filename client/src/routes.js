@@ -9,6 +9,7 @@ import DashboardMain from './pages/DashboardMain';
 import Customers from './pages/Customers';
 import Artworks from './pages/Artworks';
 import Schedule from './pages/Schedule';
+import Classes from './pages/Classes';
 
 import NotFound from './pages/Page404';
 
@@ -21,7 +22,7 @@ export default function Router() {
         { element: <Navigate to="/dashboard" replace /> },
         { path: '', element: <DashboardMain /> },
         { path: 'customers', element: <Customers /> },
-        { path: 'classes', element: <NotFound /> }, // Misssing
+        { path: 'classes', element: <Classes /> }, 
         { path: 'schedule', element: <Schedule /> },
         { path: 'tasks', element: <NotFound /> }, // Misssing
         { path: 'company', element: <NotFound /> }, // Misssing
