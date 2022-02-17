@@ -7,6 +7,7 @@ import DashboardLayout from './layouts/Dashboard';
 // Outlet Pages Import
 import DashboardMain from './pages/DashboardMain';
 import Customers from './pages/Customers';
+import Artworks from './pages/Artworks';
 import Schedule from './pages/Schedule';
 
 import NotFound from './pages/Page404';
@@ -26,7 +27,7 @@ export default function Router() {
         { path: 'company', element: <NotFound /> }, // Misssing
         { path: 'salaries', element: <NotFound /> }, // Misssing
         { path: 'finances', element: <NotFound /> }, // Misssing
-        { path: 'artworks', element: <NotFound /> }, // Misssing
+        { path: 'artworks', element: <Artworks /> },
       ]
     },
 
