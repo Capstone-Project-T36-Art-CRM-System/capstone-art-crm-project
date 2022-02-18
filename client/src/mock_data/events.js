@@ -1,7 +1,7 @@
 const EVENTS = [
     {
         id: 0,
-        title: 'Paining Class – 2-hours Group',
+        title: 'Painting Class – 2-hours Group',
         start: new Date(2022, 1, 14, 9),
         end: new Date(2022, 1, 14, 11),
         hexColor: 'B18CE7',
@@ -23,14 +23,14 @@ const EVENTS = [
 
     {
         id: 3,
-        title: 'Paining Class – 1-hour Group',
+        title: 'Painting Class – 1-hour Group',
         start: new Date(2022, 1, 15, 8),
         end: new Date(2022, 1, 15, 9),
         hexColor: 'B18CE7',
     },
     {
         id: 4,
-        title: 'Paining Class – 2-hours Group',
+        title: 'Painting Class – 2-hours Group',
         start: new Date(2022, 1, 15, 10),
         end: new Date(2022, 1, 15, 12),
         hexColor: 'B18CE7',
@@ -52,7 +52,7 @@ const EVENTS = [
 
     {
         id: 7,
-        title: 'Paining Class – 2-hours Group',
+        title: 'Painting Class – 2-hours Group',
         start: new Date(2022, 1, 16, 9),
         end: new Date(2022, 1, 16, 11),
         hexColor: 'B18CE7',
@@ -81,7 +81,7 @@ const EVENTS = [
     },
     {
         id: 11,
-        title: 'Paining Class – 2-hours Group',
+        title: 'Painting Class – 2-hours Group',
         start: new Date(2022, 1, 17, 10),
         end: new Date(2022, 1, 17, 12),
         hexColor: 'B18CE7',
