@@ -1,10 +1,11 @@
 // React Routing
 import { Navigate, useRoutes } from 'react-router-dom';
 
-// Layouts Import
+// Layout Imports
 import DashboardLayout from './layouts/Dashboard';
+import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 
-// Outlet Pages Import
+// Dashboard Outlet Page Imports
 import DashboardMain from './pages/DashboardMain';
 import Customers from './pages/Customers';
 import Artworks from './pages/Artworks';
@@ -13,7 +14,12 @@ import Classes from './pages/Classes';
 import Tasks from './pages/Tasks';
 import Finances from './pages/Finances';
 
+// Logo Only Outlet Page Imports
+import Login from './pages/Login';
+
+// Other Page Imports
 import NotFound from './pages/Page404';
+
 
 export default function Router() {
   return useRoutes([
@@ -33,18 +39,17 @@ export default function Router() {
       ]
     },
 
-    // {
-    //   path: '/',
-    //   // element: <AuthLayout />,
-    //   children: [
-    //     { path: '/', element: <Navigate to="/login" /> },
-    //     { path: 'login', element: <NotFound /> },
-    //     { path: 'register', element: <NotFound /> },
-    //   ]
-    // },
+    {
+      path: '/',
+      element: <LogoOnlyLayout />,
+      children: [
+        { path: '/', element: <Navigate to="/login" /> },
+        { path: 'login', element: <Login /> },
+        // { path: 'register', element: <register /> },
+      ]
+    },
 
     { path: '404', element: <NotFound /> },
     { path: '*', element: <Navigate to="/dashboard" replace /> },
-    { path: '/', element: <Navigate to="/dashboard" /> },
   ]);
 }
