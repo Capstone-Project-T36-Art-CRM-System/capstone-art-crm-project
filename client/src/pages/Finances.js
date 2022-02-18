@@ -11,26 +11,28 @@ import { MainClassesComplited, MainFinancesGraph, MainNewCustomers } from '../co
 
 const columns = [
     {
-        field: 'fullName',
-        headerName: 'Full name',
+        field: 'expanseName',
+        headerName: 'Expense',
         description: 'This column has a value getter and is not sortable.',
         sortable: false,
-        width: 200,
+        width: 270,
         valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+            `${params.row.expense || ''}`,
     },
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'status', headerName: 'Status', width: 70 },
-    { field: 'phone', headerName: 'Phone', width: 170 },
-    { field: 'balance', headerName: 'Balance', width: 100 },
-
+    { field: 'category', headerName: 'Category', width: 150 },
+    { field: 'amount', headerName: 'Amount $', width: 95 },
+    { field: 'dateOfExpense', headerName: 'Date', width: 120 },
 ];
 
 const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021"},
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, status: "Inactive", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, status: "Reject", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, status: "Lead", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
+    { id: 1, expense: 'Flowers and hearts for St. Valentines day', category: 'Operating expenses', amount: 90, dateOfExpense: "Feb 14, 2022"},
+    { id: 2, expense: 'Office supplies', category: 'Operating expenses', amount: 185, dateOfExpense: "Feb 14, 2022"},
+    { id: 3, expense: 'Detergents for cleaning', category: 'Operating expenses', amount: 30, dateOfExpense: "Feb 15, 2022"},
+    { id: 4, expense: 'Canvas and paint', category: 'Operating expenses', amount: 200, dateOfExpense: "Feb 16, 2022"},
+    { id: 5, expense: 'Postage', category: 'Operating expenses', amount: 24, dateOfExpense: "Feb 17, 2022"},
+    { id: 6, expense: 'Drinks and snacks', category: 'Operating expenses', amount: 60, dateOfExpense: "Feb 18, 2022"},
+    { id: 7, expense: 'Plumbing services', category: 'Operating expenses', amount: 490, dateOfExpense: "Feb 18, 2022"},
+    { id: 8, expense: 'Courier services', category: 'Operating expenses', amount: 35, dateOfExpense: "Feb 19, 2022"},
     ];
 
 export default function Finances() {
