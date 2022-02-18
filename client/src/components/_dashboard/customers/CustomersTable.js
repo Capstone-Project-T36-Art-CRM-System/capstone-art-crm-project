@@ -29,15 +29,15 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: "Active", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021"},
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, status: "Inactive", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, status: "Reject", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, status: "Lead", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 150, status: "Lead", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 6, lastName: 'Melisandre', firstName: 'Daenerys', age: 150, status: "Active", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44, status: "Active", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, status: "Active", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, status: "Active", phone: "+1 (305) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: "Active", phone: "+1 (270) 283-1005", balance: fCurrency(860), created: "Sep 25, 2021"},
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, status: "Inactive", phone: "+1 (305) 982-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, status: "Reject", phone: "+1 (310) 555-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, status: "Lead", phone: "+1 (305) 145-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 150, status: "Lead", phone: "+1 (305) 987-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 6, lastName: 'Melisandre', firstName: 'Daenerys', age: 150, status: "Active", phone: "+1 (305) 748-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44, status: "Active", phone: "+1 (385) 295-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, status: "Active", phone: "+1 (305) 111-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, status: "Active", phone: "+1 (385) 999-1005", balance: fCurrency(860), created: "Sep 25, 2021" },
 ];
 
 export default function CustomersTable() {
@@ -70,7 +70,7 @@ export default function CustomersTable() {
       return a[1] - b[1];
     });
     if (query) {
-      return filter(array, (_user) => (_user.lastName + _user.firstName).toLowerCase().indexOf(query.toLowerCase()) !== -1);
+      return filter(array, (_user) => (_user.lastName + _user.firstName + _user.phone).toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
   }
