@@ -12,9 +12,7 @@ import shape from './shape';
 import shadows, { customShadows } from './shadows';
 
 // Custom Theme Components Import
-import Lists from './overrides/Lists';
-import Button from './overrides/Button';
-import Card from './overrides/Card';
+import componentsOverride from './overrides';
 
 // Prop Types
 ThemeConfig.propTypes = {
@@ -34,9 +32,7 @@ export default function ThemeConfig({ children }) {
   );
 
   const theme = createTheme(themeOptions);
-  theme.components = Lists(theme);
-  theme.components = Button(theme);
-  theme.components = Card(theme);
+  theme.components = componentsOverride(theme);
 
   return (
     <StyledEngineProvider injectFirst>

@@ -2,6 +2,9 @@
 import { styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 
+// Utils
+import { fCurrency } from '../../../utils/formatNumber';
+
 // Styling Components
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -9,16 +12,15 @@ const RootStyle = styled(Card)(({ theme }) => ({
   color: '#1F0E5D',
   backgroundColor: '#F8F1FD',
   borderRadius: 10,
-    marginBottom: 20,
 }));
 
-export default function MainClassesComplited() {
+export default function FinancesIncomeKey() {
   return (
     <RootStyle>
       <Typography variant="subtitle3">
         Income
       </Typography>
-      <Typography variant="h2">132</Typography>
+      <Typography variant="h2">{fCurrency(18765)}</Typography>
     </RootStyle>
   );
 }

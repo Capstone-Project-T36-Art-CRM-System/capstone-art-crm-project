@@ -13,12 +13,12 @@ const columns = [
     valueGetter: (params) =>
       `${params.row.classTitle || ''}`,
   },
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'status', headerName: 'Status', width: 70 },
-  { field: 'classType', headerName: 'Class type', width: 120 },
-  { field: 'dateScheduled', headerName: 'Date', width: 120 },
-  { field: 'timeScheduled', headerName: 'Time', width: 120 },
-  { field: 'duration', headerName: 'Duration (hours)', width: 140 },
+  { field: 'id', headerName: 'ID', flex: 1 },
+  { field: 'status', headerName: 'Status', flex: 1 },
+  { field: 'classType', headerName: 'Class type', flex: 1 },
+  { field: 'dateScheduled', headerName: 'Date', flex: 1 },
+  { field: 'timeScheduled', headerName: 'Time', flex: 1 },
+  { field: 'duration', headerName: 'Duration (hours)', flex: 1 },
 ];
 
 const rows = [

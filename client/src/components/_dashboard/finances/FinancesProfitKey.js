@@ -2,22 +2,25 @@
 import { styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 
+// Utils
+import { fCurrency } from '../../../utils/formatNumber';
+
 // Styling Components
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   padding: theme.spacing(3.5, 3),
-  color: '#7C200F',
-  backgroundColor: '#FDF2EA',
+  color: '#265114',
+  backgroundColor: '#F8FEEF',
   borderRadius: 10,
 }));
 
-export default function MainLeads() {
+export default function FinancesProfitKey() {
   return (
     <RootStyle>
       <Typography variant="subtitle3">
-        Leads
+        Profit
       </Typography>
-      <Typography variant="h2">23</Typography>
+      <Typography variant="h2">{fCurrency(10395)}</Typography>
     </RootStyle>
   );
 }

@@ -14,7 +14,7 @@ const CHART_DATA = [
     data: [1250, 3500, 1450, 2000, 1000, 2900]
   },
   {
-    name: 'Loss',
+    name: 'Expenses',
     type: 'bar',
     data: [1000, 1400, 600, 1400, 900, 3000]
   },
@@ -25,7 +25,7 @@ const CHART_DATA = [
   }
 ];
 
-export default function MainFinancesGraph() {
+export default function FinancesGraph() {
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [0, 0, 3] },
     plotOptions: { bar: { columnWidth: '20%', borderRadius: 4 } },
