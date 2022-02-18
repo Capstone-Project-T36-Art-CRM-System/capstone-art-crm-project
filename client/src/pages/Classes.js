@@ -1,8 +1,9 @@
 // Material UI
-import { Grid, Container, Typography, Stack, Button, Icon } from '@mui/material';
+import { Grid, Container, Typography, Stack, Button } from '@mui/material';
 
 // Iconify
 import plusFill from '@iconify/icons-eva/plus-fill';
+import { Icon } from '@iconify/react';
 
 // Router Navigation
 import { Link as RouterLink } from 'react-router-dom';
@@ -15,7 +16,7 @@ import {
 
 export default function Classess() {
   return (
-    <Page title="Dashboard | Clients">
+    <Page title="Dashboard | Classes">
         <Container maxWidth="xl">
             {/* Page Title */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -26,6 +27,7 @@ export default function Classess() {
                     variant="contained"
                     component={RouterLink}
                     to="#"
+                    startIcon={<Icon icon={plusFill} />}
                 >
                     Add new class
                 </Button>

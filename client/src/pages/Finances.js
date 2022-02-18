@@ -1,12 +1,13 @@
+import * as React from "react";
+
 // Material UI
-import {Box, Container, Grid, Typography} from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { DataGrid } from "@mui/x-data-grid";
 import '../assets/css/style.css';
 
 // Page Components Import
 import Page from '../components/Page';
-import {MainClassesComplited, MainFinancesGraph, MainNewCustomers} from '../components/_dashboard/finances/index';
-import {DataGrid} from "@mui/x-data-grid";
-import * as React from "react";
+import { MainClassesComplited, MainFinancesGraph, MainNewCustomers } from '../components/_dashboard/finances/index';
 
 const columns = [
     {
@@ -33,11 +34,8 @@ const rows = [
     ];
 
 export default function Finances() {
-    const style = {
-        marginBottom: 200
-    };
     return (
-        <Page title="Dashboard | Main">
+        <Page title="Dashboard | Finances">
             <Container maxWidth="xl">
                 {/* Page Title */}
                 <Box sx={{pb: 5}}>

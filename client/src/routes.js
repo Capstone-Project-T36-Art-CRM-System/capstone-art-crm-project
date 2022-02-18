@@ -21,7 +21,6 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard" replace /> },
         { path: '', element: <DashboardMain /> },
         { path: 'customers', element: <Customers /> },
         { path: 'classes', element: <Classes /> }, 
@@ -34,19 +33,18 @@ export default function Router() {
       ]
     },
 
-    {
-      path: '/',
-      element: <NotFound />,
-      // element: <AuthLayout />,
-      children: [
-        { path: 'login', element: <NotFound /> },
-        { path: 'register', element: <NotFound /> },
-        { path: '/', element: <Navigate to="/dashboard" /> },
-      ]
-    },
+    // {
+    //   path: '/',
+    //   // element: <AuthLayout />,
+    //   children: [
+    //     { path: '/', element: <Navigate to="/login" /> },
+    //     { path: 'login', element: <NotFound /> },
+    //     { path: 'register', element: <NotFound /> },
+    //   ]
+    // },
 
     { path: '404', element: <NotFound /> },
-    { path: '*', element: <Navigate to="/dashboard" replace /> }
-
+    { path: '*', element: <Navigate to="/dashboard" replace /> },
+    { path: '/', element: <Navigate to="/dashboard" /> },
   ]);
 }

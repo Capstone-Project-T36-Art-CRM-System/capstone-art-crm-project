@@ -16,7 +16,7 @@ const sidebarConfig = [
   {
     title: 'dashboard',
     path: '/dashboard',
-    icon: getIcon(pieChart2Fill)
+    icon: getIcon(pieChart2Fill),
   },
   {
     title: 'customers',
@@ -41,12 +41,14 @@ const sidebarConfig = [
   {
     title: 'company',
     path: '/dashboard/company',
-    icon: getIcon(homeFill)
+    icon: getIcon(homeFill),
+    disabled: true
   },
   {
     title: 'salaries',
     path: '/dashboard/salaries',
-    icon: getIcon(briefcaseFill)
+    icon: getIcon(briefcaseFill),
+    disabled: true
   },
   {
     title: 'finances',
