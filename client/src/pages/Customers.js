@@ -10,9 +10,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Page Components Import
 import Page from '../components/Page';
-import { 
-    CustomersTable, 
-    CustomersSearch } from '../components/_dashboard/customers/index';
+import { CustomersTable } from '../components/_dashboard/customers/index';
 
 export default function Customers() {
   return (
@@ -37,7 +35,6 @@ export default function Customers() {
             {/* Page Content */}
             <Grid container spacing={12}>
                 <Grid item xs={12} sm={12} md={12}>
-                    <CustomersSearch />
                     <CustomersTable/>
                 </Grid>
             </Grid>

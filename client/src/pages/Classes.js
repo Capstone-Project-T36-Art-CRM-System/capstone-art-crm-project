@@ -10,9 +10,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Page Components Import
 import Page from '../components/Page';
-import { 
-    ClassesTable, 
-    ClassesSearch } from '../components/_dashboard/classes/index';
+import { ClassesTable } from '../components/_dashboard/classes/index';
 
 export default function Classess() {
   return (
@@ -37,7 +35,6 @@ export default function Classess() {
             {/* Page Content */}
             <Grid container spacing={12}>
                 <Grid item xs={12} sm={12} md={12}>
-                    <ClassesSearch />
                     <ClassesTable/>
                 </Grid>
             </Grid>

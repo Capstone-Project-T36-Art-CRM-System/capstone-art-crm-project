@@ -10,9 +10,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Page Components Import
 import Page from '../components/Page';
-import { 
-    TasksTable, 
-    TasksSearch } from '../components/_dashboard/tasks/index';
+import { TaskList } from '../components/_dashboard/tasks/index';
 
 export default function Tasks() {
   return (
@@ -37,8 +35,7 @@ export default function Tasks() {
             {/* Page Content */}
             <Grid container spacing={12}>
                 <Grid item xs={12} sm={12} md={12}>
-                    <TasksSearch />
-                    <TasksTable/>
+                    <TaskList/>
                 </Grid>
             </Grid>
             {/* Page Content End */}

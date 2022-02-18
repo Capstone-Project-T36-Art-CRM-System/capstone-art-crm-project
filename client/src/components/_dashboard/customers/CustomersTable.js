@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
+import CustomerSearch from './CustomerSearch'
+
 const columns = [
   {
     field: 'fullName',
@@ -40,6 +42,7 @@ const rows = [
 export default function CustomersTable() {
   return (
     <div style={{ height: 400, width: '100%' }}>
+      <CustomerSearch marginBottom={2} />
       <DataGrid
         rows={rows}
         columns={columns}

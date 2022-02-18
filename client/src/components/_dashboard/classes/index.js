@@ -1,2 +1,2 @@
 export { default as ClassesTable } from './ClassesTable';
-export { default as ClassesSearch } from './ClassesSearch';
+export { default as ClassSearch } from './ClassSearch';
