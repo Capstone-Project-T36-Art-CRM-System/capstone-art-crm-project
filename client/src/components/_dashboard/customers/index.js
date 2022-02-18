@@ -1,2 +1,2 @@
 export { default as CustomersTable } from './CustomersTable';
-export { default as CustomerSearch } from './CustomerSearch';
+export { default as CustomerTableToolbar } from './CustomerTableToolbar';

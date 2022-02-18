@@ -14,6 +14,8 @@ import Classes from './pages/Classes';
 import Tasks from './pages/Tasks';
 import Finances from './pages/Finances';
 
+import CustomerInfo from './pages/CustomerInfo';
+
 // Logo Only Outlet Page Imports
 import Login from './pages/Login';
 
@@ -29,6 +31,7 @@ export default function Router() {
       children: [
         { path: '', element: <DashboardMain /> },
         { path: 'customers', element: <Customers /> },
+        { path: 'customers/:customerId', element: <CustomerInfo /> },
         { path: 'classes', element: <Classes /> }, 
         { path: 'schedule', element: <Schedule /> },
         { path: 'tasks', element: <Tasks /> }, 
