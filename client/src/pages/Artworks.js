@@ -5,7 +5,7 @@ import { Container, Typography, Stack, Button } from '@mui/material';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Icon } from '@iconify/react';
 
-// Router Navigation
+// React Routing
 import { Link as RouterLink } from 'react-router-dom';
 
 // Page Components Import
@@ -44,7 +44,6 @@ export default function Artworks() {
                 sx={{ mb: 5 }}
             >
                 <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-
                     <ArtworkSort />
                 </Stack>
             </Stack>

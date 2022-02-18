@@ -2,7 +2,7 @@
 import { Box, Card, Link, Typography, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-// Router Navigation
+// React Routing
 import { Link as RouterLink } from 'react-router-dom';
 
 // Utils
