@@ -15,19 +15,10 @@ const columns = [
   },
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'status', headerName: 'Status', width: 70 },
-  //{ field: 'phone', headerName: 'Phone', width: 170 },
-  //{ field: 'balance', headerName: 'Balance', width: 100 },
   { field: 'classType', headerName: 'Class type', width: 120 },
   { field: 'dateScheduled', headerName: 'Date', width: 120 },
   { field: 'timeScheduled', headerName: 'Time', width: 120 },
   { field: 'duration', headerName: 'Duration (hours)', width: 140 },
-  // {
-  //   field: 'age',
-  //   headerName: 'Age',
-  //   type: 'number',
-  //   width: 90,
-  // },
-
 ];
 
 const rows = [
