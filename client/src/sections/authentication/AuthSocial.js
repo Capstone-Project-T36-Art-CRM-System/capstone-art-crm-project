@@ -1,11 +1,8 @@
-// Iconify
-import { Icon } from '@iconify/react';
-import googleFill from '@iconify/icons-eva/google-fill';
-import twitterFill from '@iconify/icons-eva/twitter-fill';
-import facebookFill from '@iconify/icons-eva/facebook-fill';
-
 // Material UI
 import { Stack, Button, Divider, Typography } from '@mui/material';
+
+// Components Import
+import Iconify from '../../components/Iconify'
 
 
 export default function AuthSocial() {
@@ -13,15 +10,7 @@ export default function AuthSocial() {
     <>
       <Stack direction="row" spacing={2}>
         <Button fullWidth size="large" color="inherit" variant="outlined">
-          <Icon icon={googleFill} color="#DF3E30" height={24} />
-        </Button>
-
-        <Button fullWidth size="large" color="inherit" variant="outlined">
-          <Icon icon={facebookFill} color="#1877F2" height={24} />
-        </Button>
-
-        <Button fullWidth size="large" color="inherit" variant="outlined">
-          <Icon icon={twitterFill} color="#1C9CEA" height={24} />
+          <Iconify icon={'eva:google-fill'}  color="#DF3E30" width={24} height={24} />
         </Button>
       </Stack>
 

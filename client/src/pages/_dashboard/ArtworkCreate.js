@@ -1,3 +1,4 @@
+// Routing
 import { useParams, useLocation } from 'react-router-dom';
 
 // Material UI
@@ -7,32 +8,32 @@ import { Container, Stack, Typography } from '@mui/material';
 import Page from '../../components/Page';
 
 // Page Sections Import
-import CustomerNewForm from '../../sections/_dashboard/customer/CustomerNewForm';
+import ArtworkNewForm from '../../sections/_dashboard/artwork/ArtworkNewForm';
 
 // MOCK DATA
-import { getCustomerbyId } from '../../mock_data/customers';
+import { getArtworkrbyId } from '../../mock_data/artworks';
 
 
-export default function CustomerCreate() {
+export default function ArtworkCreate() {
   const { pathname } = useLocation();
-  const { customerId = '' } = useParams();
+  const { artworkId = '' } = useParams();
   const isEdit = pathname.includes('edit');
 
-  const currentCustomer = getCustomerbyId(customerId);
+  const currentArtwork = getArtworkrbyId(artworkId);
 
   return (
-    <Page title="User: Create a new user">
+    <Page title={`Artworks – ${!isEdit ? 'Create Artwork' : 'Edit Artwork'}`}>
       <Container maxWidth='lg'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-              Customers – <Typography variant="h4" display="inline" color="text.secondary">{!isEdit ? 'Create Customer' : 'Edit Customer'}</Typography>
+            Artworks – <Typography variant="h4" display="inline" color="text.secondary">{!isEdit ? 'Create Artwork' : 'Edit Artwork'}</Typography>
           </Typography>
         </Stack>
         {/* Page Title End*/}
 
-        <CustomerNewForm isEdit={isEdit} currentCustomer={currentCustomer} />
+        <ArtworkNewForm isEdit={isEdit} currentArtwork={currentArtwork} />
       </Container>
     </Page>
   );

@@ -1,14 +1,14 @@
-import * as Yup from 'yup';
 import { useState } from 'react';
+
+// Form Controls
+import * as Yup from 'yup';
 import { useFormik, Form, FormikProvider } from 'formik';
 
-// React Router Navigation
+// Routing
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-// Iconify
-import { Icon } from '@iconify/react';
-import eyeFill from '@iconify/icons-eva/eye-fill';
-import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+// Components Import
+import Iconify from '../../../components/Iconify'
 
 // Material UI
 import {
@@ -21,6 +21,7 @@ import {
   FormControlLabel
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export default function LoginForm() {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton onClick={handleShowPassword} edge="end">
-                    <Icon icon={showPassword ? eyeFill : eyeOffFill} />
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                   </IconButton>
                 </InputAdornment>
               )

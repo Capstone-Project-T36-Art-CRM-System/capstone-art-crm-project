@@ -25,25 +25,27 @@ import Page from '../../components/Page';
 import Label from '../../components/Label';
 import SearchNotFound from '../../components/SearchNotFound';
 import Iconify from '../../components/Iconify';
+import Image from '../../components/Image';
 
 // Page Sections Import
-import { CustomerListHead, CustomerListToolbar, CustomerMoreMenu } from '../../sections/_dashboard/customer/list';
+import { ArtworkListHead, ArtworkListToolbar, ArtworkMoreMenu } from '../../sections/_dashboard/artwork/list';
 
 // MOCK DATA
-import { getCustomerList } from '../../mock_data/customers';
+import { getArtworkList } from '../../mock_data/artworks';
 
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'customerId', label: 'ID', alignRight: false },
-  { id: 'phone', label: 'Phone', alignRight: false },
-  { id: 'email', label: 'Email', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'title', label: 'Artwork', alignRight: false },
+  { id: 'artworkId', label: 'ID', alignRight: false },
+  { id: 'material', label: 'Material', alignRight: false },
+  { id: 'size', label: 'Size', alignRight: false },
+  { id: 'year', label: 'Year', alignRight: false },
+  { id: 'author', label: 'Author', alignRight: false },
   { id: '' },
 ];
 
-export default function CustomerList() {
-  const [customerList, setCustomerList] = useState(getCustomerList());
+export default function ArtworkList() {
+  const [artworkList, setArtworkList] = useState(getArtworkList());
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
@@ -58,19 +60,19 @@ export default function CustomerList() {
   };
 
   const handleSelectAllClick = (checked) => {
-    if (checked && selected.length !== customerList.length) {
-      const newSelecteds = customerList.map((customer) => customer.name);
+    if (checked && selected.length !== artworkList.length) {
+      const newSelecteds = artworkList.map((artwork) => artwork.artworkId);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (artworkId) => {
+    const selectedIndex = selected.indexOf(artworkId);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, artworkId);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -91,95 +93,107 @@ export default function CustomerList() {
     setPage(0);
   };
 
-  const handleDeleteCustomer = (customerId) => {
-    const deleteUser = customerList.filter((customer) => customer.customerId !== customerId);
+  const handleDeleteCustomer = (artworkId) => {
+    const deleteUser = artworkList.filter((artwork) => artwork.artworkId !== artworkId);
     setSelected([]);
-    setCustomerList(deleteUser);
+    setArtworkList(deleteUser);
   };
 
-  const handleDeleteMultiCustomer = (selected) => {
-    const deleteCustomers = customerList.filter((customer) => !selected.includes(customer.name));
+  const handleDeleteMultiArtwork = (selected) => {
+    const deleteArtworks = artworkList.filter((artwork) => !selected.includes(artwork.artworkId));
     setSelected([]);
-    setCustomerList(deleteCustomers);
+    setArtworkList(deleteArtworks);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customerList.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - artworkList.length) : 0;
 
-  const filteredCustomers = applySortFilter(customerList, getComparator(order, orderBy), filterName);
+  const filteredCustomers = applySortFilter(artworkList, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredCustomers.length && Boolean(filterName);
 
   return (
-    <Page title="Customers">
+    <Page title="Artworks">
       <Container maxWidth='lg'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-              Customers
+              Artworks
           </Typography>
           <Button
               variant="contained"
               component={RouterLink}
-              to="/dashboard/customer/new"
+              to="/dashboard/artwork/new"
               startIcon={ <Iconify icon={'eva:plus-fill'} width={20} height={20} />}
           >
-              Add customer
+              Add artwork
           </Button>
         </Stack>
         {/* Page Title End*/}
 
         <Card>
-          <CustomerListToolbar
+          <ArtworkListToolbar
             numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
-            onDeleteCustomers={() => handleDeleteMultiCustomer(selected)}
+            onDeleteArtworks={() => handleDeleteMultiArtwork(selected)}
           />
 
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <CustomerListHead
+                <ArtworkListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={customerList.length}
+                  rowCount={artworkList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { customerId, name, email, status, phone } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    const { artworkId, cover, title, material, size, year, author } = row;
+                    const isItemSelected = selected.indexOf(artworkId) !== -1;
 
                     return (
                       <TableRow
                         hover
-                        key={customerId}
+                        key={artworkId}
                         tabIndex={-1}
                         role="checkbox"
                         selected={isItemSelected}
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
+                          <Checkbox checked={isItemSelected} onClick={() => handleClick(artworkId)} />
                         </TableCell>
-                        <TableCell align="left">{name}</TableCell>
-                        <TableCell align="left">{customerId}</TableCell>
-                        <TableCell align="left">{phone}</TableCell>
-                        <TableCell align="left">{email}</TableCell>
-                        <TableCell align="left">
+                        <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
+                          <Image
+                            disabledEffect
+                            alt={title}
+                            src={`https://artkudina.ru/images/works/webp/${cover}.webp?w=161&fit=crop&auto=format`} 
+                            sx={{ borderRadius: 1.5, width: 64, height: 64, mr: 2 }}
+                          />
+                          <Typography variant="subtitle2" noWrap>
+                            {title}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="left">{artworkId}</TableCell>
+                        <TableCell align="left">{material}</TableCell>
+                        <TableCell align="left">{size}</TableCell>
+                        <TableCell align="left">{year}</TableCell>
+                        <TableCell align="left">{author}</TableCell>
+                        {/* <TableCell align="left">
                           <Label
                             variant='ghost'
                             color={(status === 'rejected' && 'error') || 'success'}
                           >
                             {sentenceCase(status)}
                           </Label>
-                        </TableCell>
+                        </TableCell> */}
 
                         <TableCell align="right">
-                          <CustomerMoreMenu onDelete={() => handleDeleteCustomer(customerId)} customerId={customerId} />
+                          <ArtworkMoreMenu onDelete={() => handleDeleteCustomer(artworkId)} artworkId={artworkId} />
                         </TableCell>
                       </TableRow>
                     );
@@ -205,7 +219,7 @@ export default function CustomerList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={customerList.length}
+            count={artworkList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={(e, page) => setPage(page)}
@@ -243,7 +257,7 @@ function applySortFilter(array, comparator, query) {
     return a[1] - b[1];
   });
   if (query) {
-    return array.filter((customer) => customer.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    return array.filter((artwork) => artwork.title.toLowerCase().indexOf(query.toLowerCase()) !== -1);
   }
   return stabilizedThis.map((el) => el[0]);
 }

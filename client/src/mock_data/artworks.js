@@ -3,7 +3,7 @@ export function getArtworkList() {
 }
   
 export function getArtworkrbyId(artworkId) {
-    return artworkList.find((artwork) => artwork.artworkId === artworkId);
+    return artworkList.find((artwork) => artwork.artworkId == artworkId);
 }
 
 const artworkList = [
@@ -15,7 +15,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "80 x 100",
         "year": 2012,
-        "price": "4 600",        
+        "price": 4600,        
         "author": "Julia Kudina",
         "description": ""
     },
@@ -27,7 +27,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "80 x 60",
         "year": 2020,
-        "price": "3 000",
+        "price": 3000,
         "author": "Julia Kudina",
         "description": "Who doesn't wonder what his city looked like 100 years ago? Looking at the picture plunges into the past... It feels like the building is shining like gold."
     },
@@ -39,7 +39,7 @@ const artworkList = [
         "material": "Pencil on Paper",
         "size": "62 x 93",
         "year": 2015,
-        "price": "6 000",        
+        "price": 6000,        
         "author": "Julia Kudina",
         "description": "You look at it - you won't get enough of it. Sunflower is a big and beautiful flower. The middle of it is black, and the petals are yellow, like the sun. No wonder he was given such a name. The sunflower is also popularly called the flower of the sun."
     },
@@ -51,7 +51,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "100 x 70",
         "year": 2015,
-        "price": "8 300",
+        "price": 8300,
         "author": "Julia Kudina",
         "description": "The painting is made in oil on canvas and strikes the viewer's eye with powerful energy. It's like she's plunging back into the past. In a living house, people sleep peacefully and serenely, only the light of a lantern looks into their windows."
     },
@@ -64,7 +64,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "120 x 160",
         "year": 2017,
-        "price": "6 000",
+        "price": 6000,
         "author": "Julia Kudina",
         "description": "This painting combines landscape and still life at the same time. The fruits of the golden autumn give you the opportunity to admire the latest delicacies of the warm time and once again marvel at the number of shades in the picture."
     },
@@ -76,7 +76,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "100 х 100",
         "year": 2021,
-        "price": "1800",
+        "price": 1800,
         "author": "Julia Kudina",
         "description": "The moment when the bright sun shines through the window, and the gray unremarkable room turns into a game of sunlight."
     },
@@ -88,7 +88,7 @@ const artworkList = [
         "material": "Oil on Canvas",
         "size": "20 х 30",
         "year": 2020,
-        "price": "300",
+        "price": 300,
         "author": "Julia Kudina",
         "description": "A warm summer day, a walk on the shore of the lake, the incredible beauty of nature and its reflection in the clear water. The central element of the painting is white sailboats. There is a small house on the shore. Somehow there is a desire to look at this picture again and again..."
     },
@@ -262,5 +262,3 @@ const artworkList = [
     //     "description": ""
     // },
 ]
-
-export default ARTWORKS;
