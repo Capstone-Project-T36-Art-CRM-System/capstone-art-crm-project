@@ -8,7 +8,7 @@ export function getPaymentListbyId(customerId) {
 
 const paymentList = [
     {
-        "payemntId": "PAY1",
+        "payemntId": 1,
         "customerId": "C00001",
         "type": 'return',
         "message": 'Refund for',
@@ -19,7 +19,7 @@ const paymentList = [
         "amount": 150.00,
     },
     {
-        "payemntId": "PAY2",
+        "payemntId": 2,
         "customerId": "C00001",
         "type": 'purchase',
         "message": 'Payment for',
@@ -30,7 +30,7 @@ const paymentList = [
         "amount": 150.00,
     },
     {
-        "payemntId": "PAY3",
+        "payemntId": 3,
         "customerId": "C00001",
         "type": 'purchase',
         "message": 'Payment for',

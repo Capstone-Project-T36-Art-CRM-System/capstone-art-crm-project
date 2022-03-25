@@ -9,10 +9,11 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import ScheduleCalendar from '../../components/calendar/ScheduleCalendar';
 
+
 export default function Calendar() {
   return (
     <Page title="Dashboard | Calendar">
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
             {/* Page Title */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                 <Typography variant="h4" gutterBottom>

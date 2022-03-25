@@ -7,9 +7,14 @@ import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 
 // Dashboard Outlet Page Imports
 import DashboardMain from './pages/_dashboard/Main';
+
 import CustomerList from './pages/_dashboard/CustomerList';
 import CustomerAccount from './pages/_dashboard/CustomerAccount';
 import CustomerCreate from './pages/_dashboard/CustomerCreate';
+
+import ArtworkList from './pages/_dashboard/ArtworkList';
+import ArtworkDetails from './pages/_dashboard/ArtworkDetails';
+import ArtworkCreate from './pages/_dashboard/ArtworkCreate';
 
 import Calendar from './pages/_dashboard/Calendar';
 
@@ -35,6 +40,16 @@ export default function Router() {
             { path: ':customerId', element: <CustomerAccount /> },
             { path: 'new', element: <CustomerCreate /> },
             { path: ':customerId/edit', element: <CustomerCreate /> },
+          ],
+        },
+        {
+          path: 'artwork',
+          children: [
+            { element: <Navigate to="/dashboard/artwork/list" replace />, index: true },
+            { path: 'list', element: <ArtworkList /> },
+            { path: ':artworkId', element: <ArtworkDetails /> },
+            { path: 'new', element: <ArtworkCreate /> },
+            { path: ':artworkId/edit', element: <ArtworkCreate /> },
           ],
         },
         // { path: 'customers/:customerId', element: <CustomerInfo /> },
