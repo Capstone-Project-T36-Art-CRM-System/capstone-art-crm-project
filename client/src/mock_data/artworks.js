@@ -1,4 +1,12 @@
-const ARTWORKS = [
+export function getArtworkList() {
+    return artworkList;
+}
+  
+export function getArtworkrbyId(artworkId) {
+    return artworkList.find((artwork) => artwork.artworkId === artworkId);
+}
+
+const artworkList = [
     {
         "artworkId": 30,
         "title": "Kuban Still Life",

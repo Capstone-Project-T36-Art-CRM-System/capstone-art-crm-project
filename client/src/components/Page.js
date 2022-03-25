@@ -1,7 +1,5 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-
-// React Helmet
 import { Helmet } from 'react-helmet-async';
 
 // Material UI
@@ -16,7 +14,7 @@ const Page = forwardRef(({ children, title = '', ...other }, ref) => (
   </Box>
 ));
 
-// Prop Types
+// Props
 Page.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string

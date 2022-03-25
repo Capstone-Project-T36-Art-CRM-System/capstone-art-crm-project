@@ -1,0 +1,78 @@
+import { sentenceCase } from 'change-case';
+
+// Material UI
+import { Box, Button, Card, Stack, Typography } from '@mui/material';
+
+// Routing
+import { Link as RouterLink } from 'react-router-dom';
+
+// Components Import
+import Label from '../../../../components/Label';
+import { format } from 'date-fns';
+
+
+export default function AccountGeneral({customerSelected}) {
+  const { customerId, name, phone, email, status, note, birthDate  } = customerSelected
+
+  return (
+    <Stack spacing={3}>
+      <Card sx={{ p: 3 }}>
+        <Typography variant="h4" mb={5}>{name}</Typography>
+
+        <Stack direction='row' justifyContent='space-between'>
+          <Box>
+            <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+              Unique ID
+            </Typography>
+            <Typography variant="h5" fontWeight={400}>{customerId}</Typography>
+          </Box>
+          <Box>
+            <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+              Status
+            </Typography>
+            <Label variant='ghost' sx={{mt: 1, mb: 2}} color={(status === 'rejected' && 'error') || 'success'}>
+              {sentenceCase(status)}
+            </Label>
+          </Box>
+        </Stack>
+      </Card>
+      <Card sx={{ p: 3 }}>
+        {birthDate && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+          Date of Birth
+        </Typography>
+        <Typography variant="body2" mb={2} fontWeight={400}>{format(birthDate, 'dd MMM, yyyy')}</Typography></>}
+
+        {phone && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+          Phone
+        </Typography>
+        <Typography variant="body2" mb={2} fontWeight={400}>{phone}</Typography></>}
+
+        {email && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+          Email
+        </Typography>
+        <Typography variant="body2" mb={2} fontWeight={400}>{email}</Typography></>}
+
+        {note && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+          Note
+        </Typography>
+        <Typography variant="body2" fontWeight={400}>{note}</Typography></>}
+        {/* <Typography variant="h4">Painting Class v1</Typography>
+        <Typography variant="body1" fontWeight={400}>1/4 classes left</Typography>
+        <Typography variant="body1" fontWeight={400} mb={5}>exp 31 Mar, 2022</Typography>
+
+        <Typography variant="h4">Painting Class v1</Typography>
+        <Typography variant="body1" fontWeight={400}>4/4 classes left</Typography>
+        <Typography variant="body1" fontWeight={400}>exp 31 Mar, 2022</Typography> */}
+        
+        <Stack direction='row' mt={4}>
+          <Button size="small" component={RouterLink} to={`/dashboard/customer/${customerId}/edit`} variant="outlined" sx={{ mr: 1 }}>
+            Edit
+          </Button>
+          <Button size="small" color="inherit" variant="outlined">
+            Delete
+          </Button>
+        </Stack>
+      </Card>
+    </Stack>
+  );
+}
