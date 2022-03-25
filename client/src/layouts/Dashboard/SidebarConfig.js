@@ -20,7 +20,7 @@ const sidebarConfig = [
   },
   {
     title: 'customers',
-    path: '/dashboard/customers',
+    path: '/dashboard/customer',
     icon: getIcon(peopleFill)
   },
   {
@@ -29,8 +29,8 @@ const sidebarConfig = [
     icon: getIcon(listFill)
   },
   {
-    title: 'schedule',
-    path: '/dashboard/schedule',
+    title: 'calendar',
+    path: '/dashboard/calendar',
     icon: getIcon(calendarFill)
   },
   {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Material UI
 import { Box, Typography } from '@mui/material';
 
-// Prop Types
+// Props
 LogoType.propTypes = {
   sx: PropTypes.object
 };

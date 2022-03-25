@@ -1,32 +1,31 @@
-import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-
-// Material UI
+import { useMemo } from 'react';
+// @mui
 import { CssBaseline } from '@mui/material';
-import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
-
-// Custom Theme Options Import
+import { createTheme, ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+//
 import palette from './palette';
 import typography from './typography';
-import shape from './shape';
+import breakpoints from './breakpoints';
+import componentsOverride from './overrides';
 import shadows, { customShadows } from './shadows';
 
-// Custom Theme Components Import
-import componentsOverride from './overrides';
+// ----------------------------------------------------------------------
 
-// Prop Types
-ThemeConfig.propTypes = {
-  children: PropTypes.node
+ThemeProvider.propTypes = {
+  children: PropTypes.node,
 };
 
-export default function ThemeConfig({ children }) {
+export default function ThemeProvider({ children }) {
+
   const themeOptions = useMemo(
     () => ({
-      palette,
+      palette: palette.light,
       typography,
-      shadows,
-      shape,
-      customShadows
+      breakpoints,
+      shape: { borderRadius: 8 },
+      shadows: shadows.light,
+      customShadows: customShadows.light,
     }),
     []
   );
@@ -36,10 +35,10 @@ export default function ThemeConfig({ children }) {
 
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
+      <MUIThemeProvider theme={theme}>
         <CssBaseline />
         {children}
-      </ThemeProvider>
+      </MUIThemeProvider>
     </StyledEngineProvider>
   );
 }
