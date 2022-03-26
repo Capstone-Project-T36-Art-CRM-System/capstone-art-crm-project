@@ -15,6 +15,7 @@ import Iconify from '../../components/Iconify';
 import {
   AccountGeneral,
   AccountPayments,
+  AccountDocs
 } from '../../sections/_dashboard/customer/account';
 
 // MOCK DATA
@@ -30,23 +31,23 @@ export default function CustomerAccount() {
     {
       value: 'payments',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountPayments customerId={customerSelected.customerId} />,
+      component: <AccountPayments customerId={customerSelected?.customerId} />,
     },
     {
-      value: 'social_links',
+      value: 'documents',
       icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      // component: <AccountSocialLinks myProfile={_userAbout} />,
+      component: <AccountDocs customerSelected={customerSelected} />,
     },
   ];
 
   return (
-    <Page title="Customer Account">
+    <Page title={`Customers – ${customerSelected?.name}`}>
       <Container maxWidth='lg'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-              Customers – <Typography variant="h4" display="inline" color="text.secondary">{customerSelected.name}</Typography>
+              Customers – <Typography variant="h4" display="inline" color="text.secondary">{customerSelected?.name}</Typography>
           </Typography>
         </Stack>
         {/* Page Title End*/}

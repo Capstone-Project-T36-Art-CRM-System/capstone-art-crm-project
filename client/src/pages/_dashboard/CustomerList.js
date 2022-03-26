@@ -1,5 +1,6 @@
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
+import { format } from 'date-fns';
 
 // Routing
 import { Link as RouterLink } from 'react-router-dom';
@@ -9,7 +10,6 @@ import {
   Card,
   Table,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -38,6 +38,7 @@ const TABLE_HEAD = [
   { id: 'customerId', label: 'ID', alignRight: false },
   { id: 'phone', label: 'Phone', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
+  { id: 'created', label: 'Created', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -45,9 +46,8 @@ const TABLE_HEAD = [
 export default function CustomerList() {
   const [customerList, setCustomerList] = useState(getCustomerList());
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
-  const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('created');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -55,30 +55,6 @@ export default function CustomerList() {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (checked) => {
-    if (checked && selected.length !== customerList.length) {
-      const newSelecteds = customerList.map((customer) => customer.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -89,18 +65,6 @@ export default function CustomerList() {
   const handleFilterByName = (filterName) => {
     setFilterName(filterName);
     setPage(0);
-  };
-
-  const handleDeleteCustomer = (customerId) => {
-    const deleteUser = customerList.filter((customer) => customer.customerId !== customerId);
-    setSelected([]);
-    setCustomerList(deleteUser);
-  };
-
-  const handleDeleteMultiCustomer = (selected) => {
-    const deleteCustomers = customerList.filter((customer) => !selected.includes(customer.name));
-    setSelected([]);
-    setCustomerList(deleteCustomers);
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - customerList.length) : 0;
@@ -131,10 +95,8 @@ export default function CustomerList() {
 
         <Card>
           <CustomerListToolbar
-            numSelected={selected.length}
             filterName={filterName}
             onFilterName={handleFilterByName}
-            onDeleteCustomers={() => handleDeleteMultiCustomer(selected)}
           />
 
             <TableContainer sx={{ minWidth: 800 }}>
@@ -143,15 +105,11 @@ export default function CustomerList() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={customerList.length}
-                  numSelected={selected.length}
                   onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { customerId, name, email, status, phone } = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    const { customerId, name, email, status, phone, created } = row;
 
                     return (
                       <TableRow
@@ -159,16 +117,12 @@ export default function CustomerList() {
                         key={customerId}
                         tabIndex={-1}
                         role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
-                        </TableCell>
                         <TableCell align="left">{name}</TableCell>
                         <TableCell align="left">{customerId}</TableCell>
                         <TableCell align="left">{phone}</TableCell>
                         <TableCell align="left">{email}</TableCell>
+                        <TableCell align="left">{format(created, 'dd MMM, yyyy')}</TableCell>
                         <TableCell align="left">
                           <Label
                             variant='ghost'
@@ -179,7 +133,7 @@ export default function CustomerList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <CustomerMoreMenu onDelete={() => handleDeleteCustomer(customerId)} customerId={customerId} />
+                          <CustomerMoreMenu customerId={customerId} />
                         </TableCell>
                       </TableRow>
                     );

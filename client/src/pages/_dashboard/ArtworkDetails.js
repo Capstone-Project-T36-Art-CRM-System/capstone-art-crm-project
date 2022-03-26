@@ -40,12 +40,12 @@ export default function ArtworkDetails() {
   ];
 
   return (
-    <Page title="Artwork Details">
+    <Page title={`Artworks – ${artworkSelected?.title}`}>
       <Container maxWidth='lg'>
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-              Artworks – <Typography variant="h4" display="inline" color="text.secondary">{artworkSelected.title}</Typography>
+              Artworks – <Typography variant="h4" display="inline" color="text.secondary">{artworkSelected?.title}</Typography>
           </Typography>
         </Stack>
         {/* Page Title End*/}

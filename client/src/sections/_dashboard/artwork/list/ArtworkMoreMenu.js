@@ -11,7 +11,6 @@ import MenuPopover from '../../../../components/MenuPopover';
 
 // Props
 ArtworkMoreMenu.propTypes = {
-  onDelete: PropTypes.func,
   userName: PropTypes.string,
 };
 

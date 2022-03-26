@@ -13,7 +13,7 @@ import { fCurrency } from '../../../../utils/formatNumber';
 
 
 export default function DetailsGeneral({ artworkSelected }) {
-  const { artworkId, title, cover, material, size, year, price, author  } = artworkSelected
+  const { artworkId, title, cover, material, height, width, year, price, author  } = artworkSelected
 
   return (
     <Stack spacing={3}>
@@ -38,10 +38,10 @@ export default function DetailsGeneral({ artworkSelected }) {
         </Typography>
         <Typography variant="body2" mb={2} fontWeight={400}>{fCurrency(price)}</Typography></>}
 
-        {size && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
+        {(height && width)  && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
           Size
         </Typography>
-        <Typography variant="body2" mb={2} fontWeight={400}>{size}</Typography></>}
+        <Typography variant="body2" mb={2} fontWeight={400}>{`${height} x ${width} cm`}</Typography></>}
 
         {year && <><Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
           Year

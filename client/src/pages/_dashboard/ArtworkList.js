@@ -9,7 +9,6 @@ import {
   Card,
   Table,
   Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -41,16 +40,16 @@ const TABLE_HEAD = [
   { id: 'size', label: 'Size', alignRight: false },
   { id: 'year', label: 'Year', alignRight: false },
   { id: 'author', label: 'Author', alignRight: false },
+  { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
 export default function ArtworkList() {
   const [artworkList, setArtworkList] = useState(getArtworkList());
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
-  const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
-  const [filterName, setFilterName] = useState('');
+  const [order, setOrder] = useState('desc');
+  const [orderBy, setOrderBy] = useState('artworkId');
+  const [filterKey, setFilterKey] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (property) => {
@@ -59,57 +58,21 @@ export default function ArtworkList() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (checked) => {
-    if (checked && selected.length !== artworkList.length) {
-      const newSelecteds = artworkList.map((artwork) => artwork.artworkId);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (artworkId) => {
-    const selectedIndex = selected.indexOf(artworkId);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, artworkId);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-    setSelected(newSelected);
-  };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleFilterByName = (filterName) => {
-    setFilterName(filterName);
+  const handleFilterByName = (filterKey) => {
+    setFilterKey(filterKey);
     setPage(0);
-  };
-
-  const handleDeleteCustomer = (artworkId) => {
-    const deleteUser = artworkList.filter((artwork) => artwork.artworkId !== artworkId);
-    setSelected([]);
-    setArtworkList(deleteUser);
-  };
-
-  const handleDeleteMultiArtwork = (selected) => {
-    const deleteArtworks = artworkList.filter((artwork) => !selected.includes(artwork.artworkId));
-    setSelected([]);
-    setArtworkList(deleteArtworks);
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - artworkList.length) : 0;
 
-  const filteredCustomers = applySortFilter(artworkList, getComparator(order, orderBy), filterName);
+  const filteredCustomers = applySortFilter(artworkList, getComparator(order, orderBy), filterKey);
 
-  const isNotFound = !filteredCustomers.length && Boolean(filterName);
+  const isNotFound = !filteredCustomers.length && Boolean(filterKey);
 
   return (
     <Page title="Artworks">
@@ -133,10 +96,8 @@ export default function ArtworkList() {
 
         <Card>
           <ArtworkListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
+            filterName={filterKey}
             onFilterName={handleFilterByName}
-            onDeleteArtworks={() => handleDeleteMultiArtwork(selected)}
           />
 
             <TableContainer sx={{ minWidth: 800 }}>
@@ -146,14 +107,11 @@ export default function ArtworkList() {
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
                   rowCount={artworkList.length}
-                  numSelected={selected.length}
                   onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { artworkId, cover, title, material, size, year, author } = row;
-                    const isItemSelected = selected.indexOf(artworkId) !== -1;
+                    const { artworkId, cover, title, material, height, width, year, author, status } = row;
 
                     return (
                       <TableRow
@@ -161,12 +119,7 @@ export default function ArtworkList() {
                         key={artworkId}
                         tabIndex={-1}
                         role="checkbox"
-                        selected={isItemSelected}
-                        aria-checked={isItemSelected}
                       >
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onClick={() => handleClick(artworkId)} />
-                        </TableCell>
                         <TableCell sx={{ display: 'flex', alignItems: 'center' }}>
                           <Image
                             disabledEffect
@@ -180,20 +133,20 @@ export default function ArtworkList() {
                         </TableCell>
                         <TableCell align="left">{artworkId}</TableCell>
                         <TableCell align="left">{material}</TableCell>
-                        <TableCell align="left">{size}</TableCell>
+                        <TableCell align="left">{`${height} x ${width} cm`}</TableCell>
                         <TableCell align="left">{year}</TableCell>
                         <TableCell align="left">{author}</TableCell>
-                        {/* <TableCell align="left">
+                        <TableCell align="left">
                           <Label
                             variant='ghost'
-                            color={(status === 'rejected' && 'error') || 'success'}
+                            color={(status === 'sold' && 'error') || 'success'}
                           >
                             {sentenceCase(status)}
                           </Label>
-                        </TableCell> */}
+                        </TableCell>
 
                         <TableCell align="right">
-                          <ArtworkMoreMenu onDelete={() => handleDeleteCustomer(artworkId)} artworkId={artworkId} />
+                          <ArtworkMoreMenu artworkId={artworkId} />
                         </TableCell>
                       </TableRow>
                     );
@@ -208,7 +161,7 @@ export default function ArtworkList() {
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
+                        <SearchNotFound searchQuery={filterKey} />
                       </TableCell>
                     </TableRow>
                   </TableBody>
