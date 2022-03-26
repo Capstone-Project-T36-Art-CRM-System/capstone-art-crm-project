@@ -3,13 +3,13 @@ export function getPaymentList() {
 }
   
 export function getPaymentListbyId(customerId) {
-    return paymentList.filter((payment) => payment.customerId === customerId);
+    return paymentList.filter((payment) => payment.customerId === customerId).sort((a,b) => b.date - a.date);
 }
 
 const paymentList = [
     {
         "payemntId": 1,
-        "customerId": "C00001",
+        "customerId": "C1",
         "type": 'return',
         "message": 'Refund for',
         "productCategory": 'Membership',
@@ -20,7 +20,7 @@ const paymentList = [
     },
     {
         "payemntId": 2,
-        "customerId": "C00001",
+        "customerId": "C1",
         "type": 'purchase',
         "message": 'Payment for',
         "productCategory": 'Membership',
@@ -31,7 +31,7 @@ const paymentList = [
     },
     {
         "payemntId": 3,
-        "customerId": "C00001",
+        "customerId": "C1",
         "type": 'purchase',
         "message": 'Payment for',
         "productCategory": 'Artwork',

@@ -1,166 +1,72 @@
-import * as Yup from 'yup';
-
-// Form Controllers
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
 
 // Material UI
-// Material UI
-import { useTheme } from '@mui/material/styles';
-import {
-  Card,
-  Table,
-  Checkbox,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TablePagination,
-} from '@mui/material';
-
-// Page Components Import
-import Page from '../../components/Page';
-import Label from '../../components/Label';
-import SearchNotFound from '../../components/SearchNotFound';
-import Iconify from '../../components/Iconify';
-
-// Page Sections Import
-import { CustomerListHead, CustomerMoreMenu } from '../../sections/_dashboard/customer/list';
+import { Box, Card, Button, Typography, Stack, Collapse, TextField, CardHeader } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 // Components Import
-import { FormProvider, RHFSelect, RHFTextField } from '../../../../components/hook-form';
+import AccountDocList from './AccountDocList';
+import Iconify from '../../../../components/Iconify';
 
-// Utils
-import { fCurrency } from '../../../../utils/formatNumber';
+export default function AccountDocs({ customerSelected }) {
+  const [open, setOpen] = useState(false);
 
-// MOCK DATA
-import { countries } from '../../../../_mock';
-
-
-const TABLE_HEAD = [
-    { id: 'name', label: 'Name', alignRight: false },
-    { id: 'phone', label: 'Phone', alignRight: false },
-    { id: 'email', label: 'Email', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
-    { id: '' },
-  ];
-
-
-export default function AccountGeneral() {
-
-    const UpdateUserSchema = Yup.object().shape({
-        displayName: Yup.string().required('Name is required'),
-    });
-
-  const user = {
-    id: 'C 00001 AA',
-    displayName: 'Alexander Kudin',
-    email: 'alexander@aboba.com',
-    phoneNumber: '9231231234',
-    about: 'Need to update membership',
-    balance: 860
-  }
-
-  const defaultValues = {
-    displayName: user?.displayName || '',
-    email: user?.email || '',
-    phoneNumber: user?.phoneNumber || '',
-    about: user?.about || '',
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(UpdateUserSchema),
-    defaultValues,
-  });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const onSubmit = async () => {
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-    return (
+  return (
     <Card>
-        <TableContainer sx={{ minWidth: 800 }}>
-            <Table>
-            <CustomerListHead
-                order={order}
-                orderBy={orderBy}
-                headLabel={TABLE_HEAD}
-                rowCount={userList.length}
-                numSelected={selected.length}
-                onRequestSort={handleRequestSort}
-                onSelectAllClick={handleSelectAllClick}
-            />
-            <TableBody>
-                {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                const { id, name, email, status, phoneNumber } = row;
-                const isItemSelected = selected.indexOf(name) !== -1;
+      <CardHeader title="Documents" sx={{ mb: 3 }} action={
+        <Box>
+          <Button size="small" startIcon={<Iconify icon={'eva:plus-fill'} />} onClick={() => setOpen(!open)}>
+            Add new document
+          </Button>
+        </Box>}
+      />
+        <CollapseNewDocument 
+          isOpen={open}
+          onOpen={() => setOpen(!open)}
+          onCancel={() => setOpen(false)}
+        />
+        <AccountDocList docList={customerSelected?.docList}/>
+    </Card>
+  );
+}
 
-                return (
-                    <TableRow
-                    hover
-                    key={id}
-                    tabIndex={-1}
-                    role="checkbox"
-                    selected={isItemSelected}
-                    aria-checked={isItemSelected}
-                    >
-                    <TableCell padding="checkbox">
-                        <Checkbox checked={isItemSelected} onClick={() => handleClick(name)} />
-                    </TableCell>
-                    <TableCell align="left">{name}</TableCell>
-                    <TableCell align="left">{phoneNumber}</TableCell>
-                    <TableCell align="left">{email}</TableCell>
-                    <TableCell align="left">
-                        <Label
-                        variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-                        color={(status === 'reject' && 'error') || 'success'}
-                        >
-                        {sentenceCase(status)}
-                        </Label>
-                    </TableCell>
+function CollapseNewDocument({isOpen, onCancel}) {
 
-                    <TableCell align="right">
-                        <CustomerMoreMenu onDelete={() => handleDeleteUser(id)} userName={name} />
-                    </TableCell>
-                    </TableRow>
-                );
-                })}
-                {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                    <TableCell colSpan={6} />
-                </TableRow>
-                )}
-            </TableBody>
-            {isNotFound && (
-                <TableBody>
-                <TableRow>
-                    <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                    <SearchNotFound searchQuery={filterName} />
-                    </TableCell>
-                </TableRow>
-                </TableBody>
-            )}
-            </Table>
-        </TableContainer>
+  return (
+    <Collapse in={isOpen} sx={{px: 2}}>
+      <Box
+        sx={{
+          padding: 3,
+          mb: 3,
+          borderRadius: 1,
+          bgcolor: 'background.neutral',
+        }}
+      >
+        <Stack spacing={3}>
+          <Typography variant="subtitle1">Add new document</Typography>
 
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={userList.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={(e, page) => setPage(page)}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Card>
-    );
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <TextField fullWidth label="Name on card" />
+
+            <TextField fullWidth label="Card number" />
+          </Stack>
+
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <TextField fullWidth label="Expiration date" placeholder="MM/YY" />
+
+            <TextField fullWidth label="Cvv" />
+          </Stack>
+
+          <Stack direction="row" justifyContent="flex-end" spacing={1.5}>
+            <Button color="inherit" variant="outlined" onClick={onCancel}>
+              Cancel
+            </Button>
+            <LoadingButton type="submit" variant="contained" onClick={onCancel}>
+              Add Document
+            </LoadingButton>
+          </Stack>
+        </Stack>
+      </Box>
+    </Collapse>
+  );
 }

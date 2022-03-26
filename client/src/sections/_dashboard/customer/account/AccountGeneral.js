@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { sentenceCase } from 'change-case';
 
 // Material UI
@@ -8,7 +9,6 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Components Import
 import Label from '../../../../components/Label';
-import { format } from 'date-fns';
 
 
 export default function AccountGeneral({customerSelected}) {

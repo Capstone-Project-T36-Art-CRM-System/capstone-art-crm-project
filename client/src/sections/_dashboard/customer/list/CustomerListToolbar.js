@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // Material UI
 import { useTheme, styled } from '@mui/material/styles';
-import { Toolbar, Tooltip, IconButton, Typography, InputAdornment } from '@mui/material';
+import { Toolbar, Tooltip, IconButton, InputAdornment } from '@mui/material';
 
 // Components
 import Iconify from '../../../../components/Iconify';
@@ -18,58 +18,35 @@ const RootStyle = styled(Toolbar)(({ theme }) => ({
 
 // Props
 CustomerListToolbar.propTypes = {
-  numSelected: PropTypes.number,
   filterName: PropTypes.string,
   onFilterName: PropTypes.func,
-  onDeleteUsers: PropTypes.func,
 };
 
-export default function CustomerListToolbar({ numSelected, filterName, onFilterName, onDeleteCustomers }) {
+export default function CustomerListToolbar({ filterName, onFilterName }) {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
 
   return (
-    <RootStyle
-      sx={{
-        ...(numSelected > 0 && {
-          color: isLight ? 'primary.main' : 'text.primary',
-          bgcolor: isLight ? 'primary.lighter' : 'primary.dark',
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <InputStyle
-          stretchStart={240}
-          value={filterName}
-          onChange={(event) => onFilterName(event.target.value)}
-          placeholder="Search user..."
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-              </InputAdornment>
-            ),
-          }}
-        />
-      )}
+    <RootStyle>
+      <InputStyle
+        stretchStart={240}
+        value={filterName}
+        onChange={(event) => onFilterName(event.target.value)}
+        placeholder="Search user..."
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Iconify icon={'eva:search-fill'} sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+            </InputAdornment>
+          ),
+        }}
+      />
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton onClick={onDeleteCustomers}>
-            <Iconify icon={'eva:trash-2-outline'} />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon={'ic:round-filter-list'} />
-          </IconButton>
-        </Tooltip>
-      )}
+      <Tooltip title="Filter list">
+        <IconButton>
+          <Iconify icon={'ic:round-filter-list'} />
+        </IconButton>
+      </Tooltip>
     </RootStyle>
   );
 }

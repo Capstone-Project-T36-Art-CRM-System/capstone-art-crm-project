@@ -31,11 +31,12 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const NewUserSchema = Yup.object().shape({
     title: Yup.string().required('Title is required'),
-    author: Yup.string().required('Author is required'),
-    material: Yup.string().required('Material is required'),
-    price: Yup.number().required('Price is required'),
-    // size: Yup.string().required('Size is required'),
-    cover: Yup.mixed().test('required', 'Cover is required', (value) => value !== ''),
+    author: Yup.string().required('Author name is required'),
+    material: Yup.string().required('Material name is required'),
+    price: Yup.number().typeError('Number must be specified').required('Price is required'),
+    height: Yup.number().typeError('Number must be specified').required('Height is required'),
+    width: Yup.number().typeError('Number must be specified').required('Width is required'),
+    cover: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''),
   });
 
   const defaultValues = useMemo(
@@ -44,7 +45,8 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
       author: currentArtwork?.author || '',
       material: currentArtwork?.material || '',
       price: currentArtwork?.price || '',
-      size: currentArtwork?.size || '',
+      height: currentArtwork?.height || '',
+      width: currentArtwork?.height || '',
       // birthDate: currentArtwork?.birthDate,
       description: currentArtwork?.description || '',
       cover: currentArtwork?.cover || '',
@@ -198,6 +200,8 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
               <RHFTextField name="author" label="Author Name" />
               <RHFTextField name="material" label="Material" />
               <RHFTextField name="price" label="Price" />
+              <RHFTextField name="height" label="Height (cm)" />
+              <RHFTextField name="width" label="Width (cm)" />
               {/* <RHFDateTimePicker name="birthDate" label="Birth Date" /> */}
 
             </Box>
