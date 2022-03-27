@@ -20,23 +20,25 @@ const sidebarConfig = [
   },
   {
     title: 'customers',
-    path: '/dashboard/customers',
+    path: '/dashboard/customer/list',
     icon: getIcon(peopleFill)
   },
   {
     title: 'classes',
     path: '/dashboard/classes',
-    icon: getIcon(listFill)
+    icon: getIcon(listFill),
+    disabled: true
   },
   {
-    title: 'schedule',
-    path: '/dashboard/schedule',
+    title: 'calendar',
+    path: '/dashboard/calendar',
     icon: getIcon(calendarFill)
   },
   {
     title: 'tasks',
     path: '/dashboard/tasks',
-    icon: getIcon(checkmarkSquare2Fill)
+    icon: getIcon(checkmarkSquare2Fill),
+    disabled: true
   },
   {
     title: 'company',
@@ -53,11 +55,12 @@ const sidebarConfig = [
   {
     title: 'finances',
     path: '/dashboard/finances',
-    icon: getIcon(trendingUpFill)
+    icon: getIcon(trendingUpFill),
+    disabled: true
   },
   {
     title: 'artworks',
-    path: '/dashboard/artworks',
+    path: '/dashboard/artwork/list',
     icon: getIcon(colorPaletteFill)
   }
 ];

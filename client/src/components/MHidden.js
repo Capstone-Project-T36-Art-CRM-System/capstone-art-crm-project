@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Material UI
 import { useMediaQuery } from '@mui/material';
 
-// Prop Types
+// Props
 MHidden.propTypes = {
   children: PropTypes.node,
   width: PropTypes.oneOf([

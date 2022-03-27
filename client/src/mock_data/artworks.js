@@ -1,88 +1,110 @@
-const ARTWORKS = [
+export function getArtworkList() {
+    return artworkList;
+}
+  
+export function getArtworkrbyId(artworkId) {
+    return artworkList.find((artwork) => artwork.artworkId == artworkId);
+}
+
+const artworkList = [
     {
-        "artworkId": 30,
+        "artworkId": "A30",
         "title": "Kuban Still Life",
-        "seriesId": 9,
         "cover": "kuban-still-life",
         "material": "Oil on Canvas",
-        "size": "80 x 100",
+        "height": 80,
+        "width": 100,
         "year": 2012,
-        "price": "4 600",        
+        "price": 4600,        
         "author": "Julia Kudina",
-        "description": ""
+        "description": "",
+        "status": "available",
+        "created": 1627111128365,
     },
     {
-        "artworkId": 31,
+        "artworkId": "A31",
         "title": "Shining Light",
-        "seriesId": 1,
         "cover": "shining-light",
         "material": "Oil on Canvas",
-        "size": "80 x 60",
+        "height": 60,
+        "width": 60,
         "year": 2020,
-        "price": "3 000",
+        "price": 3000,
         "author": "Julia Kudina",
-        "description": "Who doesn't wonder what his city looked like 100 years ago? Looking at the picture plunges into the past... It feels like the building is shining like gold."
+        "description": "Who doesn't wonder what his city looked like 100 years ago? Looking at the picture plunges into the past... It feels like the building is shining like gold.",
+        "status": "available",
+        "created": 1627111128365,
     },
     {
-        "artworkId": 37,
+        "artworkId": "A37",
         "title": "Sunflowers",
-        "seriesId": 2,
         "cover": "sunflowers",
         "material": "Pencil on Paper",
-        "size": "62 x 93",
+        "height": 62,
+        "width": 93,
         "year": 2015,
-        "price": "6 000",        
+        "price": 6000,        
         "author": "Julia Kudina",
-        "description": "You look at it - you won't get enough of it. Sunflower is a big and beautiful flower. The middle of it is black, and the petals are yellow, like the sun. No wonder he was given such a name. The sunflower is also popularly called the flower of the sun."
+        "description": "You look at it - you won't get enough of it. Sunflower is a big and beautiful flower. The middle of it is black, and the petals are yellow, like the sun. No wonder he was given such a name. The sunflower is also popularly called the flower of the sun.",
+        "status": "available",
+        "created": 1627111128365,
     },
     {
-        "artworkId": 51,
+        "artworkId": "A51",
         "title": "Evening",
-        "seriesId": 1,
         "cover": "evening",
         "material": "Oil on Canvas",
-        "size": "100 x 70",
+        "height": 100,
+        "width": 70,
         "year": 2015,
-        "price": "8 300",
+        "price": 8300,
         "author": "Julia Kudina",
-        "description": "The painting is made in oil on canvas and strikes the viewer's eye with powerful energy. It's like she's plunging back into the past. In a living house, people sleep peacefully and serenely, only the light of a lantern looks into their windows."
+        "description": "The painting is made in oil on canvas and strikes the viewer's eye with powerful energy. It's like she's plunging back into the past. In a living house, people sleep peacefully and serenely, only the light of a lantern looks into their windows.",
+        "status": "available",
+        "created": 1627111128365,
     },
 
     {
-        "artworkId": 52,
+        "artworkId": "A52",
         "title": "Autum Fruits",
-        "seriesId": 9,
         "cover": "autum-fruits",
         "material": "Oil on Canvas",
-        "size": "120 x 160",
+        "height": 120,
+        "width": 160,
         "year": 2017,
-        "price": "6 000",
+        "price": 6000,
         "author": "Julia Kudina",
-        "description": "This painting combines landscape and still life at the same time. The fruits of the golden autumn give you the opportunity to admire the latest delicacies of the warm time and once again marvel at the number of shades in the picture."
+        "description": "This painting combines landscape and still life at the same time. The fruits of the golden autumn give you the opportunity to admire the latest delicacies of the warm time and once again marvel at the number of shades in the picture.",
+        "status": "sold",
+        "created": 1627111128365,
     },
     {
-        "artworkId": 102,
+        "artworkId": "A102",
         "title": "Solar Vision",
-        "seriesId": 7,
         "cover": "solar-vision",
         "material": "Oil on Canvas",
-        "size": "100 х 100",
+        "height": 100,
+        "width": 100,
         "year": 2021,
-        "price": "1800",
+        "price": 1800,
         "author": "Julia Kudina",
-        "description": "The moment when the bright sun shines through the window, and the gray unremarkable room turns into a game of sunlight."
+        "description": "The moment when the bright sun shines through the window, and the gray unremarkable room turns into a game of sunlight.",
+        "status": "available",
+        "created": 1627111128365,
     },
     {
-        "artworkId": 103,
+        "artworkId": "A103",
         "title": "Reflection",
-        "seriesId": 10,
         "cover": "reflection",
         "material": "Oil on Canvas",
-        "size": "20 х 30",
+        "height": 20,
+        "width": 30,
         "year": 2020,
-        "price": "300",
+        "price": 300,
         "author": "Julia Kudina",
-        "description": "A warm summer day, a walk on the shore of the lake, the incredible beauty of nature and its reflection in the clear water. The central element of the painting is white sailboats. There is a small house on the shore. Somehow there is a desire to look at this picture again and again..."
+        "description": "A warm summer day, a walk on the shore of the lake, the incredible beauty of nature and its reflection in the clear water. The central element of the painting is white sailboats. There is a small house on the shore. Somehow there is a desire to look at this picture again and again...",
+        "status": "sold",
+        "created": 1627111128365,
     },
     // {
     //     "artworkId": 22,
@@ -254,5 +276,3 @@ const ARTWORKS = [
     //     "description": ""
     // },
 ]
-
-export default ARTWORKS;

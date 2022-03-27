@@ -1,6 +1,6 @@
 // Material UI
 import { styled } from '@mui/material/styles';
-import { Card, Stack, Link, Container, Typography } from '@mui/material';
+import { Card, Stack, Link, Container, Typography, Box } from '@mui/material';
 
 // React Routing
 import { Link as RouterLink } from 'react-router-dom';
@@ -11,9 +11,8 @@ import AuthLayout from '../layouts/AuthLayout';
 // Page Component Imports
 import Page from '../components/Page';
 import { MHidden } from '../components/MHidden';
-import { LoginForm } from '../components/authentication/login';
-import AuthSocial from '../components/authentication/AuthSocial';
-import { Box } from '@mui/system';
+import { LoginForm } from '../sections/authentication/login';
+import AuthSocial from '../sections/authentication/AuthSocial';
 
 
 // Styling

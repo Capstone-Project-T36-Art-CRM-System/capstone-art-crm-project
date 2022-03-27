@@ -6,15 +6,17 @@ import DashboardLayout from './layouts/Dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 
 // Dashboard Outlet Page Imports
-import DashboardMain from './pages/DashboardMain';
-import Customers from './pages/Customers';
-import Artworks from './pages/Artworks';
-import Schedule from './pages/Schedule';
-import Classes from './pages/Classes';
-import Tasks from './pages/Tasks';
-import Finances from './pages/Finances';
+import DashboardMain from './pages/_dashboard/Main';
 
-import CustomerInfo from './pages/CustomerInfo';
+import CustomerList from './pages/_dashboard/CustomerList';
+import CustomerAccount from './pages/_dashboard/CustomerAccount';
+import CustomerCreate from './pages/_dashboard/CustomerCreate';
+
+import ArtworkList from './pages/_dashboard/ArtworkList';
+import ArtworkDetails from './pages/_dashboard/ArtworkDetails';
+import ArtworkCreate from './pages/_dashboard/ArtworkCreate';
+
+import Calendar from './pages/_dashboard/Calendar';
 
 // Logo Only Outlet Page Imports
 import Login from './pages/Login';
@@ -30,15 +32,34 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { path: '', element: <DashboardMain /> },
-        { path: 'customers', element: <Customers /> },
-        { path: 'customers/:customerId', element: <CustomerInfo /> },
-        { path: 'classes', element: <Classes /> }, 
-        { path: 'schedule', element: <Schedule /> },
-        { path: 'tasks', element: <Tasks /> }, 
-        { path: 'company', element: <NotFound /> }, // Misssing
-        { path: 'salaries', element: <NotFound /> }, // Misssing
-        { path: 'finances', element: <Finances /> }, 
-        { path: 'artworks', element: <Artworks /> },
+        {
+          path: 'customer',
+          children: [
+            { element: <Navigate to="/dashboard/customer/list" replace />, index: true },
+            { path: 'list', element: <CustomerList /> },
+            { path: ':customerId', element: <CustomerAccount /> },
+            { path: 'new', element: <CustomerCreate /> },
+            { path: ':customerId/edit', element: <CustomerCreate /> },
+          ],
+        },
+        {
+          path: 'artwork',
+          children: [
+            { element: <Navigate to="/dashboard/artwork/list" replace />, index: true },
+            { path: 'list', element: <ArtworkList /> },
+            { path: ':artworkId', element: <ArtworkDetails /> },
+            { path: 'new', element: <ArtworkCreate /> },
+            { path: ':artworkId/edit', element: <ArtworkCreate /> },
+          ],
+        },
+        // { path: 'customers/:customerId', element: <CustomerInfo /> },
+        // { path: 'classes', element: <Classes /> }, 
+        { path: 'calendar', element: <Calendar /> },
+        // { path: 'tasks', element: <Tasks /> }, 
+        // { path: 'company', element: <NotFound /> }, // Misssing
+        // { path: 'salaries', element: <NotFound /> }, // Misssing
+        // { path: 'finances', element: <Finances /> }, 
+        // { path: 'artworks', element: <Artworks /> },
       ]
     },
 
@@ -48,7 +69,7 @@ export default function Router() {
       children: [
         { path: '/', element: <Navigate to="/login" /> },
         { path: 'login', element: <Login /> },
-        // { path: 'register', element: <register /> },
+        // { path: 'register', element: <Register /> },
       ]
     },
 
