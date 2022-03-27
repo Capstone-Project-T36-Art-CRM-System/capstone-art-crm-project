@@ -15,7 +15,7 @@ CustomerMoreMenu.propTypes = {
   userName: PropTypes.string,
 };
 
-export default function CustomerMoreMenu({ onDelete, customerId }) {
+export default function CustomerMoreMenu({ customerId }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {

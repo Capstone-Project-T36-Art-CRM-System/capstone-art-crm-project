@@ -28,12 +28,13 @@ export default function RHFDateTimePicker({ name, ...other }) {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
             renderInput={(props) => <TextField {...props} />}
-            label="Birth Date"
             value={field.value ? format(field.value, 'dd MMM yyyy') : null}
             fullWidth
             error={!!error}
             helperText={error?.message}
             onChange={(e) => field.onChange(getTime(e))}
+            {...field}
+            {...other}
         />
         </LocalizationProvider>
       )}

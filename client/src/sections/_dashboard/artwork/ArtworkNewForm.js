@@ -117,7 +117,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
             <Box sx={{ mb: 5 }}>
               <RHFUploadImage
                 name="cover"
-                accept="image/*"
+                accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop}
                 helperText={
@@ -131,7 +131,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
                       color: 'text.secondary',
                     }}
                   >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
+                    Allowed *.jpeg, *.jpg, *.png,
                     <br /> max size of {fData(3145728)}
                   </Typography>
                 }

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { sentenceCase } from 'change-case';
-import { endOfDay, format, getTime } from 'date-fns';
+import { endOfDay, format } from 'date-fns';
 
 // Material UI
 import {
@@ -17,13 +16,22 @@ import {
 } from '@mui/material';
 
 // Components Import
-import Iconify from '../../../../components/Iconify';
-import Label from '../../../../components/Label';
-import MenuPopover from '../../../../components/MenuPopover';
+import Iconify from '../../../../../components/Iconify';
+import Label from '../../../../../components/Label';
+import MenuPopover from '../../../../../components/MenuPopover';
 
 
-export default function AccountDocList({ docList }) {
+export default function AccountDocList({ docList, setCurrentDoc, setOpen }) {
   const [page, setPage] = useState(0);
+
+  const handleEdit = (currentDoc) => {
+    setCurrentDoc(currentDoc);
+    setOpen(true);
+  }
+
+
+  const handleDelete = (docId) => {
+  };
 
   return (
     <>
@@ -58,7 +66,7 @@ export default function AccountDocList({ docList }) {
                 <TableCell>{row.expDate ? format(row.expDate, 'dd MMM, yyyy') : 'Never'}</TableCell>
 
                 <TableCell align="right">
-                  <MoreMenuButton />
+                  <MoreMenuButton onEdit={() => handleEdit(row)} onDelete={() => handleDelete(row)}/>
                 </TableCell>
               </TableRow>
             ))}
@@ -77,7 +85,7 @@ export default function AccountDocList({ docList }) {
   );
 }
 
-function MoreMenuButton() {
+function MoreMenuButton({ onEdit, onDelete }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -113,19 +121,19 @@ function MoreMenuButton() {
           '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => { handleClose(); onEdit() }}>
+          <Iconify icon={'eva:edit-fill'} sx={{ ...ICON }} />
+          Edit
+        </MenuItem>
+
+        <MenuItem onClick={() => { handleClose(); }}>
           <Iconify icon={'eva:download-fill'} sx={{ ...ICON }} />
           Download
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={() => { handleClose(); }}>
           <Iconify icon={'eva:printer-fill'} sx={{ ...ICON }} />
           Print
-        </MenuItem>
-
-        <MenuItem>
-          <Iconify icon={'eva:share-fill'} sx={{ ...ICON }} />
-          Share
         </MenuItem>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
