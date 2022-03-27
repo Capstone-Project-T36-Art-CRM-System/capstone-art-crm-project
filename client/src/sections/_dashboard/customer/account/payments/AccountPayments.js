@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // Material UI
-import { Box, Card, Button, Typography, Stack, TextField, CardHeader, Dialog, DialogTitle, DialogActions } from '@mui/material';
+import { Box, Card, Button, Stack, CardHeader, Dialog, DialogTitle } from '@mui/material';
 
 // Components Import
 import AccountPaymentList from './AccountPaymentList'
@@ -43,30 +43,3 @@ function DialogNewDocument({isOpen, onCloseDialog, customerId}) {
     </Dialog>
   );
 }
-
-// function ConfirmTransferDialog({ open, amount, contactInfo, onClose, onBlur, onChange }) {
-//   return (
-//     <Dialog open={open} fullWidth maxWidth="xs" onClose={onClose}>
-//       <DialogTitle>Add Payment</DialogTitle>
-
-//       <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
-//         <Stack direction="row" alignItems="center" spacing={2}>
-//           <div>
-//             <Typography variant="subtitle2">{contactInfo?.name}</Typography>
-//             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-//               {contactInfo?.email}
-//             </Typography>
-//           </div>
-//         </Stack>
-
-//         <TextField fullWidth multiline rows={2} placeholder="Write a message..." />
-//       </Stack>
-//       <DialogActions>
-//         <Button variant="contained" disabled={amount === 0} onClick={onClose}>
-//           Add Payemnt
-//         </Button>
-//         <Button onClick={onClose}>Cancel</Button>
-//       </DialogActions>
-//     </Dialog>
-//   );
-// }

@@ -93,7 +93,7 @@ export default function NewPaymentForm({ onCloseDialog, currentDoc }) {
           </Stack>
 
           <DialogActions>
-            <LoadingButton type="submit" variant="contained"  disabled={1 === 0}>
+            <LoadingButton type="submit" variant="contained" loading={isSubmitting}  disabled={1 === 0}>
               {!currentDoc ? 'Add Payemnt' : 'Save Changes'}
             </LoadingButton>
             <Button onClick={onClose}>Cancel</Button>
