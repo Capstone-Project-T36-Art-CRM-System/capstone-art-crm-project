@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 
 // Routing
 import { useNavigate } from 'react-router-dom';
 
 // Form Controls
+import * as Yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -98,7 +98,7 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
                       <Switch
                         {...field}
                         checked={field.value !== 'active'}
-                        onChange={(event) => field.onChange(event.target.checked ? 'banned' : 'active')}
+                        onChange={(event) => field.onChange(event.target.checked ? 'rejected' : 'active')}
                       />
                     )}
                   />

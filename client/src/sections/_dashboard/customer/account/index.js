@@ -1,3 +1,4 @@
-export { default as AccountPayments } from './AccountPayments';
 export { default as AccountGeneral } from './AccountGeneral';
-export { default as AccountDocs } from './AccountDocs';
+export { default as AccountPayments } from './payments/AccountPayments';
+export { default as AccountDocs } from './documents/AccountDocs';
+

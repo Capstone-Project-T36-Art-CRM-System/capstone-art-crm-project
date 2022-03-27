@@ -18,14 +18,14 @@ import {
 } from '@mui/material';
 
 // Utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../../../../utils/formatNumber';
 
 // Components Import
-import Iconify from '../../../../components/Iconify';
-import MenuPopover from '../../../../components/MenuPopover';
+import Iconify from '../../../../../components/Iconify';
+import MenuPopover from '../../../../../components/MenuPopover';
 
 // MOCK DATA
-import { getPaymentListbyId } from '../../../../mock_data/payments';
+import { getPaymentListbyId } from '../../../../../mock_data/payments';
 
 
 export default function AccountPaymentList({customerId}) {

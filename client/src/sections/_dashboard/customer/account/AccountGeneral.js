@@ -56,13 +56,6 @@ export default function AccountGeneral({customerSelected}) {
           Note
         </Typography>
         <Typography variant="body2" fontWeight={400}>{note}</Typography></>}
-        {/* <Typography variant="h4">Painting Class v1</Typography>
-        <Typography variant="body1" fontWeight={400}>1/4 classes left</Typography>
-        <Typography variant="body1" fontWeight={400} mb={5}>exp 31 Mar, 2022</Typography>
-
-        <Typography variant="h4">Painting Class v1</Typography>
-        <Typography variant="body1" fontWeight={400}>4/4 classes left</Typography>
-        <Typography variant="body1" fontWeight={400}>exp 31 Mar, 2022</Typography> */}
         
         <Stack direction='row' mt={4}>
           <Button size="small" component={RouterLink} to={`/dashboard/customer/${customerId}/edit`} variant="outlined" sx={{ mr: 1 }}>
