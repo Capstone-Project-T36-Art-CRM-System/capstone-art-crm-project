@@ -15,7 +15,13 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Dialog, 
+  DialogTitle,
+  Stack
 } from '@mui/material';
+
+// React Routing
+import { Link as RouterLink } from 'react-router-dom';
 
 // Utils
 import { fCurrency } from '../../../../../utils/formatNumber';
@@ -25,11 +31,13 @@ import Iconify from '../../../../../components/Iconify';
 import MenuPopover from '../../../../../components/MenuPopover';
 
 // MOCK DATA
-import { getPaymentListbyId } from '../../../../../mock_data/payments';
+import { getTransactionListbyId } from '../../../../../mock_data/transactions';
+
+import NewPaymentForm from './NewPaymentForm';
 
 
 export default function AccountPaymentList({customerId}) {
-  const [paymentList, setPaymentList] = useState(getPaymentListbyId(customerId));
+  const [paymentList, setPaymentList] = useState(getTransactionListbyId(customerId));
   const [page, setPage] = useState(0);
 
   return (
@@ -47,7 +55,7 @@ export default function AccountPaymentList({customerId}) {
           </TableHead>
           <TableBody>
             {paymentList.slice(page * 5, page * 5 + 5).map((row) => (
-              <TableRow key={row.payemntId}>
+              <TableRow key={row.transactionId}>
                 <TableCell>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box sx={{ position: 'relative' }}>
@@ -82,7 +90,7 @@ export default function AccountPaymentList({customerId}) {
                     </Box>
                     <Box sx={{ ml: 3.5 }}>
                       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {row.message}
+                        {row.type === 'purchase' ? 'Payment for' : 'Refund for' }
                       </Typography>
                       <Typography variant="subtitle2"> {row.productCategory}</Typography>
                     </Box>
@@ -99,9 +107,14 @@ export default function AccountPaymentList({customerId}) {
                 <TableCell>{fCurrency(row.amount)}</TableCell>
                 
                 <TableCell>
-                  <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {row.productCategory === 'Event Ticket' && <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {row.productName}
-                  </Typography>
+                  </Typography>}
+
+                  {row.productCategory === 'Artwork' && <Typography component={RouterLink} to={`/dashboard/artwork/${row.productId}`} variant="body2" sx={{ color: 'text.secondary' }}>
+                    {row.productName}
+                  </Typography>}
+
                 </TableCell>
 
                 <TableCell align="right">
@@ -183,5 +196,18 @@ function MoreMenuButton() {
         </MenuItem>
       </MenuPopover>
     </>
+  );
+}
+
+
+function DialogNewDocument({isOpen, onCloseDialog, customerId}) {
+
+  return (
+    <Dialog open={isOpen} fullWidth maxWidth="xs" onCancel={onCloseDialog}>
+      <DialogTitle>{!customerId ? 'Add Payment' : 'Update Payment'}</DialogTitle>
+      <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+        <NewPaymentForm onCloseDialog={onCloseDialog} customerId={customerId}  />
+      </Stack>
+    </Dialog>
   );
 }

@@ -1,37 +1,34 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // Material UI
-import { Button, Typography, Stack, FormControlLabel, Switch, DialogActions } from '@mui/material';
+import { Button, Stack, DialogActions } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // Form Controls
 import * as Yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Components Import
-import { FormProvider, RHFDateTimePicker, RHFSelect, RHFTextField } from '../../../../../components/hook-form';
-import { getTime } from 'date-fns';
-import { fData } from '../../../../../utils/formatNumber';
+import { FormProvider, RHFDateTimePicker, RHFSelect } from '../../../../../components/hook-form';
 
-export default function NewPaymentForm({ onCloseDialog, currentDoc }) {
+export default function NewPaymentForm({ onCloseDialog, customerId }) {
 
     const NewPaymentSchema = Yup.object().shape({
-      title: Yup.string().required('Document name is required'),
       type: Yup.string().required('Type is required'),
+      title: Yup.string().required('Document name is required'),
       expDate: Yup.date().required('Expiration date is required'),
-      docFile: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''), 
     });
   
     const defaultValues = useMemo(
       () => ({
-        title: currentDoc?.title || '',
-        type: currentDoc?.type || '',
-        expDate: currentDoc?.expDate || null,
-        docFile: currentDoc?.docFile || ""
+        type: '',
+        title: '',
+        expDate: null,
+        docFile: ''
       }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [currentDoc]
+      []
     );
   
     const methods = useForm({
@@ -49,16 +46,6 @@ export default function NewPaymentForm({ onCloseDialog, currentDoc }) {
     } = methods;
   
     const values = watch();
-  
-    useEffect(() => {
-      if (currentDoc) {
-        reset(defaultValues);
-      }
-      if (!currentDoc) {
-        reset(defaultValues);
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentDoc]);
   
     const onClose = () => {
       onCloseDialog()
@@ -94,7 +81,7 @@ export default function NewPaymentForm({ onCloseDialog, currentDoc }) {
 
           <DialogActions>
             <LoadingButton type="submit" variant="contained" loading={isSubmitting}  disabled={1 === 0}>
-              {!currentDoc ? 'Add Payemnt' : 'Save Changes'}
+              Add Payemnt
             </LoadingButton>
             <Button onClick={onClose}>Cancel</Button>
           </DialogActions>

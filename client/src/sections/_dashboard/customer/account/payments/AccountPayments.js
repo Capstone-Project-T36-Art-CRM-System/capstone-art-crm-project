@@ -23,7 +23,7 @@ export default function AccountPayments({ customerId }) {
       />
         <AccountPaymentList customerId={customerId}/>
 
-        <DialogNewDocument 
+        <DialogNewPayment
           isOpen={open}
           onCloseDialog={() => setOpen(false)}
           currentPayment={currentPayment}
@@ -32,13 +32,15 @@ export default function AccountPayments({ customerId }) {
   );
 }
 
-function DialogNewDocument({isOpen, onCloseDialog, customerId}) {
+function DialogNewPayment({ isOpen, onCloseDialog, customerId }) {
 
   return (
     <Dialog open={isOpen} fullWidth maxWidth="xs" onCancel={onCloseDialog}>
       <DialogTitle>{!customerId ? 'Add Payment' : 'Update Payment'}</DialogTitle>
       <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+
         <NewPaymentForm onCloseDialog={onCloseDialog} customerId={customerId}  />
+        
       </Stack>
     </Dialog>
   );
