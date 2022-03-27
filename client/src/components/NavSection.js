@@ -56,7 +56,7 @@ NavItem.propTypes = {
 function NavItem({ item, active }) {
   const theme = useTheme();
   const isActiveRoot = active(item.path);
-  const { title, path, icon, info, children } = item;
+  const { title, path, icon, info, children, disabled } = item;
   const [open, setOpen] = useState(isActiveRoot);
 
   const handleOpen = () => {
@@ -81,7 +81,7 @@ function NavItem({ item, active }) {
         <ListItemStyle
           onClick={handleOpen}
           sx={{
-            ...(isActiveRoot && activeRootStyle)
+            ...(isActiveRoot && activeRootStyle),
           }}
         >
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
@@ -142,6 +142,7 @@ function NavItem({ item, active }) {
     <ListItemStyle
       component={RouterLink}
       to={path}
+      disabled={disabled}
       sx={{
         ...(isActiveRoot && activeRootStyle)
       }}

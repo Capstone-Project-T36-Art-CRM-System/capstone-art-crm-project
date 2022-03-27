@@ -1,21 +1,20 @@
 // Material UI
-import { Grid, Container, Typography, Stack, Button, Icon } from '@mui/material';
+import { Grid, Container, Typography, Stack, Button } from '@mui/material';
 
 // Iconify
 import plusFill from '@iconify/icons-eva/plus-fill';
+import { Icon } from '@iconify/react';
 
 // Router Navigation
 import { Link as RouterLink } from 'react-router-dom';
 
 // Page Components Import
 import Page from '../components/Page';
-import { 
-    TasksTable, 
-    TasksSearch } from '../components/_dashboard/tasks/index';
+import { TaskList } from '../components/_dashboard/tasks/index';
 
 export default function Tasks() {
   return (
-    <Page title="Dashboard | Clients">
+    <Page title="Dashboard | Tasks">
         <Container maxWidth="xl">
             {/* Page Title */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -26,6 +25,7 @@ export default function Tasks() {
                     variant="contained"
                     component={RouterLink}
                     to="#"
+                    startIcon={<Icon icon={plusFill} />}
                 >
                     Add new task
                 </Button>
@@ -35,8 +35,7 @@ export default function Tasks() {
             {/* Page Content */}
             <Grid container spacing={12}>
                 <Grid item xs={12} sm={12} md={12}>
-                    <TasksSearch />
-                    <TasksTable/>
+                    <TaskList/>
                 </Grid>
             </Grid>
             {/* Page Content End */}

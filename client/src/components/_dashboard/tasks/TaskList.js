@@ -6,11 +6,12 @@ import {
   Box,
   Card,
   Checkbox,
-  CardHeader,
   Typography,
   FormControlLabel,
   Stack
 } from '@mui/material';
+
+import TaskSearch from './TaskSearch'
 
 const TASKS = [
   'Update next week schedule',
@@ -56,7 +57,7 @@ function TaskItem({ task, checked, formik, ...other }) {
   );
 }
 
-export default function MainTasks() {
+export default function TaskList() {
   const formik = useFormik({
     initialValues: {
       checked: [TASKS[2]]
@@ -70,8 +71,8 @@ export default function MainTasks() {
 
   return (
     <Card>
-      <CardHeader title="Tasks" />
       <Box sx={{ px: 3, py: 1 }}>
+        <TaskSearch />
         <FormikProvider value={formik}>
           <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
             {TASKS.map((task) => (

@@ -1,45 +1,47 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
+import ClassSearch from './ClassSearch';
+
 const columns = [
   {
-    field: 'fullName',
-    headerName: 'Full name',
+    field: 'classTitle',
+    headerName: 'Class title',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 200,
     valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+      `${params.row.classTitle || ''}`,
   },
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'status', headerName: 'Status', width: 70 },
-  { field: 'phone', headerName: 'Phone', width: 170 },
-  { field: 'balance', headerName: 'Balance', width: 100 },
-  { field: 'created', headerName: 'Created', width: 120 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-
+  { field: 'id', headerName: 'ID', flex: 1 },
+  { field: 'status', headerName: 'Status', flex: 1 },
+  { field: 'classType', headerName: 'Class type', flex: 1 },
+  { field: 'dateScheduled', headerName: 'Date', flex: 1 },
+  { field: 'timeScheduled', headerName: 'Time', flex: 1 },
+  { field: 'duration', headerName: 'Duration (hours)', flex: 1 },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021"},
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, status: "Inactive", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, status: "Reject", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, status: "Lead", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 150, status: "Lead", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 6, lastName: 'Melisandre', firstName: 'Daenerys', age: 150, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, status: "Active", phone: "+1 (305) 555-1005", balance: "$860.00", created: "Sep 25, 2021" },
+  { id: 1, classTitle: 'Painting Class', classType: "Group class", status: "Active", dateScheduled: "Feb 14, 2022", timeScheduled: "9:00 a.m.", duration: 2},
+  { id: 2, classTitle: 'Graphic Class', classType: "Group class", status: "Active", dateScheduled: "Feb 14, 2022", timeScheduled: "12:00 p.m.", duration: 2},
+  { id: 3, classTitle: 'Modern Art Discussion', classType: "Event", status: "Active", dateScheduled: "Feb 14, 2022", timeScheduled: "3:00 p.m.", duration: 3},
+  { id: 4, classTitle: 'Painting Class', classType: "Group class", status: "Active", dateScheduled: "Feb 15, 2022", timeScheduled: "8:00 a.m.", duration: 1},
+  { id: 5, classTitle: 'Painting Class', classType: "Group class", status: "Active", dateScheduled: "Feb 15, 2022", timeScheduled: "10:00 a.m.", duration: 2},
+  { id: 6, classTitle: 'Graphic Class', classType: "Group class", status: "Active", dateScheduled: "Feb 15, 2022", timeScheduled: "1:00 p.m.", duration: 1},
+  { id: 7, classTitle: 'Oil painting', classType: "Master class", status: "Active", dateScheduled: "Feb 15, 2022", timeScheduled: "3:00 p.m.", duration: 2},
+  { id: 8, classTitle: 'Painting Class', classType: "Group class", status: "Active", dateScheduled: "Feb 16, 2022", timeScheduled: "9:00 a.m.", duration: 2},
+  { id: 9, classTitle: 'Graphic Class', classType: "Group class", status: "Active", dateScheduled: "Feb 16, 2022", timeScheduled: "12:00 p.m.", duration: 2},
+  { id: 10, classTitle: '20th certury Art Discussion', classType: "Event", status: "Active", dateScheduled: "Feb 16, 2022", timeScheduled: "3:00 p.m.", duration: 3},
+  { id: 11, classTitle: 'Graphic Class', classType: "Group class", status: "Active", dateScheduled: "Feb 17, 2022", timeScheduled: "8:00 a.m.", duration: 1},
+  { id: 12, classTitle: 'Painting Class', classType: "Group class", status: "Active", dateScheduled: "Feb 17, 2022", timeScheduled: "10:00 a.m.", duration: 2},
+  { id: 13, classTitle: 'Graphic Class', classType: "Group class", status: "Active", dateScheduled: "Feb 17, 2022", timeScheduled: "1:00 p.m.", duration: 1},
+  { id: 14, classTitle: 'Oil painting', classType: "Master class", status: "Active", dateScheduled: "Feb 17, 2022", timeScheduled: "3:00 p.m.", duration: 2},
 ];
 
 export default function ClassesTable() {
   return (
     <div style={{ height: 400, width: '100%' }}>
+      <ClassSearch marginBottom={2}/>
       <DataGrid
         rows={rows}
         columns={columns}

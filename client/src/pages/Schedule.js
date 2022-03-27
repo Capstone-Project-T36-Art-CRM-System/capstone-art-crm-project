@@ -1,8 +1,9 @@
 // Material UI
-import { Grid, Container, Typography, Stack, Button, Icon } from '@mui/material';
+import { Grid, Container, Typography, Stack, Button } from '@mui/material';
 
 // Iconify
 import plusFill from '@iconify/icons-eva/plus-fill';
+import { Icon } from '@iconify/react';
 
 // Router Navigation
 import { Link as RouterLink } from 'react-router-dom';

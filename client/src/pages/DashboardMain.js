@@ -18,7 +18,7 @@ export default function DashboardMain() {
         <Container maxWidth="xl">
             {/* Page Title */}
             <Box sx={{ pb: 5  }}>
-                <Typography variant="h3">Dashboard</Typography>
+                <Typography gutterBottom variant="h4">Dashboard</Typography>
             </Box>
             {/* Page Title End*/}
 

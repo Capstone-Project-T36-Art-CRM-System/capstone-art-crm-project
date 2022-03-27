@@ -8,11 +8,11 @@ import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/
 // Custom Theme Options Import
 import palette from './palette';
 import typography from './typography';
+import shape from './shape';
 import shadows, { customShadows } from './shadows';
 
 // Custom Theme Components Import
-import Lists from './overrides/Lists';
-import Button from './overrides/Button';
+import componentsOverride from './overrides';
 
 // Prop Types
 ThemeConfig.propTypes = {
@@ -25,14 +25,14 @@ export default function ThemeConfig({ children }) {
       palette,
       typography,
       shadows,
+      shape,
       customShadows
     }),
     []
   );
 
   const theme = createTheme(themeOptions);
-  theme.components = Lists(theme);
-  theme.components = Button(theme);
+  theme.components = componentsOverride(theme);
 
   return (
     <StyledEngineProvider injectFirst>
