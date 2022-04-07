@@ -15,6 +15,7 @@ import { LoadingButton } from '@mui/lab';
 
 // Components Import
 import { FormProvider, RHFDateTimePicker, RHFSelect, RHFSwitch, RHFTextField } from '../../../components/hook-form';
+import { addCustomer } from '../../../mock_data/customers';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +38,7 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
       name: currentCustomer?.name || '',
       email: currentCustomer?.email || '',
       phone: currentCustomer?.phone || '',
-      gender: currentCustomer?.gender || '',
+      gender: currentCustomer?.gender || 'Male',
       birthDate: currentCustomer?.birthDate,
       note: currentCustomer?.note || '',
       status: currentCustomer?.status,
@@ -75,8 +76,10 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
   const onSubmit = async (values) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      navigate(`/dashboard/customer/list`)
-      reset();
+      addCustomer(values).then(
+        reset()
+      ).catch(error => console.log(error))
+      // navigate(`/dashboard/customer/list`)
     } catch (error) {
       console.error(error);
     }

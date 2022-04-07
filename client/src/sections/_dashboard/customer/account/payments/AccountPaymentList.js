@@ -72,14 +72,14 @@ export default function AccountPaymentList({customerId}) {
                           color: 'common.white',
                           bgcolor: 'error.main',
                           justifyContent: 'center',
-                          ...(row.type === 'purchase' && {
+                          ...(row.type === 'sales' && {
                             bgcolor: 'success.main',
                           }),
                         }}
                       >
                         <Iconify
                           icon={
-                            row.type === 'purchase'
+                            row.type === 'sales'
                               ? 'eva:diagonal-arrow-left-down-fill'
                               : 'eva:diagonal-arrow-right-up-fill'
                           }
@@ -90,7 +90,7 @@ export default function AccountPaymentList({customerId}) {
                     </Box>
                     <Box sx={{ ml: 3.5 }}>
                       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        {row.type === 'purchase' ? 'Payment for' : 'Refund for' }
+                        {row.type === 'sales' ? 'Payment for' : 'Refund for' }
                       </Typography>
                       <Typography variant="subtitle2"> {row.productCategory}</Typography>
                     </Box>
@@ -108,11 +108,11 @@ export default function AccountPaymentList({customerId}) {
                 
                 <TableCell>
                   {row.productCategory === 'Event Ticket' && <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {row.productName}
+                    {row.note}
                   </Typography>}
 
                   {row.productCategory === 'Artwork' && <Typography component={RouterLink} to={`/dashboard/artwork/${row.productId}`} variant="body2" sx={{ color: 'text.secondary' }}>
-                    {row.productName}
+                    {row.note}
                   </Typography>}
 
                 </TableCell>

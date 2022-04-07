@@ -9,7 +9,7 @@ import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 // Mockup Data
-import EVENTS from '../../mock_data/events';
+import { getEventList } from '../../mock_data/events';
 
 // Styling
 import './calendar.scss'
@@ -17,7 +17,7 @@ import './calendar.scss'
 const localizer = momentLocalizer(moment) // Globalize Localizer
 
 const eventStyleGetter = (event, start, end, isSelected) => {
-    let backgroundColor = '#' + event.hexColor + 70;
+    let backgroundColor = '#' + event.hexColor + isSelected ? 500 : 70;
     let borderColor = '#' + event.hexColor;
 
     let style = {
@@ -48,23 +48,30 @@ const CustomHeader = ({ label }) => {
     )
 }
 export default function ScheduleCalendar() {
+    const eventList = getEventList().map((event) => ({ 
+            ...event, 
+            start: new Date(event.start), 
+            end: new Date(event.end) 
+        })
+    )
 
-  return (
-    <ReactCalendar
-        localizer={localizer}
-        events={EVENTS}
-        startAccessor="start"
-        endAccessor="end"
-        defaultView="work_week"
-        timeslots={2}
-        views={['day', 'work_week']}
-        style={{height: '90vh'}}
-        eventPropGetter={eventStyleGetter}
-        min={new Date(2001, 0, 1, 8, 0, 0)} 
-        max={new Date(2001, 0, 5, 20, 0, 0)}
-        components={{
-            work_week: { header: CustomHeader },
-        }}
-    />
-  );
+    return (
+        <ReactCalendar
+            localizer={localizer}
+            events={eventList}
+            startAccessor="start"
+            endAccessor="end"
+            defaultView="work_week"
+            timeslots={2}
+            views={['day', 'work_week']}
+            showMultiDayTimes
+            style={{height: '90vh'}}
+            eventPropGetter={eventStyleGetter}
+            min={new Date(2001, 0, 1, 8, 0, 0)} 
+            max={new Date(2001, 0, 5, 20, 0, 0)}
+            components={{
+                work_week: { header: CustomHeader },
+            }}
+        />
+    );
 }

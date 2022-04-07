@@ -10,7 +10,6 @@ import NewPaymentForm from './NewPaymentForm';
 
 export default function AccountPayments({ customerId }) {
   const [open, setOpen] = useState(false);
-  const [currentPayment, setCurrentPayment] = useState(null);
 
   return (
     <Card>
@@ -26,7 +25,7 @@ export default function AccountPayments({ customerId }) {
         <DialogNewPayment
           isOpen={open}
           onCloseDialog={() => setOpen(false)}
-          currentPayment={currentPayment}
+          customerId={customerId}
         />
     </Card>
   );
@@ -36,7 +35,7 @@ function DialogNewPayment({ isOpen, onCloseDialog, customerId }) {
 
   return (
     <Dialog open={isOpen} fullWidth maxWidth="xs" onCancel={onCloseDialog}>
-      <DialogTitle>{!customerId ? 'Add Payment' : 'Update Payment'}</DialogTitle>
+      <DialogTitle>{'Add Payment'}</DialogTitle>
       <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
 
         <NewPaymentForm onCloseDialog={onCloseDialog} customerId={customerId}  />

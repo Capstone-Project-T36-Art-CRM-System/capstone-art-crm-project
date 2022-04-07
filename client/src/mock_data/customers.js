@@ -1,9 +1,27 @@
+import { format, getTime } from "date-fns";
+
 export function getCustomerList() {
     return customerList.sort((a,b) => b.created - a.created);
 }
   
 export function getCustomerbyId(customerId) {
     return customerList.find((customer) => customer.customerId == customerId);
+}
+
+export async function addCustomer(customerFields) {
+    let newCustomer = { 
+        customerId: "C4",
+        created: getTime(new Date()),
+        
+        ...customerFields
+    }
+
+    try {
+        customerList.push(newCustomer)
+        console.log(customerList)
+    } catch (error) {
+        console.log('Error!')
+    }
 }
 
 const customerList = [
@@ -17,6 +35,12 @@ const customerList = [
         "gender": "Female",
         "status": "active",
         "created": 1627000028365,
+        "ticketList": [
+            { 
+                "eventId": 0,
+                "isUsed": false,
+            },
+        ],
         "docList": [
             {
                 "title": "COVID-19 Passport",

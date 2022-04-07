@@ -1,5 +1,14 @@
+export function getEmployeeList() {
+    return employeeList.sort((a,b) => b.position - a.position);
+}
+
+export function getEmployeebyId(employeeId) {
+    return employeeList.find((employee) => employee.employeeId == employeeId);
+}
+
 const employeeList = [
     {
+        employeeId: 1,
         name: 'Amma Lee',
         email: 'amma.lee@artlead.ca',
         position: "Head Manager",
@@ -13,6 +22,7 @@ const employeeList = [
     
     },
     {
+        employeeId: 2,
         name: 'Leatrice Handler',
         email: 'leatrice.handler@artlead.ca',
         position: "Manager",
@@ -25,6 +35,7 @@ const employeeList = [
         balance: 0,
     },
     {
+        employeeId: 3,
         name: 'Marine Mooslin',
         email: 'marine.mooslin@artlead.ca',
         position: "Instructor",
