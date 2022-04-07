@@ -5,7 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 // Material UI
 import { Card, CardHeader, Box } from '@mui/material';
 
-import { BaseOptionChart } from '../../charts';
+import { BaseOptionChart } from '../../../../components/charts';
 
 const CHART_DATA = [
   {
@@ -25,7 +25,7 @@ const CHART_DATA = [
   }
 ];
 
-export default function FinancesGraph() {
+export default function FinancesGraph({ title }) {
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [0, 0, 3] },
     plotOptions: { bar: { columnWidth: '20%', borderRadius: 4 } },
@@ -64,11 +64,11 @@ export default function FinancesGraph() {
   });
 
   return (
-    <Card>
-      <CardHeader title="Weekly Finances" subheader="(-13%) than last week" />
+    <>
+      <CardHeader title={title} subheader="(-13%) than last week" />
       <Box sx={{ p: 3, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>
-    </Card>
+    </>
   );
 }

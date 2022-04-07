@@ -18,6 +18,8 @@ import ArtworkCreate from './pages/_dashboard/ArtworkCreate';
 
 import Calendar from './pages/_dashboard/Calendar';
 
+import Company from './pages/_dashboard/Company';
+
 // Logo Only Outlet Page Imports
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -53,13 +55,10 @@ export default function Router() {
             { path: ':artworkId/edit', element: <ArtworkCreate /> },
           ],
         },
-        // { path: 'customers/:customerId', element: <CustomerInfo /> },
-        // { path: 'classes', element: <Classes /> }, 
+        // { path: 'event', element: <EventList /> }, 
         { path: 'calendar', element: <Calendar /> },
+        { path: 'company', element: <Company /> },
         // { path: 'tasks', element: <Tasks /> }, 
-        // { path: 'company', element: <NotFound /> }, // Misssing
-        // { path: 'salaries', element: <NotFound /> }, // Misssing
-        // { path: 'finances', element: <Finances /> }, 
         // { path: 'artworks', element: <Artworks /> },
       ]
     },

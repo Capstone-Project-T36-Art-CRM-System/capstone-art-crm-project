@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { format, getTime } from 'date-fns';
+import { format } from 'date-fns';
 
 // Form Controls
 import { useFormContext, Controller } from 'react-hook-form';
@@ -32,7 +32,7 @@ export default function RHFDateTimePicker({ name, ...other }) {
             fullWidth
             error={!!error}
             helperText={error?.message}
-            onChange={(e) => field.onChange(getTime(e))}
+            onChange={(e) => field.onChange(e)}
             {...field}
             {...other}
         />

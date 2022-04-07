@@ -9,6 +9,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Components Import
 import Label from '../../../../components/Label';
+import { deleteCustomer } from '../../../../mock_data/customers';
 
 
 export default function AccountGeneral({customerSelected}) {
@@ -61,7 +62,7 @@ export default function AccountGeneral({customerSelected}) {
           <Button size="small" component={RouterLink} to={`/dashboard/customer/${customerId}/edit`} variant="outlined" sx={{ mr: 1 }}>
             Edit
           </Button>
-          <Button size="small" color="inherit" variant="outlined">
+          <Button size="small" color="inherit" variant="outlined" onClick={deleteCustomer(customerId)}>
             Delete
           </Button>
         </Stack>

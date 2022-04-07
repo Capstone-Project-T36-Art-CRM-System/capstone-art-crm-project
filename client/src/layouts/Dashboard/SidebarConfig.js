@@ -5,8 +5,6 @@ import peopleFill from '@iconify/icons-eva/people-fill';
 import colorPaletteFill from '@iconify/icons-eva/color-palette-fill';
 import homeFill from '@iconify/icons-eva/home-fill';
 import listFill from '@iconify/icons-eva/list-fill';
-import trendingUpFill from '@iconify/icons-eva/trending-up-fill';
-import briefcaseFill from '@iconify/icons-eva/briefcase-fill';
 import checkmarkSquare2Fill from '@iconify/icons-eva/checkmark-square-2-fill';
 import calendarFill from '@iconify/icons-eva/calendar-fill';
 
@@ -24,8 +22,8 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'classes',
-    path: '/dashboard/classes',
+    title: 'events',
+    path: '/dashboard/event/list',
     icon: getIcon(listFill),
     disabled: true
   },
@@ -44,19 +42,6 @@ const sidebarConfig = [
     title: 'company',
     path: '/dashboard/company',
     icon: getIcon(homeFill),
-    disabled: true
-  },
-  {
-    title: 'salaries',
-    path: '/dashboard/salaries',
-    icon: getIcon(briefcaseFill),
-    disabled: true
-  },
-  {
-    title: 'finances',
-    path: '/dashboard/finances',
-    icon: getIcon(trendingUpFill),
-    disabled: true
   },
   {
     title: 'artworks',
