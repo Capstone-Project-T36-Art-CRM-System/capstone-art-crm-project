@@ -22,6 +22,7 @@ import Company from './pages/_dashboard/Company';
 
 // Logo Only Outlet Page Imports
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 // Other Page Imports
 import NotFound from './pages/Page404';
@@ -68,7 +69,7 @@ export default function Router() {
       children: [
         { path: '/', element: <Navigate to="/login" /> },
         { path: 'login', element: <Login /> },
-        // { path: 'register', element: <Register /> },
+        { path: 'register', element: <Register /> },
       ]
     },
 

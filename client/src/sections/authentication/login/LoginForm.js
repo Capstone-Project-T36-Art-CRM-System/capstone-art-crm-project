@@ -1,122 +1,60 @@
-import { useState } from 'react';
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "../../../contexts/AuthContext"
+import { Link, useNavigate } from "react-router-dom"
 
-// Form Controls
-import * as Yup from 'yup';
-import { useFormik, Form, FormikProvider } from 'formik';
+export default function Login() {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const { login } = useAuth()
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  // const history = useHistory()
 
-// Routing
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-
-// Components Import
-import Iconify from '../../../components/Iconify'
-
-// Material UI
-import {
-  Link,
-  Stack,
-  Checkbox,
-  TextField,
-  IconButton,
-  InputAdornment,
-  FormControlLabel
-} from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-
-
-export default function LoginForm() {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  async function handleSubmit(e) {
+    e.preventDefault()
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required')
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      remember: true
-    },
-    validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+    try {
+      setError("")
+      setLoading(true)
+      await login(emailRef.current.value, passwordRef.current.value)
+      
+      navigate('/dashboard');
+    } catch {
+      setError("Failed to log in")
     }
-  });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
-
-  const handleShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
+    setLoading(false)
+  }
 
   return (
-    <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Stack spacing={3}>
-          <TextField
-            fullWidth
-            autoComplete="username"
-            type="email"
-            label="Email address"
-            {...getFieldProps('email')}
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
-          />
-
-          <TextField
-            fullWidth
-            autoComplete="current-password"
-            type={showPassword ? 'text' : 'password'}
-            label="Password"
-            {...getFieldProps('password')}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleShowPassword} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                  </IconButton>
-                </InputAdornment>
-              )
-            }}
-            error={Boolean(touched.password && errors.password)}
-            helperText={touched.password && errors.password}
-          />
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-          <FormControlLabel
-            control={<Checkbox {...getFieldProps('remember')} checked={values.remember} />}
-            label="Remember me"
-          />
-
-          <Link component={RouterLink} variant="subtitle2" to="#">
-            Forgot password?
-          </Link>
-        </Stack>
-
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          loading={isSubmitting}
-        >
-          Login
-        </LoadingButton>
-        {/* CAPSTONE PRESENTATION DEMO BLOCK */}
-        <LoadingButton
-          fullWidth
-          size="large"
-          variant="outlined"
-          component={RouterLink}
-          to='/dashboard'
-          sx={{ mt: 3 }}
-        >
-          Demo Login
-        </LoadingButton>
-        {/* CAPSTONE PRESENTATION DEMO BLOCK END */}
-      </Form>
-    </FormikProvider>
-  );
+    <>
+      <Card>
+        <Card.Body>
+          <h2 className="text-center mb-4">Log In</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} required />
+            </Form.Group>
+            <Button disabled={loading} className="w-100" type="submit">
+              Log In
+            </Button>
+          </Form>
+          <div className="w-100 text-center mt-3">
+            <Link to="/forgot-password">Forgot Password?</Link>
+          </div>
+        </Card.Body>
+      </Card>
+      {/* <div className="w-100 text-center mt-2">
+        Need an account? <Link to="/register">Sign Up</Link>
+      </div> */}
+    </>
+  )
 }
