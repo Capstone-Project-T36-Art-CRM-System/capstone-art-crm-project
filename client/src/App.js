@@ -7,15 +7,18 @@ import Router from './routes';
 import ScrollToTop from './components/ScrollToTop';
 import ThemeProvider from './theme'
 import ThemeConfig from './theme';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {
     return (
-        <ThemeProvider>
-            <ThemeConfig>
-                <ScrollToTop />
-                <Router />
-            </ThemeConfig>
-        </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider>
+                <ThemeConfig>
+                    <ScrollToTop />
+                    <Router />
+                </ThemeConfig>
+            </ThemeProvider>
+        </AuthProvider>
     );
 }
 
