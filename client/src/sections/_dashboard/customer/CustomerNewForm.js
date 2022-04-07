@@ -39,9 +39,10 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
       email: currentCustomer?.email || '',
       phone: currentCustomer?.phone || '',
       gender: currentCustomer?.gender || 'Male',
-      birthDate: currentCustomer?.birthDate,
+      birthDate: currentCustomer?.birthDate || null,
       note: currentCustomer?.note || '',
-      status: currentCustomer?.status,
+      status: currentCustomer?.status || 'active',
+      isRecordingAgreed: currentCustomer?.isRecordingAgreed || false,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentCustomer]
@@ -76,9 +77,10 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
   const onSubmit = async (values) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      addCustomer(values).then(
-        reset()
-      ).catch(error => console.log(error))
+      console.log(values);
+      addCustomer(values)
+      .then(reset())
+      .catch(error => console.log(error))
       // navigate(`/dashboard/customer/list`)
     } catch (error) {
       console.error(error);
@@ -121,7 +123,7 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
             )}
 
             <RHFSwitch
-              name="isVerified"
+              name="isRecordingAgreed"
               labelPlacement="start"
               label={
                 <>

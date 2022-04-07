@@ -35,7 +35,7 @@ export default function CustomerMoreMenu({ customerId }) {
   return (
     <>
       <IconButton component={RouterLink} to={`/dashboard/customer/${customerId}`}>
-        <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+        <Iconify icon={'eva:eye-fill'} width={20} height={20} />
       </IconButton>
 
       <MenuPopover
