@@ -23,7 +23,7 @@ export default function ArtworkCreate() {
 
   return (
     <Page title={`Artworks – ${!isEdit ? 'Create Artwork' : 'Edit Artwork'}`}>
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>

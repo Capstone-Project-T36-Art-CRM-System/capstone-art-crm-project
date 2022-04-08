@@ -17,7 +17,7 @@ import {
 export default function Main() {
   return (
     <Page title="Dashboard | Main">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             {/* Page Title */}
             <Box sx={{ pb: 5  }}>
                 <Typography gutterBottom variant="h4">Dashboard</Typography>

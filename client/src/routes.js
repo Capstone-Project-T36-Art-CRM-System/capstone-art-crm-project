@@ -26,13 +26,14 @@ import Register from './pages/Register';
 
 // Other Page Imports
 import NotFound from './pages/Page404';
+import PrivateRoute from './components/PrivateRoute';
 
 
 export default function Router() {
   return useRoutes([
      {
       path: '/dashboard',
-      element: <DashboardLayout />,
+      element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
       children: [
         { path: '', element: <DashboardMain /> },
         {

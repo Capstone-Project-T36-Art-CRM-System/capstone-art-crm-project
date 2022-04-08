@@ -75,7 +75,7 @@ export default function CustomerList() {
 
   return (
     <Page title="Customers">
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>

@@ -39,7 +39,7 @@ export default function Company() {
 
   return (
     <Page title={`Company`}>
-        <Container maxWidth='lg'>
+        <Container maxWidth='xl'>
 
             {/* Page Title */}
             <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>

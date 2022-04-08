@@ -42,7 +42,7 @@ export default function CustomerAccount() {
 
   return (
     <Page title={`Customers – ${customerSelected?.name}`}>
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>

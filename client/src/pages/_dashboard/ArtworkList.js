@@ -76,7 +76,7 @@ export default function ArtworkList() {
 
   return (
     <Page title="Artworks">
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
