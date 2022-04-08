@@ -74,6 +74,30 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentCustomer]);
 
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const newCustomer = {
+  //       title: data.title,
+  //       description: data.description,
+  //       textColor: data.textColor,
+  //       allDay: data.allDay,
+  //       start: getTime(data.start),
+  //       end: getTime(data.end),
+  //     };
+  //     if (curEvent) {
+  //       updateEvent(eventId, newEvent)
+  //     } else {
+  //       console.log(curEvent)
+  //       addEvent(newEvent)
+  //     }
+  //     // onCancel();
+  //     // reset();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
   const onSubmit = async (values) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));

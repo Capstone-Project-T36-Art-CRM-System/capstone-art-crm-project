@@ -34,7 +34,7 @@ export default function ArtworkMoreMenu({ artworkId }) {
   return (
     <>
       <IconButton component={RouterLink} to={`/dashboard/artwork/${artworkId}`}>
-        <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+        <Iconify icon={'eva:eye-fill'} width={20} height={20} />
       </IconButton>
 
       <MenuPopover

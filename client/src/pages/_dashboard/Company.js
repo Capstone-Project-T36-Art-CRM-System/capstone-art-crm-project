@@ -17,22 +17,22 @@ import {
 
 
 export default function Company() {
-  const [currentTab, setCurrentTab] = useState('company_details');
+  const [currentTab, setCurrentTab] = useState('finances');
 
   const ACCOUNT_TABS = [
-    {
-        value: 'company_details',
-        icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-        component: <CompanyDetails />,
-    },
+    // {
+    //     value: 'company_details',
+    //     icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
+    //     component: <CompanyDetails />,
+    // },
     {
         value: 'finances',
-        icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
+        icon: <Iconify icon={'eva:trending-up-fill'} width={20} height={20} />,
         component: <CompanyFinances />,
     },
     {
         value: 'employees',
-        icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
+        icon: <Iconify icon={'eva:people-fill'} width={20} height={20} />,
         component: <CompanyEmployees />,
     },
   ];

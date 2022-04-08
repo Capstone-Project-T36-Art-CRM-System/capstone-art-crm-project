@@ -39,7 +39,23 @@ export async function addCustomer(customerFields) {
     }
 }
 
-const customerList = [
+export async function updateCustomer(customerId, customerFields) {
+    let newCustomer = { 
+        ...customerFields,
+        updated: getTime(new Date()),
+    }
+
+    try {
+        customerList = customerList.map(customer => {
+            if (customer.customerId == customerId) { return newCustomer }
+            return customer
+        })
+    } catch (error) {
+        console.log('Error!')
+    }
+}
+
+let customerList = [
     {
         "isDeleted": false,
         "customerId": "C1",
