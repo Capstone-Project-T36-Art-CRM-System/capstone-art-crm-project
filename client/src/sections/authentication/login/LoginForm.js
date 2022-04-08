@@ -1,60 +1,88 @@
-import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import * as Yup from 'yup';
+import { useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// form
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+// @mui
+import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+
+// hooks
 import { useAuth } from "../../../contexts/AuthContext"
-import { Link, useNavigate } from "react-router-dom"
 
-export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  // const history = useHistory()
+// components
+import Iconify from '../../../components/Iconify';
+import { FormProvider, RHFTextField } from '../../../components/hook-form';
 
+// ----------------------------------------------------------------------
+
+export default function LoginForm() {
+  const { login } = useAuth();
   const navigate = useNavigate();
-  async function handleSubmit(e) {
-    e.preventDefault()
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    password: Yup.string().required('Password is required'),
+  });
+
+  const defaultValues = {
+    email: 'test@gmail.com',
+    password: 'test123',
+    remember: true,
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(LoginSchema),
+    defaultValues,
+  });
+
+  const {
+    reset,
+    setError,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = methods;
+
+  const onSubmit = async (data) => {
     try {
-      setError("")
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      
-      navigate('/dashboard');
-    } catch {
-      setError("Failed to log in")
+      await login(data.email, data.password);
+      navigate('/dashboard')
+    } catch (error) {
+      console.error(error);
+      setError('afterSubmit', {message: 'Wrong password or email address'});
     }
-
-    setLoading(false)
-  }
+  };
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Log In
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Forgot Password?</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      {/* <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/register">Sign Up</Link>
-      </div> */}
-    </>
-  )
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={3} mb={2}>
+        {console.log(errors.afterSubmit)}
+        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+
+        <RHFTextField name="email" label="Email address" />
+
+        <RHFTextField
+          name="password"
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Stack>
+
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+        Login
+      </LoadingButton>
+    </FormProvider>
+  );
 }
