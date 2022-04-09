@@ -6,15 +6,15 @@ import { getTime, isBefore } from 'date-fns';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Box, Stack, Button, Tooltip, TextField, IconButton, DialogActions } from '@mui/material';
+import { Box, Stack, Button, Tooltip, TextField, IconButton, DialogActions, Autocomplete } from '@mui/material';
 import { LoadingButton, LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 
 // components
 import Iconify from '../../../components/Iconify';
 import { ColorSinglePicker } from '../../../components/color-utils';
-import { FormProvider, RHFTextField, RHFSwitch, RHFDateTimePicker } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFSwitch } from '../../../components/hook-form';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { addEvent, deleteEvent, getEventbyId, updateEvent } from '../../../mock_data/events';
+import { deleteEvent, deleteScheduledEvent, getEventbyId, getEventList, getScheduledEventbyId, scheduleEvent, updateScheduledEvent } from '../../../mock_data/events';
 import { useMemo } from 'react';
 
 // ----------------------------------------------------------------------
@@ -49,19 +49,18 @@ const getInitialValues = (event, range) => {
 // ----------------------------------------------------------------------
 
 CalendarForm.propTypes = {
-  event: PropTypes.object,
+  eventId: PropTypes.string,
   range: PropTypes.object,
   onCancel: PropTypes.func,
 };
 
-export default function CalendarForm({ eventId, range, onCancel }) {
+export default function CalendarForm({ scheduledEventId, range, onCancel }) {
   const EventSchema = Yup.object().shape({
-    title: Yup.string().max(255).required('Title is required'),
     description: Yup.string().max(5000),
   });
 
-  const curEvent = getEventbyId(eventId)
-  console.log(eventId, curEvent)
+  const scheduledEvent = getScheduledEventbyId(scheduledEventId)
+  console.log(scheduledEvent?.id.substring(1, 2))
 
   // const defaultValues = useMemo(
   //   () => ({
@@ -79,7 +78,11 @@ export default function CalendarForm({ eventId, range, onCancel }) {
 
   const methods = useForm({
     resolver: yupResolver(EventSchema),
-    defaultValues: getInitialValues(curEvent, range)
+    defaultValues: getInitialValues(
+      { 
+        ...scheduledEvent, 
+        event: getEventbyId( scheduledEvent?.id.substring(1, 2) ) 
+      }, range)
   });
 
   const {
@@ -92,32 +95,30 @@ export default function CalendarForm({ eventId, range, onCancel }) {
 
   const onSubmit = async (data) => {
     try {
-      const newEvent = {
-        eventId: eventId,
-        title: data.title,
+      const scheduleItemFields = {
+        title: data.event.title,
         description: data.description,
         textColor: data.textColor,
         allDay: data.allDay,
         start: getTime(data.start),
         end: getTime(data.end),
       };
-      if (curEvent) {
-        updateEvent(eventId, newEvent)
+      if (scheduledEventId) {
+        updateScheduledEvent(scheduledEventId, scheduleItemFields)
       } else {
-        console.log(curEvent)
-        addEvent(newEvent)
+        scheduleEvent(data.event.eventId, scheduleItemFields)
       }
-      // onCancel();
-      // reset();
+      onCancel();
+      
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleDelete = async () => {
-    if (!curEvent) return;
+    if (!scheduledEventId) return;
     try {
-      deleteEvent(eventId);
+      deleteScheduledEvent(scheduledEventId);
       onCancel();
 
     } catch (error) {
@@ -132,12 +133,24 @@ export default function CalendarForm({ eventId, range, onCancel }) {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3} sx={{ p: 3 }}>
-        <RHFTextField name="title" label="Title" />
+        <Controller
+          name="event"
+          control={control}
+          render={({ field }) => (
+            <Autocomplete
+              {...field}
+              options={getEventList()}
+              getOptionSelected={(option, value) => option.eventId == value.eventId}
+              onChange={(event, newValue) => { field.onChange(newValue); }}
+              renderInput={(params) => <RHFTextField label="Event" {...params} />}
+              getOptionLabel={event => `${event.title}`}
+            />
+          )}
+        />
 
         <RHFTextField name="description" label="Description" multiline rows={4} />
 
         <RHFSwitch name="allDay" label="All day" />
-        {/* <RHFDateTimePicker name="start" label="Start date"/> */}
 
         <Controller
           name="start"
@@ -186,7 +199,7 @@ export default function CalendarForm({ eventId, range, onCancel }) {
       </Stack>
 
       <DialogActions>
-        {curEvent && (
+        {scheduledEventId && (
           <Tooltip title="Delete Event">
             <IconButton onClick={handleDelete}>
               <Iconify icon="eva:trash-2-outline" width={20} height={20} />
@@ -199,8 +212,8 @@ export default function CalendarForm({ eventId, range, onCancel }) {
           Cancel
         </Button>
 
-        <LoadingButton type="submit" variant="contained" loading={isSubmitting} loadingIndicator="Loading...">
-          Add
+        <LoadingButton type="submit" variant="contained" loading={isSubmitting} disabled={!values.event ? true : false} loadingIndicator="Loading...">
+          {scheduleEvent ? 'Save' : 'Add'}
         </LoadingButton>
       </DialogActions>
     </FormProvider>

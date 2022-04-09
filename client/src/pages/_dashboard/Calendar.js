@@ -16,7 +16,7 @@ import Iconify from '../../components/Iconify';
 
 // Page Sections
 import { CalendarForm, CalendarStyle, CalendarToolbar } from '../../sections/_dashboard/calendar';
-import { getEventList } from '../../mock_data/events';
+import { getSchedule } from '../../mock_data/events';
 
 export default function Calendar() {
 
@@ -26,7 +26,7 @@ export default function Calendar() {
 
   const [view, setView] = useState('dayGridMonth');
 
-  const [events, setEvent] = useState(getEventList().filter(event => !event.isDeleted));
+  const [events, setEvent] = useState(getSchedule().filter(event => !event.isDeleted));
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [selectedRange, setSelectedRange] = useState(null)
 
@@ -91,8 +91,7 @@ export default function Calendar() {
   };
 
   const handleSelectEvent = (arg) => {
-    console.log(arg.event.extendedProps)
-    setSelectedEventId(arg.event.extendedProps.eventId);
+    setSelectedEventId(arg.event.id);
     setIsModalOpen(true)
   };
 
@@ -104,7 +103,7 @@ export default function Calendar() {
     setIsModalOpen(false)
     setSelectedEventId(null)
     calendarRef.current.getApi().removeAllEvents()
-    calendarRef.current.getApi().addEventSource(getEventList().filter(event => !event.isDeleted))
+    calendarRef.current.getApi().addEventSource(getSchedule().filter(event => !event.isDeleted))
   };
 
   return (
@@ -121,7 +120,7 @@ export default function Calendar() {
               onClick={handleAddEvent}
               startIcon={ <Iconify icon={'eva:plus-fill'} width={20} height={20} />}
           >
-              Add event
+              Schedule event
           </Button>
         </Stack>
         {/* Page Title End*/}
@@ -160,7 +159,7 @@ export default function Calendar() {
         <Dialog open={isModalOpen} onClose={handleCloseModal}>
           <DialogTitle>{selectedEventId ? 'Edit Event' : 'Add Event'}</DialogTitle>
 
-          <CalendarForm eventId={selectedEventId || {}} range={selectedRange} onCancel={handleCloseModal} />
+          <CalendarForm scheduledEventId={selectedEventId} range={selectedRange} onCancel={handleCloseModal} />
         </Dialog>
 
       </Container>

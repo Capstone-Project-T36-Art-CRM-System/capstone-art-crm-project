@@ -16,6 +16,7 @@ import { FormProvider, RHFDateTimePicker, RHFSelect, RHFTextField } from '../../
 // Mock Data
 import { getArtworkList } from '../../../../../mock_data/artworks';
 import { getEventList } from '../../../../../mock_data/events';
+import { fCurrency } from '../../../../../utils/formatNumber';
 
 export default function NewPaymentForm({ onCloseDialog, customerId }) {
   
@@ -84,9 +85,9 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
                 {...field}
                 options={getEventList()}
                 getOptionSelected={(option, value) => option.eventId == value.eventId}
-                onChange={(event, newValue) => { console.log(newValue); field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
+                onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
                 renderInput={(params) => <RHFTextField label="Event" {...params} />}
-                getOptionLabel={event => `${event.title}, ${format(new Date(event.start), "dd MMM")} ${format(new Date(event.start), "p")}`}
+                getOptionLabel={event => `${event.title} – ${fCurrency(event.price)}`}
               />
             )}
           />}

@@ -38,7 +38,7 @@ export default function CustomerMoreMenu({ customerId }) {
         <Iconify icon={'eva:eye-fill'} width={20} height={20} />
       </IconButton>
 
-      <MenuPopover
+      {/* <MenuPopover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleClose}
@@ -56,7 +56,7 @@ export default function CustomerMoreMenu({ customerId }) {
           Details
         </MenuItem>
 
-      </MenuPopover>
+      </MenuPopover> */}
     </>
   );
 }

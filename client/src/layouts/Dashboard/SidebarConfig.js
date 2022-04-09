@@ -25,7 +25,6 @@ const sidebarConfig = [
     title: 'events',
     path: '/dashboard/event/list',
     icon: getIcon(listFill),
-    disabled: true
   },
   {
     title: 'calendar',

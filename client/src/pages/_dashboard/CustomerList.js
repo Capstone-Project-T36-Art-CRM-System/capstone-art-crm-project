@@ -115,8 +115,6 @@ export default function CustomerList() {
                       <TableRow
                         hover
                         key={customerId}
-                        tabIndex={-1}
-                        role="checkbox"
                       >
                         <TableCell align="left">{name}</TableCell>
                         <TableCell align="left">{customerId}</TableCell>

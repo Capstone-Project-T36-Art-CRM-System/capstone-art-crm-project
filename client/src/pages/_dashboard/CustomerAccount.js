@@ -15,7 +15,8 @@ import Iconify from '../../components/Iconify';
 import {
   AccountGeneral,
   AccountPayments,
-  AccountDocs
+  AccountDocs,
+  AccountTickets
 } from '../../sections/_dashboard/customer/account';
 
 // MOCK DATA
@@ -37,6 +38,11 @@ export default function CustomerAccount() {
       value: 'documents',
       icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
       component: <AccountDocs customerSelected={customerSelected} />,
+    },
+    {
+      value: 'tickets',
+      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
+      component: <AccountTickets customerSelected={customerSelected} />,
     },
   ];
 

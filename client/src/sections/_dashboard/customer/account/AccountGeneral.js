@@ -62,7 +62,7 @@ export default function AccountGeneral({customerSelected}) {
           <Button size="small" component={RouterLink} to={`/dashboard/customer/${customerId}/edit`} variant="outlined" sx={{ mr: 1 }}>
             Edit
           </Button>
-          <Button size="small" color="inherit" variant="outlined" onClick={deleteCustomer(customerId)}>
+          <Button size="small" color="inherit" variant="outlined" onClick={() => deleteCustomer(customerId)} component={RouterLink} to={`/dashboard/customer/list`}>
             Delete
           </Button>
         </Stack>
