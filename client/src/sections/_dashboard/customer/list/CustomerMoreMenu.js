@@ -3,16 +3,14 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // Material UI
-import { MenuItem, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 // Components Import
 import Iconify from '../../../../components/Iconify';
-import MenuPopover from '../../../../components/MenuPopover';
 
 // Props
 CustomerMoreMenu.propTypes = {
-  onDelete: PropTypes.func,
-  userName: PropTypes.string,
+  customerId: PropTypes.string,
 };
 
 export default function CustomerMoreMenu({ customerId }) {

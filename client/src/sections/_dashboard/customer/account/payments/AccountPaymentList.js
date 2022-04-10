@@ -107,7 +107,7 @@ export default function AccountPaymentList({customerId}) {
                 <TableCell>{fCurrency(row.amount)}</TableCell>
                 
                 <TableCell>
-                  {row.productCategory === 'Event Ticket' && <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {row.productCategory === 'Event Ticket' && <Typography component={RouterLink} to={`/dashboard/event/${row.productId}`} variant="body2" sx={{ color: 'text.secondary' }}>
                     {row.note}
                   </Typography>}
 

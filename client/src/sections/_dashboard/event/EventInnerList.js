@@ -21,6 +21,7 @@ import Iconify from '../../../components/Iconify';
 import { getEventList } from '../../../mock_data/events';
 import { format } from 'date-fns';
 import { CustomerListHead } from '../customer/list';
+import { fCurrency } from '../../../utils/formatNumber';
 
 export default function EventInnerList({eventType}) {
     const [eventList, setEventList] = useState(getEventList(eventType || null).map(event => ({
@@ -34,6 +35,7 @@ export default function EventInnerList({eventType}) {
   const TABLE_HEAD = [
     { id: 'title', label: 'Title', alignRight: false },
     { id: 'last_scheduled', label: 'Last scheduled', alignRight: false },
+    { id: 'price', label: 'Ticket Price', alignRight: false },
     { id: 'events_completed', label: 'Events Completed', alignRight: false },
     { id: 'events_scheduled', label: 'Events Scheduled', alignRight: false },
     { id: '' },
@@ -67,6 +69,7 @@ export default function EventInnerList({eventType}) {
                 <TableCell>{row.title}</TableCell>
                 
                 <TableCell>{format(new Date(row.last_scheduled), 'p, dd MMM yyyy')}</TableCell>
+                <TableCell>{fCurrency(row.price)}</TableCell>
 
                 <TableCell>{row.events_completed}</TableCell>
 

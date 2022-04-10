@@ -3,7 +3,7 @@ export function getArtworkList() {
 }
   
 export function getArtworkrbyId(artworkId) {
-    return artworkList.find((artwork) => artwork.artworkId == artworkId);
+    return artworkList.find((artwork) => artwork.artworkId === artworkId);
 }
 
 const artworkList = [

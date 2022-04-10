@@ -1,11 +1,11 @@
 import { capitalCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Material UI
 import { Container, Tab, Box, Tabs, Stack, Typography, Grid } from '@mui/material';
 
 // Routing
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Page Components Import
 import Page from '../../components/Page';
@@ -21,12 +21,18 @@ import {
 
 // MOCK DATA
 import { getCustomerbyId } from '../../mock_data/customers';
+import { CircularProgress } from '@material-ui/core';
 
 
 export default function CustomerAccount() {
   const { customerId } = useParams();
   const [customerSelected, setCustomerSelected] = useState(getCustomerbyId(customerId));
+  const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('payments');
+
+  useEffect(() => {
+    if (!customerSelected) {navigate('/404')}
+  }, [customerSelected, navigate]);
 
   const ACCOUNT_TABS = [
     {
@@ -47,6 +53,7 @@ export default function CustomerAccount() {
   ];
 
   return (
+    !customerSelected ? <CircularProgress /> :
     <Page title={`Customers – ${customerSelected?.name}`}>
       <Container maxWidth='xl'>
 

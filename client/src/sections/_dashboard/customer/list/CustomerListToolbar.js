@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // Material UI
-import { useTheme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Toolbar, Tooltip, IconButton, InputAdornment } from '@mui/material';
 
 // Components
@@ -23,8 +23,6 @@ CustomerListToolbar.propTypes = {
 };
 
 export default function CustomerListToolbar({ filterName, onFilterName }) {
-  const theme = useTheme();
-  const isLight = theme.palette.mode === 'light';
 
   return (
     <RootStyle>

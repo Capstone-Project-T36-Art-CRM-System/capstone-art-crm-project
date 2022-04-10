@@ -1,3 +1,5 @@
+import { getTime } from "date-fns";
+
 export function getTransactionList() {
     return transactionList.sort((a,b) => b.date - a.date);
 }
@@ -18,9 +20,23 @@ export function getTransactionListbyId(customerId) {
 //     return transactionList.filter((transaction) => transaction.customerId === customerId).sort((a,b) => b.date - a.date);
 // }
 
+export function addTransaction(transactionFileds){
+    let newTransaction = { 
+        ...transactionFileds,
+        date: getTime(transactionFileds.date)
+    }
+    console.log(newTransaction)
+
+    try {
+        transactionList.push(newTransaction)
+    } catch (error) {
+        console.log('Error!')
+    }
+}
 
 
-const transactionList = [
+
+let transactionList = [
     {
         "transactionId": 1,
         "type": 'sales',

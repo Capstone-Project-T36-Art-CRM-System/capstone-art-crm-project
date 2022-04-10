@@ -10,7 +10,6 @@ import Iconify from '../../components/Iconify';
 
 // Page Sections Import
 import {
-    CompanyDetails,
     CompanyFinances,
     CompanyEmployees,
 } from '../../sections/_dashboard/company';

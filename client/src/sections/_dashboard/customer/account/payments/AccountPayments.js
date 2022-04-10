@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // Material UI
-import { Box, Card, Button, Stack, CardHeader, Dialog, DialogTitle } from '@mui/material';
+import { Box, Card, Button, Stack, CardHeader, Dialog, DialogTitle, IconButton } from '@mui/material';
 
 // Components Import
 import AccountPaymentList from './AccountPaymentList'
@@ -15,32 +16,57 @@ export default function AccountPayments({ customerId }) {
     <Card>
       <CardHeader title="Payments" sx={{ mb: 3 }} action={
         <Box>
-          <Button size="small" startIcon={<Iconify icon={'eva:plus-fill'} />} onClick={() => setOpen(!open)}>
-            Add new payment
-          </Button>
+          <PaymentDialog customerId={customerId}>
+            <Button size="small" startIcon={<Iconify icon={'eva:plus-fill'} />} onClick={() => setOpen(!open)}>
+              Add new payment
+            </Button>
+          </PaymentDialog>
         </Box>}
       />
         <AccountPaymentList customerId={customerId}/>
-
-        <DialogNewPayment
-          isOpen={open}
-          onCloseDialog={() => setOpen(false)}
-          customerId={customerId}
-        />
     </Card>
   );
 }
 
-function DialogNewPayment({ isOpen, onCloseDialog, customerId }) {
+// Props
+PaymentDialog.propTypes = {
+  customerId: PropTypes.string,
+  transactionId: PropTypes.number,
+  children: PropTypes.node,
+};
+
+function PaymentDialog({ customerId, transactionId, children }) {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
 
   return (
-    <Dialog open={isOpen} fullWidth maxWidth="xs" onCancel={onCloseDialog}>
-      <DialogTitle>{'Add Payment'}</DialogTitle>
-      <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+    <>
+      {children ? 
+      <Box onClick={handleOpen}>
+        {children}
+      </Box>
+      :
+      <IconButton onClick={handleOpen}>
+        <Iconify icon={'eva:edit-fill'} width={20} height={20} />
+      </IconButton>
+      }
 
-        <NewPaymentForm onCloseDialog={onCloseDialog} customerId={customerId}  />
-        
-      </Stack>
-    </Dialog>
+      <Dialog open={Boolean(open)} fullWidth maxWidth="xs" onCancel={handleClose}>
+        <DialogTitle>{!transactionId ? 'Add Payemnt' : 'Update Payment'}</DialogTitle>
+        <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+
+          <NewPaymentForm onCloseDialog={handleClose} customerId={customerId}  />
+
+        </Stack>
+      </Dialog>
+    </>
   );
 }
+

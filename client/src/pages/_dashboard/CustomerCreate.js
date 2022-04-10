@@ -21,13 +21,13 @@ export default function CustomerCreate() {
   const currentCustomer = getCustomerbyId(customerId);
 
   return (
-    <Page title="User: Create a new user">
+    <Page title={`Customers – ${currentCustomer ? currentCustomer?.name + ' – Edit' : 'Create customer'}`}>
       <Container maxWidth='xl'>
 
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-              Customers – <Typography variant="h4" display="inline" color="text.secondary">{!isEdit ? 'Create Customer' : 'Edit Customer'}</Typography>
+              Customers – {currentCustomer?.name || null} <Typography variant="h4" display="inline" color="text.secondary">{!isEdit ? 'Create customer' : null}</Typography>
           </Typography>
         </Stack>
         {/* Page Title End*/}

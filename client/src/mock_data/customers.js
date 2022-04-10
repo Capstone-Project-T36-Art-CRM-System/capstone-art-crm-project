@@ -1,35 +1,22 @@
-import { format, getTime } from "date-fns";
+import { getTime } from "date-fns";
 
 export function getCustomerList() {
     return customerList.filter(customer => !customer.isDeleted).sort((a,b) => b.created - a.created);
 }
   
 export function getCustomerbyId(customerId) {
-    return customerList.find((customer) => customer.customerId == customerId);
-}
-
-export function deleteCustomer(customerId) {
-    try {
-        customerList.map((customer) =>{
-            if (customer.customerId === customerId){
-                customer.isDeleted = true;
-            }
-            return customer
-        })
-    } catch (error) {
-        console.log('Error!')
-    }
+    return customerList.find((customer) => customer.customerId === customerId) || null;
 }
 
 export async function addCustomer(customerFields) {
     let newCustomer = { 
+        ...customerFields,
         isDeleted: false,
         customerId: "C" + customerList.length + 1,
         created: getTime(new Date()),
         updated: getTime(new Date()),
         ticketList: [],
         docList: [],
-        ...customerFields
     }
 
     try {
@@ -44,10 +31,24 @@ export async function updateCustomer(customerId, customerFields) {
         ...customerFields,
         updated: getTime(new Date()),
     }
+    console.log(newCustomer)
 
     try {
         customerList = customerList.map(customer => {
-            if (customer.customerId == customerId) { return newCustomer }
+            if (customer.customerId === customerId) { return newCustomer }
+            return customer
+        })
+    } catch (error) {
+        console.log('Error!')
+    }
+}
+
+export function deleteCustomer(customerId) {
+    try {
+        customerList = customerList.map((customer) =>{
+            if (customer.customerId === customerId){
+                customer.isDeleted = true;
+            }
             return customer
         })
     } catch (error) {
@@ -68,12 +69,6 @@ let customerList = [
         "status": "active",
         "isRecordingAgreed": true,
         "created": 1627000028365,
-        "ticketList": [
-            { 
-                "eventId": 0,
-                "isUsed": false,
-            },
-        ],
         "docList": [
             {
                 "title": "COVID-19 Passport",

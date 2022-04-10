@@ -3,7 +3,7 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 
 // Material UI
-import { Card, CardHeader, Box } from '@mui/material';
+import { CardHeader, Box } from '@mui/material';
 
 import { BaseOptionChart } from '../../../../components/charts';
 

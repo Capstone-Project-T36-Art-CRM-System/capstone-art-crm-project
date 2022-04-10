@@ -13,12 +13,14 @@ const employeeList = [
         email: 'amma.lee@artlead.ca',
         position: "Head Manager",
         photoURL: '/static/logo.svg',
-        status: "active",
+        isFired: false,
         phone: "272-940-8266",
         hasAccess: true,
         accessLevel: 2,
         password: "123",
         balance: 0,
+        dateEmployeed: 1627000028365,
+        dateFired: null
     
     },
     {
@@ -27,12 +29,14 @@ const employeeList = [
         email: 'leatrice.handler@artlead.ca',
         position: "Manager",
         photoURL: '/static/logo.svg',
-        status: "active",
+        isFired: false,
         phone: "272-940-8266",
         hasAccess: true,
         accessLevel: 1,
         password: "123",
         balance: 0,
+        dateEmployeed: 1627000028365,
+        dateFired: null
     },
     {
         employeeId: 3,
@@ -40,11 +44,13 @@ const employeeList = [
         email: 'marine.mooslin@artlead.ca',
         position: "Instructor",
         photoURL: '/static/logo.svg',
-        status: "active",
+        isFired: false,
         phone: "272-940-8266",
         hasAccess: true,
         accessLevel: 0,
         password: "123",
         balance: 0,
+        dateEmployeed: 1627000028365,
+        dateFired: null
     },
 ]

@@ -7,7 +7,6 @@ import Router from './routes';
 import ScrollToTop from './components/ScrollToTop';
 import ThemeProvider from './theme'
 import ThemeConfig from './theme';
-import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from './contexts/AuthContext';
 
 const App = () => {

@@ -14,7 +14,7 @@ import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@m
 import { LoadingButton } from '@mui/lab';
 
 // Components Import
-import { FormProvider, RHFDateTimePicker, RHFSelect, RHFUploadImage, RHFSwitch, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFUploadImage, RHFSwitch, RHFTextField } from '../../../components/hook-form';
 
 //Utils
 import { fData } from '../../../utils/formatNumber';

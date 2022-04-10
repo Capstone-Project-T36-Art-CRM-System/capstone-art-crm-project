@@ -1,40 +1,47 @@
-import { useMemo } from 'react';
-import { format } from 'date-fns';
+import { useEffect, useMemo } from 'react';
 
 // Material UI
-import { Button, Stack, DialogActions, Autocomplete, InputAdornment } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Button, Stack, DialogActions, Autocomplete, InputAdornment, TextField } from '@mui/material';
+import { DateTimePicker, LoadingButton, LocalizationProvider } from '@mui/lab';
 
 // Form Controls
 import * as Yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
 
 // Components Import
-import { FormProvider, RHFDateTimePicker, RHFSelect, RHFTextField } from '../../../../../components/hook-form';
+import { FormProvider, RHFSelect, RHFTextField } from '../../../../../components/hook-form';
 
 // Mock Data
 import { getArtworkList } from '../../../../../mock_data/artworks';
 import { getEventList } from '../../../../../mock_data/events';
 import { fCurrency } from '../../../../../utils/formatNumber';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { addTransaction } from '../../../../../mock_data/transactions';
 
 export default function NewPaymentForm({ onCloseDialog, customerId }) {
+
+  const PaymentSchema = Yup.object().shape({
+    date: Yup.date().nullable().required('Date is required')
+  });
   
     const defaultValues = useMemo(
       () => ({
-        type: 'purchase',
+        type: 'sales',
         customerId: customerId,
         productCategory: 'Event Ticket',
         event: null,
         artwork: null,
         amount: 0,
-        date: new Date()
+        date: null,
+        note: ''
       }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
       []
     );
   
     const methods = useForm({
+      resolver: yupResolver(PaymentSchema),
       defaultValues,
     });
   
@@ -50,16 +57,32 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
   
     const values = watch();
   
+    useEffect(() => {
+      if (values.event){ setValue("note", `Tiket – ${values.event.title}`) }
+      if (values.artwork){ setValue("note", `Artwork – ${values.artwork.title}, ${values.artwork.year}`) }
+    }, [values.event, values.artwork, setValue]);
+  
     const onClose = () => {
       onCloseDialog()
       reset()
-    } 
+    }
   
-    const onSubmit = async (values) => {
-      console.log(values)
+    const onSubmit = async (data) => {
+
+      let transactionFields = { 
+        type: data.type,
+        customerId: customerId,
+        employeeId: null,
+        productCategory: data.productCategory,
+        note: data.note,
+        productId: data.event?.eventId || data.artwork?.artworkId,
+        date: data.date,
+        amount: data.amount
+      }
+
       try {
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        console.log(values)
+        addTransaction(transactionFields)
+        onClose()
 
       } catch (error) {
         console.error(error);
@@ -70,7 +93,7 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           <RHFSelect name="productCategory" label="Category" fullWidth>
-            {['Event Ticket', 'Artwork Purchase'].map((option) => (
+            {['Event Ticket', 'Artwork'].map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -84,31 +107,44 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
               <Autocomplete
                 {...field}
                 options={getEventList()}
-                getOptionSelected={(option, value) => option.eventId == value.eventId}
-                onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
-                renderInput={(params) => <RHFTextField label="Event" {...params} />}
                 getOptionLabel={event => `${event.title} – ${fCurrency(event.price)}`}
+                isOptionEqualToValue={(option, value) => option.eventId == value.eventId}
+                onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
+                renderInput={(params) => <RHFTextField label="Event" {...params} {...field} />}
               />
             )}
           />}
 
-          {getValues('productCategory') === "Artwork Purchase" && <Controller
+          {getValues('productCategory') === "Artwork" && <Controller
             name="artwork"
             control={control}
             render={({ field }) => (
               <Autocomplete
                 {...field}
                 options={getArtworkList()}
-                getOptionSelected={(option, value) => option.artworkId == value.artworkId}
+                getOptionLabel={artwork => ` ${artwork.title}, ${artwork.year} – ${fCurrency(artwork.price)}`}
+                isOptionEqualToValue={(option, value) => option.artworkId == value.artworkId}
                 onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
                 renderInput={(params) => <RHFTextField label="Artwork" {...params} {...field} />}
-                getOptionLabel={artwork => ` ${artwork.title}, ${artwork.year}`}
               />
             )}
           />}
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <RHFDateTimePicker name="date" label="Date"/>
+            <Controller
+              name="date"
+              control={control}
+              render={({ field, fieldState: { error, invalid } }) => (
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DateTimePicker
+                    {...field}
+                    label="Payment Date"
+                    inputFormat="dd/MM/yyyy hh:mm a"
+                    renderInput={(params) => <TextField error={invalid} helperText={invalid ? error.message : null} {...params} fullWidth />}
+                  />
+                </LocalizationProvider>
+              )}
+            />
 
             <RHFTextField
               sx={{width: '50%'}}

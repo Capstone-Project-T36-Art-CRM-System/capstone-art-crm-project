@@ -3,8 +3,6 @@ import { useRef, useState } from 'react';
 // Iconify
 import { Icon } from '@iconify/react';
 import homeFill from '@iconify/icons-eva/home-fill';
-import personFill from '@iconify/icons-eva/person-fill';
-import settings2Fill from '@iconify/icons-eva/settings-2-fill';
 
 // React Routing
 import { Link as RouterLink } from 'react-router-dom';
@@ -22,20 +20,20 @@ import account from '../../mock_data/account';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Tasks',
     icon: homeFill,
     linkTo: '/'
   },
-  {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: '#'
-  },
-  {
-    label: 'Settings',
-    icon: settings2Fill,
-    linkTo: '#'
-  }
+  // {
+  //   label: 'Profile',
+  //   icon: personFill,
+  //   linkTo: '#'
+  // },
+  // {
+  //   label: 'Settings',
+  //   icon: settings2Fill,
+  //   linkTo: '#'
+  // }
 ];
 
 export default function AccountPopover() {

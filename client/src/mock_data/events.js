@@ -172,7 +172,7 @@ let eventList = [
     {
         eventId: 4,
         type: "exhibition",
-        title: "20th-century Art Exhibion",
+        title: "Exhibition \"Canadian Cubism\"",
         price: 20,
         isDeleted: false, 
         created: 1644915600000,

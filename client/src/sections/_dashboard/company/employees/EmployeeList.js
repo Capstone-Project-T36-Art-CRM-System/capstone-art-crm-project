@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sentenceCase } from 'change-case';
+import PropTypes from 'prop-types';
 
 // Material UI
 import {
@@ -14,28 +14,37 @@ import {
   Dialog,
   DialogTitle,
   Stack,
+  CardHeader,
+  Card, 
+  Button,
+  Box
 } from '@mui/material';
-
-// React Routing
-import { Link as RouterLink } from 'react-router-dom';
 
 // Components Import
 import Iconify from '../../../../components/Iconify';
-import Label from '../../../../components/Iconify';
+import Label from '../../../../components/Label';
+
+// Section Import
+import NewEmployeeForm from './NewEmployeeForm';
 
 // MOCK DATA
 import { getEmployeeList } from '../../../../mock_data/employees';
-import NewEmployeeForm from './NewEmployeeForm';
 
 
-export default function EmployeeList({customerId}) {
+export default function EmployeeList() {
   const [employeeList, setEmployeeList] = useState(getEmployeeList());
-  const [currentEmployee, setCurrentEmployee] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [page, setPage] = useState(0);
 
   return (
-    <>
+    <Card>
+      <CardHeader title="Employees" sx={{ mb: 3 }} action={
+        <EmployeeDialog>
+          <Button size="small" startIcon={<Iconify icon={'eva:plus-fill'} />}>
+            Add new employee
+          </Button>
+        </EmployeeDialog>}
+      />
+
       <TableContainer sx={{p: 1}}>
         <Table>
           <TableHead>
@@ -57,9 +66,9 @@ export default function EmployeeList({customerId}) {
                 <TableCell align="left">
                   <Label
                     variant='ghost'
-                    color={(row.status === 'fired' && 'error') || 'success'}
+                    color={row.isFired ? 'error' : 'success'}
                   >
-                    {sentenceCase(row.status)}
+                    {row.isFired ? 'Fired' : 'Active'}
                   </Label>
                 </TableCell>
 
@@ -67,10 +76,9 @@ export default function EmployeeList({customerId}) {
                 <TableCell>{row.email}</TableCell>
 
                 <TableCell align="right">
-                  <IconButton size="large" onClick={() => {setCurrentEmployee(row); setIsOpen(true)}}>
-                    <Iconify icon={'eva:edit-fill'} width={20} height={20} />
-                  </IconButton>
+                  <EmployeeDialog employeeId={row.employeeId} />
                 </TableCell>
+
               </TableRow>
             ))}
           </TableBody>
@@ -84,23 +92,48 @@ export default function EmployeeList({customerId}) {
         page={page}
         onPageChange={(e, page) => setPage(page)}
       />
+    </Card>
+  );
+}
 
-      <DialogNewEmployee currentEmployee={currentEmployee} isOpen={isOpen} onCancel={() => {setIsOpen(false); setCurrentEmployee(null)}} />
+// Props
+EmployeeDialog.propTypes = {
+  employeeId: PropTypes.number,
+  children: PropTypes.node,
+};
+
+function EmployeeDialog({ employeeId, children }) {
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
+  return (
+    <>
+      {children ? 
+      <Box onClick={handleOpen}>
+        {children}
+      </Box>
+      :
+      <IconButton onClick={handleOpen}>
+        <Iconify icon={'eva:edit-fill'} width={20} height={20} />
+      </IconButton>
+      }
+
+      <Dialog open={Boolean(open)} fullWidth maxWidth="xs" onCancel={handleClose}>
+        <DialogTitle>{!employeeId ? 'Add Employee' : 'Update Employee'}</DialogTitle>
+        <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+
+          <NewEmployeeForm onCloseDialog={handleClose} employeeId={employeeId}  />
+
+        </Stack>
+      </Dialog>
     </>
   );
 }
 
-
-function DialogNewEmployee({currentEmployee, isOpen, onCancel }) {
-
-  return (
-    <Dialog open={isOpen} fullWidth maxWidth="xs" onCancel={onCancel}>
-      <DialogTitle>{!currentEmployee ? 'Add Employee' : 'Update Employee'}</DialogTitle>
-      <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
-
-        <NewEmployeeForm onCloseDialog={onCancel} currentEmployee={currentEmployee}  />
-
-      </Stack>
-    </Dialog>
-  );
-}

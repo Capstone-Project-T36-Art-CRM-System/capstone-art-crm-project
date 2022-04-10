@@ -10,12 +10,13 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Material UI
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel, TextField, Button } from '@mui/material';
+import { DatePicker, LoadingButton, LocalizationProvider } from '@mui/lab';
 
 // Components Import
-import { FormProvider, RHFDateTimePicker, RHFSelect, RHFSwitch, RHFTextField } from '../../../components/hook-form';
-import { addCustomer } from '../../../mock_data/customers';
+import { FormProvider, RHFSelect, RHFSwitch, RHFTextField } from '../../../components/hook-form';
+import { addCustomer, updateCustomer } from '../../../mock_data/customers';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +44,7 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
       note: currentCustomer?.note || '',
       status: currentCustomer?.status || 'active',
       isRecordingAgreed: currentCustomer?.isRecordingAgreed || false,
+      ...currentCustomer
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentCustomer]
@@ -64,48 +66,18 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
 
   const values = watch();
 
-  useEffect(() => {
-    if (isEdit && currentCustomer) {
-      reset(defaultValues);
-    }
-    if (!isEdit) {
-      reset(defaultValues);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentCustomer]);
-
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const newCustomer = {
-  //       title: data.title,
-  //       description: data.description,
-  //       textColor: data.textColor,
-  //       allDay: data.allDay,
-  //       start: getTime(data.start),
-  //       end: getTime(data.end),
-  //     };
-  //     if (curEvent) {
-  //       updateEvent(eventId, newEvent)
-  //     } else {
-  //       console.log(curEvent)
-  //       addEvent(newEvent)
-  //     }
-  //     // onCancel();
-  //     // reset();
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-
-  const onSubmit = async (values) => {
+  const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log(values);
-      addCustomer(values)
-      .then(reset())
-      .catch(error => console.log(error))
-      // navigate(`/dashboard/customer/list`)
+      if (isEdit) {
+        updateCustomer(currentCustomer.customerId, data)
+        reset();
+        navigate(-1);
+      }else{
+        addCustomer(data)
+        reset();
+        navigate(-1);
+      }
+      
     } catch (error) {
       console.error(error);
     }
@@ -177,7 +149,20 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
               <RHFTextField name="name" label="Full Name" />
               <RHFTextField name="email" label="Email Address" />
               <RHFTextField name="phone" label="Phone Number" />
-              <RHFDateTimePicker name="birthDate" label="Birth Date" />
+              <Controller
+                name="birthDate"
+                control={control}
+                render={({ field }) => (
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      {...field}
+                      label="Birth Date"
+                      inputFormat="dd/MM/yyyy"
+                      renderInput={(params) => <TextField {...params} fullWidth />}
+                    />
+                  </LocalizationProvider>
+                )}
+              />
 
               <RHFSelect name="gender" label="Gender" placeholder="Gender">
                 {['Male', 'Female'].map((option) => (
@@ -188,11 +173,13 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
               </RHFSelect>
             </Box>
             <RHFTextField sx={{mt: 3}} multiline rows={2} name="note" label="Note" />
-
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Create User' : 'Save Changes'}
-              </LoadingButton>
+              <Stack direction="row" spacing={2}>
+                <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+                  {!isEdit ? 'Create User' : 'Save Changes'}
+                </LoadingButton>
+                <Button onClick={() => navigate(-1)}>Cancel</Button>
+              </Stack>
             </Stack>
           </Card>
         </Grid>
