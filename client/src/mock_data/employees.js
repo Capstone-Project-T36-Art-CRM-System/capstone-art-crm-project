@@ -1,5 +1,6 @@
-export function getEmployeeList() {
-    return employeeList.sort((a,b) => b.position - a.position);
+export function getEmployeeList(position) {
+    if (position) { return employeeList.filter(employee => !employee.isFired).filter(employee => employee.position === position)}
+    return employeeList.filter(employee => !employee.isFired).sort((a,b) => b.position - a.position);
 }
 
 export function getEmployeebyId(employeeId) {

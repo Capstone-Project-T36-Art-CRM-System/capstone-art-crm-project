@@ -16,7 +16,7 @@ import Iconify from '../../components/Iconify';
 
 // Page Sections
 import { CalendarForm, CalendarStyle, CalendarToolbar } from '../../sections/_dashboard/calendar';
-import { getSchedule } from '../../mock_data/events';
+import { getSchedule } from '../../mock_data/schedule';
 
 export default function Calendar() {
 
@@ -85,8 +85,9 @@ export default function Calendar() {
       const calendarApi = calendarEl.getApi();
       calendarApi.unselect();
     }
-    const { start, end } = arg;
-    setSelectedRange({ start, end })
+    const { start, end, allDay } = arg;
+    setSelectedRange({ start, end, allDay })
+    console.log(arg)
     setIsModalOpen(true)
   };
 

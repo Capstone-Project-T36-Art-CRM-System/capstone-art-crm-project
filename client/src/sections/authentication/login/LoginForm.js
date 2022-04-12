@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, Alert, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-// hooks
+// Auth Context
 import { useAuth } from "../../../contexts/AuthContext"
 
 // components

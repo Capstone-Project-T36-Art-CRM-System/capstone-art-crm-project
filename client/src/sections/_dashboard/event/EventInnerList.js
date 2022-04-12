@@ -22,12 +22,13 @@ import { getEventList } from '../../../mock_data/events';
 import { format } from 'date-fns';
 import { CustomerListHead } from '../customer/list';
 import { fCurrency } from '../../../utils/formatNumber';
+import { getScheduleByEventId } from '../../../mock_data/schedule';
 
 export default function EventInnerList({eventType}) {
     const [eventList, setEventList] = useState(getEventList(eventType || null).map(event => ({
-        last_scheduled: event.schedule[event.schedule.length - 1].start,
-        events_completed: event.schedule.filter(scheduleItem => scheduleItem.start < new Date()).length,
-        events_scheduled: event.schedule.filter(scheduleItem => scheduleItem.start > new Date()).length,
+        last_scheduled: getScheduleByEventId(event.eventId)[getScheduleByEventId(event.eventId).length - 1].start,
+        events_completed: getScheduleByEventId(event.eventId).filter(scheduleItem => scheduleItem.start < new Date()).length,
+        events_scheduled: getScheduleByEventId(event.eventId).filter(scheduleItem => scheduleItem.start > new Date()).length,
         ...event
     })));
     const [page, setPage] = useState(0);

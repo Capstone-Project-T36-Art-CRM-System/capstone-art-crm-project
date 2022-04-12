@@ -14,8 +14,8 @@ import { Button, Box, Divider, MenuItem, Typography, Avatar, IconButton } from '
 // Shared Components Import
 import MenuPopover from '../../components/MenuPopover';
 
-// Mockup Data
-import account from '../../mock_data/account';
+// Auth Context
+import { useAuth } from "../../contexts/AuthContext"
 
 
 const MENU_OPTIONS = [
@@ -39,6 +39,7 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const { currentUser } = useAuth();
 
   const handleOpen = () => {
     setOpen(true);
@@ -80,10 +81,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle1" noWrap>
-            {account.displayName}
+            {currentUser?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {currentUser.email}
           </Typography>
         </Box>
 

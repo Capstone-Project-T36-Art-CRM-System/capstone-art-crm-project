@@ -14,8 +14,10 @@ import Iconify from '../../../components/Iconify';
 import { ColorSinglePicker } from '../../../components/color-utils';
 import { FormProvider, RHFTextField, RHFSwitch } from '../../../components/hook-form';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { deleteEvent, deleteScheduledEvent, getEventbyId, getEventList, getScheduledEventbyId, scheduleEvent, updateScheduledEvent } from '../../../mock_data/events';
+import { getEventbyId, getEventList } from '../../../mock_data/events';
+import { deleteScheduledEvent, getScheduledEventbyId, scheduleEvent, updateScheduledEvent } from '../../../mock_data/schedule';
 import { useMemo } from 'react';
+import { getEmployeebyId, getEmployeeList } from '../../../mock_data/employees';
 
 // ----------------------------------------------------------------------
 
@@ -60,29 +62,25 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
   });
 
   const scheduledEvent = getScheduledEventbyId(scheduledEventId)
-  console.log(scheduledEvent?.id.substring(1, 2))
 
-  // const defaultValues = useMemo(
-  //   () => ({
-  //     title: curEvent?.title || '',
-  //     description: curEvent?.description || '',
-  //     // textColor: curEvent?.textColor || '',
-  //     // allDay: curEvent?.allDay || false,
-  //     // start: curEvent?.start || range?.start || null,
-  //     // end: curEvent?.end || range?.end || null,
+  const defaultValues = useMemo(
+    () => ({
+      title: scheduledEvent?.title || '',
+      textColor: scheduledEvent?.textColor || '',
+      allDay: scheduledEvent?.allDay || range?.allDay || false,
+      start: scheduledEvent?.start || range?.start || null,
+      end: scheduledEvent?.end || range?.end || null,
+      event: getEventbyId(scheduledEvent?.eventId) || null,
+      instructor: getEmployeebyId(scheduledEvent?.instructorId) || null
 
-  //   }),
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [curEvent]
-  // );
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [scheduledEvent]
+  );
 
   const methods = useForm({
     resolver: yupResolver(EventSchema),
-    defaultValues: getInitialValues(
-      { 
-        ...scheduledEvent, 
-        event: getEventbyId( scheduledEvent?.id.substring(1, 2) ) 
-      }, range)
+    defaultValues
   });
 
   const {
@@ -96,6 +94,8 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
   const onSubmit = async (data) => {
     try {
       const scheduleItemFields = {
+        eventId: data.event.eventId,
+        instructorId: data.instructor.employeeId,
         title: data.event.title,
         description: data.description,
         textColor: data.textColor,
@@ -106,7 +106,7 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
       if (scheduledEventId) {
         updateScheduledEvent(scheduledEventId, scheduleItemFields)
       } else {
-        scheduleEvent(data.event.eventId, scheduleItemFields)
+        scheduleEvent(scheduleItemFields)
       }
       onCancel();
       
@@ -140,10 +140,26 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
             <Autocomplete
               {...field}
               options={getEventList()}
-              getOptionSelected={(option, value) => option.eventId == value.eventId}
+              isOptionEqualToValue={(option, value) => option.eventId == value.eventId}
+              getOptionLabel={event => `${event.title}`}
               onChange={(event, newValue) => { field.onChange(newValue); }}
               renderInput={(params) => <RHFTextField label="Event" {...params} />}
-              getOptionLabel={event => `${event.title}`}
+            />
+          )}
+        />
+
+        <Controller
+          name="instructor"
+          control={control}
+          render={({ field }) => (
+            <Autocomplete
+              {...field}
+              options={getEmployeeList('Instructor')}
+              isOptionEqualToValue={(option, value) => option.employeeId == value.instructorId}
+              getOptionLabel={instructor => `${instructor.name}`}
+              onChange={(event, newValue) => { field.onChange(newValue); }}
+              renderInput={(params) => <RHFTextField label="Instructor" {...params} />}
+
             />
           )}
         />
