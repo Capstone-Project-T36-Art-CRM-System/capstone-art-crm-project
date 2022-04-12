@@ -22,7 +22,7 @@ import { getEmployeebyId, getEmployeeList } from '../../../mock_data/employees';
 // ----------------------------------------------------------------------
 
 const COLOR_OPTIONS = [
-  '#00AB55', // theme.palette.primary.main,
+  '#B18CE7', // theme.palette.primary.main,
   '#1890FF', // theme.palette.info.main,
   '#54D62C', // theme.palette.success.main,
   '#FFC107', // theme.palette.warning.main,
@@ -95,7 +95,7 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
     try {
       const scheduleItemFields = {
         eventId: data.event.eventId,
-        instructorId: data.instructor.employeeId,
+        instructorId: data.instructor?.employeeId,
         title: data.event.title,
         description: data.description,
         textColor: data.textColor,
