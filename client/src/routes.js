@@ -13,6 +13,7 @@ import CustomerAccount from './pages/_dashboard/CustomerAccount';
 import CustomerCreate from './pages/_dashboard/CustomerCreate';
 
 import EventList from './pages/_dashboard/EventList';
+import EventDetails from './pages/_dashboard/EventDetails';
 
 import ArtworkList from './pages/_dashboard/ArtworkList';
 import ArtworkDetails from './pages/_dashboard/ArtworkDetails';
@@ -63,7 +64,7 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/event/list" replace />, index: true },
             { path: 'list', element: <EventList /> },
-            // { path: ':eventId', element: <EventDetails /> },
+            { path: ':eventId', element: <EventDetails /> },
             // { path: 'new', element: <EventCreate /> },
             // { path: ':eventId/edit', element: <EventCreate /> },
           ],

@@ -15,31 +15,22 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 
 // Components Import
-import Iconify from '../../../components/Iconify';
+import Iconify from '../../../../../components/Iconify';
 
 // MOCK DATA
-import { getEventList } from '../../../mock_data/events';
 import { format } from 'date-fns';
-import { CustomerListHead } from '../customer/list';
-import { fCurrency } from '../../../utils/formatNumber';
-import { getScheduleByEventId } from '../../../mock_data/schedule';
+import { CustomerListHead } from '../../../customer/list';
+import { getSchedule } from '../../../../../mock_data/schedule';
+import { getEmployeebyId } from '../../../../../mock_data/employees';
 
-export default function EventInnerList({eventType}) {
-    const [eventList, setEventList] = useState(getEventList(eventType || null).map(event => ({
-        last_scheduled:   getScheduleByEventId(event.eventId)?.reduce((prev, current) => {return (prev?.start > current?.start) ? prev.start : current.start}, null),
-        last_scheduledId: getScheduleByEventId(event.eventId)?.reduce((prev, current) => {return (prev?.start > current?.start) ? prev.id : current.id}, null),
-        events_completed: getScheduleByEventId(event.eventId).filter(scheduleItem => scheduleItem.end < new Date()).length,
-        events_scheduled: getScheduleByEventId(event.eventId).filter(scheduleItem => scheduleItem.end > new Date()).length,
-        ...event
-    })));
+export default function ScheduleList() {
+    const [scheduleList, setScheduleList] = useState(getSchedule());
     const [page, setPage] = useState(0);
 
   const TABLE_HEAD = [
-    { id: 'title', label: 'Title', alignRight: false },
-    { id: 'last_scheduled', label: 'Last scheduled', alignRight: false },
-    { id: 'price', label: 'Ticket Price', alignRight: false },
-    { id: 'events_completed', label: 'Events Completed', alignRight: false },
-    { id: 'events_scheduled', label: 'Events Scheduled', alignRight: false },
+    { id: 'start', label: 'Start', alignRight: false },
+    { id: 'end', label: 'End', alignRight: false },
+    { id: 'instructor', label: 'Instructor', alignRight: false },
     { id: '' },
   ];
 
@@ -52,7 +43,7 @@ export default function EventInnerList({eventType}) {
     setOrderBy(property);
   };
 
-  const filteredEvents = applySortFilter(eventList, getComparator(order, orderBy));
+  const filteredSchedule = applySortFilter(scheduleList, getComparator(order, orderBy));
 
   return (
     <>
@@ -65,21 +56,17 @@ export default function EventInnerList({eventType}) {
                 onRequestSort={handleRequestSort}
             />  
           <TableBody>
-            {filteredEvents.slice(page * 5, page * 5 + 5).map((row) => (
-              <TableRow key={row?.eventId} hover>
-
-                <TableCell>{row?.title}</TableCell>
+            {filteredSchedule.slice(page * 5, page * 5 + 5).map((row) => (
+              <TableRow key={row?.id} hover>
                 
-                <TableCell>{row?.last_scheduled ? format(new Date(row?.last_scheduled), 'p, dd MMM yyyy') : 'Never Scheduled'}</TableCell>
+                <TableCell>{format(new Date(row?.start), 'p, dd MMM yyyy')}</TableCell>
 
-                <TableCell>{fCurrency(row?.price)}</TableCell>
+                <TableCell>{format(new Date(row?.end), 'p, dd MMM yyyy')}</TableCell>
 
-                <TableCell>{row?.events_completed}</TableCell>
-
-                <TableCell>{row?.events_scheduled}</TableCell>
+                <TableCell>{getEmployeebyId(row?.instructorId)?.name || "Not Assigned"}</TableCell>
 
                 <TableCell align="right">
-                  <MoreMenuButton eventId={row?.eventId}/>
+                  <MoreMenuButton eventId={row?.id}/>
                 </TableCell>
               </TableRow>
             ))}
@@ -89,7 +76,7 @@ export default function EventInnerList({eventType}) {
       <TablePagination
         rowsPerPageOptions={[5,]}
         component="div"
-        count={eventList.length}
+        count={filteredSchedule.length}
         rowsPerPage={5}
         page={page}
         onPageChange={(e, page) => setPage(page)}
