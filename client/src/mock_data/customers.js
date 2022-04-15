@@ -31,7 +31,6 @@ export async function updateCustomer(customerId, customerFields) {
         ...customerFields,
         updated: getTime(new Date()),
     }
-    console.log(newCustomer)
 
     try {
         customerList = customerList.map(customer => {
@@ -69,18 +68,6 @@ let customerList = [
         "status": "active",
         "isRecordingAgreed": true,
         "created": 1627000028365,
-        "docList": [
-            {
-                "title": "COVID-19 Passport",
-                "type": "Personal",
-                "expDate": 1648310365329
-            },
-            {
-                "title": "Service Agreement",
-                "type": "Agreement",
-                "expDate": null
-            },
-        ],
     },
     {
         "isDeleted": false,
@@ -94,7 +81,6 @@ let customerList = [
         "status": "rejected",
         "isRecordingAgreed": true,
         "created": 1627111128365,
-        "docList": [],
     },
     {
         "isDeleted": false,
@@ -108,6 +94,5 @@ let customerList = [
         "status": "active",
         "isRecordingAgreed": true,
         "created": 1627222228365,
-        "docList": [],
     }
 ]

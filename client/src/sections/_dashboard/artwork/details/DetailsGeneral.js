@@ -13,7 +13,7 @@ import { fCurrency } from '../../../../utils/formatNumber';
 
 
 export default function DetailsGeneral({ artworkSelected }) {
-  const { artworkId, title, cover, material, height, width, year, price, author  } = artworkSelected
+  const { id, title, cover, material, height, width, year, price, author  } = artworkSelected
 
   return (
     <Stack spacing={3}>
@@ -49,7 +49,7 @@ export default function DetailsGeneral({ artworkSelected }) {
         <Typography variant="body2" fontWeight={400}>{year}</Typography></>}
         
         <Stack direction='row' mt={4}>
-          <Button size="small" component={RouterLink} to={`/dashboard/artwork/${artworkId}/edit`} variant="outlined" sx={{ mr: 1 }}>
+          <Button size="small" component={RouterLink} to={`/dashboard/artwork/${id}/edit`} variant="outlined" sx={{ mr: 1 }}>
             Edit
           </Button>
           <Button size="small" color="inherit" variant="outlined">

@@ -3,12 +3,12 @@ export function getArtworkList() {
 }
   
 export function getArtworkrbyId(artworkId) {
-    return artworkList.find((artwork) => artwork.artworkId === artworkId);
+    return artworkList.find((artwork) => artwork.id === artworkId);
 }
 
 const artworkList = [
     {
-        "artworkId": "A30",
+        "id": "A30",
         "title": "Kuban Still Life",
         "cover": "kuban-still-life",
         "material": "Oil on Canvas",
@@ -22,7 +22,7 @@ const artworkList = [
         "created": 1627111128365,
     },
     {
-        "artworkId": "A31",
+        "id": "A31",
         "title": "Shining Light",
         "cover": "shining-light",
         "material": "Oil on Canvas",
@@ -36,7 +36,7 @@ const artworkList = [
         "created": 1627111128365,
     },
     {
-        "artworkId": "A37",
+        "id": "A37",
         "title": "Sunflowers",
         "cover": "sunflowers",
         "material": "Pencil on Paper",
@@ -50,7 +50,7 @@ const artworkList = [
         "created": 1627111128365,
     },
     {
-        "artworkId": "A51",
+        "id": "A51",
         "title": "Evening",
         "cover": "evening",
         "material": "Oil on Canvas",
@@ -65,7 +65,7 @@ const artworkList = [
     },
 
     {
-        "artworkId": "A52",
+        "id": "A52",
         "title": "Autum Fruits",
         "cover": "autum-fruits",
         "material": "Oil on Canvas",
@@ -79,7 +79,7 @@ const artworkList = [
         "created": 1627111128365,
     },
     {
-        "artworkId": "A102",
+        "id": "A102",
         "title": "Solar Vision",
         "cover": "solar-vision",
         "material": "Oil on Canvas",
@@ -93,7 +93,7 @@ const artworkList = [
         "created": 1627111128365,
     },
     {
-        "artworkId": "A103",
+        "id": "A103",
         "title": "Reflection",
         "cover": "reflection",
         "material": "Oil on Canvas",
@@ -106,173 +106,4 @@ const artworkList = [
         "status": "sold",
         "created": 1627111128365,
     },
-    // {
-    //     "artworkId": 22,
-    //     "title": "Pumpkin's Still Life",
-    //     "seriesId": 9,
-    //     "cover": "pumpkin-still-life",
-    //     "material": "Oil on Canvas",
-    //     "size": "70 x 80",
-    //     "year": 2020,
-    //     "price": "50 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "The still life is distinguished by a carefully thought-out composition. All objects are selected and arranged in such a way as to create a harmonious harmony of shape and color. The main character of the picture is a red juicy pumpkin, conveys the play of autumn colors. Still life has a depth of space, all objects are voluminous, material, dense."
-    // },
-    // {
-    //     "artworkId": 23,
-    //     "title": "Bouquet in Focus",
-    //     "seriesId": 4,
-    //     "cover": "bouquet-in-focus",
-    //     "material": "Oil on Canvas",
-    //     "size": "50 x 60",
-    //     "year": 2017,
-    //     "price": "40 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "This picture is a real apotheosis of summer. It depicts a huge bouquet of fresh garden flowers on a dark background, which allows you to attract more attention to the bouquet."
-    // },
-    // {
-    //     "artworkId": 24,
-    //     "title": "Lilac",
-    //     "seriesId": 4,
-    //     "cover": "lilac",
-    //     "material": "Oil on Canvas",
-    //     "size": "40 x 65",
-    //     "year": 2015,
-    //     "price": "40 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "It is written in juicy, bright colors. The volumetric relief of the brushstrokes gives a feeling of maximum similarity with fragrant, lush branches of lilac. All the shades of this spring bloom mixed into a single vortex of purple mystery!"
-    // },
-    // {
-    //     "artworkId": 25,
-    //     "title": "Citruses",
-    //     "material": "Oil on Canvas",
-    //     "size": "40 x 40",
-    //     "year": 2017,
-    //     "price": "30 000",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
-    // {
-    //     "artworkId": 26,
-    //     "title": "Bouquet",
-    //     "seriesId": 4,
-    //     "cover": "bouquet",
-    //     "material": "Oil on Canvas",
-    //     "size": "50 x 70",
-    //     "year": 2017,
-    //     "price": "35 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "The flowers in the painting are painted with large expressive strokes. The elegant simplicity of the bouquet emphasizes the natural beauty of the plant. The painting is made on a bright yellow background, which immediately helps to return to sunny summer at any time of the year."
-    // },
-    // {
-    //     "artworkId": 27,
-    //     "title": "Flowers",
-    //     "material": "Oil on Canvas",
-    //     "size": "50 x 40",
-    //     "year": 2016,
-    //     "price": "30 000",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
-    // {
-    //     "artworkId": 28,
-    //     "title": "Thistle",
-    //     "seriesId": 4,
-    //     "cover": "thistle",
-    //     "material": "Oil on Canvas",
-    //     "size": "40 x 60",
-    //     "year": 2015,
-    //     "price": "30 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "There is something incredibly attractive in this strict, unpretentious flower and the artist caught this charm! The thistle on the canvas looks very exquisite, every detail is spelled out to the smallest detail. The restrained color scheme will allow this work to fit perfectly into any interior."
-    // },
-    // {
-    //     "artworkId": 29,
-    //     "title": "Romantic Evening",
-    //     "material": "Oil on Canvas",
-    //     "size": "50 x 60",
-    //     "year": 2018,
-    //     "price": "30 000",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
-    // {
-    //     "artworkId": 30,
-    //     "title": "Light of the Past",
-    //     "seriesId": 1,
-    //     "cover": "light-of-the-past",
-    //     "material": "Oil on Canvas",
-    //     "size": "100 x 100",
-    //     "year": 2015,
-    //     "price": "250 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "The painting is painted in the technique of multi-layered painting, it is due to it that you get the feeling that the light comes from inside the painting and spreads a pleasant warmth in the soul..."
-    // },
-    // {
-    //     "artworkId": 31,
-    //     "title": "Shining Light",
-    //     "seriesId": 1,
-    //     "cover": "shining-light",
-    //     "material": "Oil on Canvas",
-    //     "size": "80 x 60",
-    //     "year": 2020,
-    //     "price": "200 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "Who doesn't wonder what his city looked like 100 years ago? Looking at the picture plunges into the past... It feels like the building is shining like gold."
-    // },
-    // {
-    //     "artworkId": 32,
-    //     "title": "Tulips",
-    //     "seriesId": 4,
-    //     "cover": "tulips",
-    //     "material": "Oil on Canvas",
-    //     "size": "40 x 60",
-    //     "year": 2015,
-    //     "price": "25 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "The energy of spring... bright juicy joyful colors attract the eye. The longer you look, the more elegant details that make this work unique become visible."
-    // },
-    // {
-    //     "artworkId": 33,
-    //     "title": "Riot of colors",
-    //     "material": "Oil on Canvas",
-    //     "size": "35 x 45",
-    //     "year": 2019,
-    //     "price": "25 000",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
-    // {
-    //     "artworkId": 34,
-    //     "title": "Improvisation",
-    //     "seriesId": 7,
-    //     "cover": "improvisation",
-    //     "material": "Oil on Canvas",
-    //     "size": "60 x 80",
-    //     "year": 2012,
-    //     "price": "90 000",        
-    //     "author": "Julia Kudina",
-    //     "description": "The author conveys his mood \"here and now\". A wonderful work that will fit into any interior."
-    // },
-    // {
-    //     "artworkId": 35,
-    //     "title": "Wave",
-    //     "materialRu": "ншет, акрил",
-    //     "material": "Acrylic on Cardboard",
-    //     "size": "40 x 60",
-    //     "year": 2019,
-    //     "price": "10 000",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
-    // {
-    //     "artworkId": 36,
-    //     "title": "Old Tower",
-    //     "material": "Oil on Canvas",
-    //     "size": "30 x 17",
-    //     "year": 2015,
-    //     "price": "",        
-    //     "author": "Julia Kudina",
-    //     "description": ""
-    // },
 ]

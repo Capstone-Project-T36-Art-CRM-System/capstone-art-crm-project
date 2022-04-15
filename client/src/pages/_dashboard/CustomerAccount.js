@@ -41,11 +41,6 @@ export default function CustomerAccount() {
       component: <AccountPayments customerId={customerSelected?.customerId} />,
     },
     {
-      value: 'documents',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-      component: <AccountDocs customerSelected={customerSelected} />,
-    },
-    {
       value: 'tickets',
       icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
       component: <AccountTickets customerSelected={customerSelected} />,

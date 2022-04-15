@@ -14,6 +14,7 @@ import {
 
 // Components Import
 import Label from '../../../../../components/Label';
+import { getEventbyId } from '../../../../../mock_data/events';
 
 
 export default function AccountTicketList({ ticketList, setOpen }) {
@@ -25,8 +26,8 @@ export default function AccountTicketList({ ticketList, setOpen }) {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Document name</TableCell>
-              <TableCell>Type</TableCell>
+              <TableCell>Event</TableCell>
+              <TableCell>Created</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Expiration date</TableCell>
               <TableCell />
@@ -34,18 +35,18 @@ export default function AccountTicketList({ ticketList, setOpen }) {
           </TableHead>
           <TableBody>
             {ticketList?.sort((a,b) => a.expDate - b.expDate && b.expDate).slice(page * 5, page * 5 + 5).map((row) => (
-              <TableRow key={row.title}>
+              <TableRow key={row.id}>
 
-                <TableCell>{row.title}</TableCell>
+                <TableCell>{getEventbyId(row.eventId).title}</TableCell>
 
-                <TableCell>{row.type}</TableCell>
+                <TableCell>{format(row.created, 'dd MMM, yyyy')}</TableCell>
 
                 <TableCell align="left">
                     <Label
                     variant='ghost'
-                    color={!row.expDate ? 'success' : ((endOfDay(row.expDate) - endOfDay(new Date()) < 0 && 'error') || 'success')}
+                    color={row.isUsed ? 'error' : ((endOfDay(row.expDate) - endOfDay(new Date()) < 0 && 'error') || 'success')}
                     >
-                        {!row.expDate ? 'Active' : ((endOfDay(row.expDate) - endOfDay(new Date()) < 0 && 'Exipred') || 'Active')}
+                        {row.isUsed ? 'Used' : ((endOfDay(row.expDate) - endOfDay(new Date()) < 0 && 'Expired') || 'Active')}
                     </Label>
                 </TableCell>
 

@@ -6,8 +6,10 @@ export function getSchedule() {
 }
 
 export function getScheduleByEventId(eventId) {
-    console.log(eventId)
-    return scheduleList.filter(scheduleItem => scheduleItem.eventId == eventId).map(scheduleItem => ({title: getEventbyId(scheduleItem.eventId).title, ...scheduleItem}));
+    return scheduleList
+    .filter(scheduleItem => scheduleItem.eventId == eventId)
+    .map(scheduleItem => ({title: getEventbyId(scheduleItem.eventId).title, ...scheduleItem}))
+    .sort((a,b) => b.start - a.start);
 }
 
 export function getScheduledEventbyId(scheduleItemId) {

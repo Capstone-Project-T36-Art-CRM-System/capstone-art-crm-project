@@ -5,16 +5,16 @@ import { Card, CardHeader } from '@mui/material';
 
 // Components Import
 import AccountTicketList from './AccountTicketList';
+import { getTicketListByCustomerId } from '../../../../../mock_data/tickets';
 
 export default function AccountTickets({ customerSelected }) {
   const [open, setOpen] = useState(false);
 
   return (
     <Card>
-      <CardHeader title="Tickets" sx={{ mb: 3 }}
-      />
+      <CardHeader title="Tickets" sx={{ mb: 3 }}/>
         <AccountTicketList 
-          ticketList={customerSelected?.ticketList} 
+          ticketList={ getTicketListByCustomerId(customerSelected.customerId)} 
           setOpen={(value) => setOpen(value)}
         />
     </Card>

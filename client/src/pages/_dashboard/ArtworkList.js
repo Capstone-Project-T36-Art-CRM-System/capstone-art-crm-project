@@ -35,7 +35,7 @@ import { getArtworkList } from '../../mock_data/artworks';
 
 const TABLE_HEAD = [
   { id: 'title', label: 'Artwork', alignRight: false },
-  { id: 'artworkId', label: 'ID', alignRight: false },
+  { id: 'id', label: 'ID', alignRight: false },
   { id: 'material', label: 'Material', alignRight: false },
   { id: 'size', label: 'Size', alignRight: false },
   { id: 'year', label: 'Year', alignRight: false },
@@ -48,7 +48,7 @@ export default function ArtworkList() {
   const [artworkList, setArtworkList] = useState(getArtworkList());
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('desc');
-  const [orderBy, setOrderBy] = useState('artworkId');
+  const [orderBy, setOrderBy] = useState('id');
   const [filterKey, setFilterKey] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -111,12 +111,12 @@ export default function ArtworkList() {
                 />
                 <TableBody>
                   {filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { artworkId, cover, title, material, height, width, year, author, status } = row;
+                    const { id, cover, title, material, height, width, year, author, status } = row;
 
                     return (
                       <TableRow
                         hover
-                        key={artworkId}
+                        key={id}
                         tabIndex={-1}
                         role="checkbox"
                       >
@@ -131,7 +131,7 @@ export default function ArtworkList() {
                             {title}
                           </Typography>
                         </TableCell>
-                        <TableCell align="left">{artworkId}</TableCell>
+                        <TableCell align="left">{id}</TableCell>
                         <TableCell align="left">{material}</TableCell>
                         <TableCell align="left">{`${height} x ${width} cm`}</TableCell>
                         <TableCell align="left">{year}</TableCell>
@@ -146,7 +146,7 @@ export default function ArtworkList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <ArtworkMoreMenu artworkId={artworkId} />
+                          <ArtworkMoreMenu artworkId={id} />
                         </TableCell>
                       </TableRow>
                     );

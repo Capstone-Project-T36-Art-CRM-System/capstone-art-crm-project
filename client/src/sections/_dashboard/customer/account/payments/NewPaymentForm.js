@@ -58,7 +58,7 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
     const values = watch();
   
     useEffect(() => {
-      if (values.event){ setValue("note", `Tiket – ${values.event.title}`) }
+      if (values.event){ setValue("note", `Ticket – ${values.event.title}`) }
       if (values.artwork){ setValue("note", `Artwork – ${values.artwork.title}, ${values.artwork.year}`) }
     }, [values.event, values.artwork, setValue]);
   
@@ -75,7 +75,7 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
         employeeId: null,
         productCategory: data.productCategory,
         note: data.note,
-        productId: data.event?.eventId || data.artwork?.artworkId,
+        productId: data.event?.eventId || data.artwork?.id,
         date: data.date,
         amount: data.amount
       }
@@ -123,7 +123,7 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
                 {...field}
                 options={getArtworkList()}
                 getOptionLabel={artwork => ` ${artwork.title}, ${artwork.year} – ${fCurrency(artwork.price)}`}
-                isOptionEqualToValue={(option, value) => option.artworkId == value.artworkId}
+                isOptionEqualToValue={(option, value) => option.id == value.id}
                 onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}
                 renderInput={(params) => <RHFTextField label="Artwork" {...params} {...field} />}
               />

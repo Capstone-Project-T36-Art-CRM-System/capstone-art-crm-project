@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // Material UI
 import {
@@ -9,6 +10,10 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Box,
+  Dialog,
+  DialogTitle,
+  Stack,
 } from '@mui/material';
 
 // React Routing
@@ -20,11 +25,12 @@ import Iconify from '../../../../../components/Iconify';
 // MOCK DATA
 import { format } from 'date-fns';
 import { CustomerListHead } from '../../../customer/list';
-import { getSchedule } from '../../../../../mock_data/schedule';
+import { getSchedule, getScheduleByEventId } from '../../../../../mock_data/schedule';
 import { getEmployeebyId } from '../../../../../mock_data/employees';
+import CalendarForm from '../../../calendar/CalendarForm';
 
-export default function ScheduleList() {
-    const [scheduleList, setScheduleList] = useState(getSchedule());
+export default function ScheduleList({ eventId }) {
+    const [scheduleList, setScheduleList] = useState(getScheduleByEventId(eventId));
     const [page, setPage] = useState(0);
 
   const TABLE_HEAD = [
@@ -35,7 +41,7 @@ export default function ScheduleList() {
   ];
 
   const [order, setOrder] = useState('desc');
-  const [orderBy, setOrderBy] = useState('last_scheduled');
+  const [orderBy, setOrderBy] = useState('start');
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -66,7 +72,7 @@ export default function ScheduleList() {
                 <TableCell>{getEmployeebyId(row?.instructorId)?.name || "Not Assigned"}</TableCell>
 
                 <TableCell align="right">
-                  <MoreMenuButton eventId={row?.id}/>
+                  <ScheduleDialog scheduleId={row?.id}/>
                 </TableCell>
               </TableRow>
             ))}
@@ -115,7 +121,13 @@ function applySortFilter(array, comparator) {
 
 
 
-function MoreMenuButton({eventId}) {
+// Props
+ScheduleDialog.propTypes = {
+  scheduleId: PropTypes.number,
+  children: PropTypes.node,
+};
+
+function ScheduleDialog({ scheduleId, children }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -126,53 +138,26 @@ function MoreMenuButton({eventId}) {
     setOpen(null);
   };
 
-  const ICON = {
-    mr: 2,
-    width: 20,
-    height: 20,
-  };
-
   return (
     <>
-      <IconButton size="large" component={RouterLink} to={`/dashboard/event/${eventId}`}>
-        <Iconify icon={'eva:eye-fill'} width={20} height={20} />
+      {children ? 
+      <Box onClick={handleOpen}>
+        {children}
+      </Box>
+      :
+      <IconButton onClick={handleOpen}>
+        <Iconify icon={'eva:edit-fill'} width={20} height={20} />
       </IconButton>
+      }
 
-      {/* <MenuPopover
-        open={Boolean(open)}
-        anchorEl={open}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        arrow="right-top"
-        sx={{
-          mt: -0.5,
-          width: 160,
-          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
-        }}
-      >
-        <MenuItem>
-          <Iconify icon={'eva:download-fill'} sx={{ ...ICON }} />
-          Download
-        </MenuItem>
+      <Dialog open={Boolean(open)} fullWidth onCancel={handleClose}>
+        <DialogTitle>{!scheduleId ? 'Schedule Event' : 'Update Schedule'}</DialogTitle>
 
-        <MenuItem>
-          <Iconify icon={'eva:printer-fill'} sx={{ ...ICON }} />
-          Print
-        </MenuItem>
 
-        <MenuItem>
-          <Iconify icon={'eva:share-fill'} sx={{ ...ICON }} />
-          Share
-        </MenuItem>
+            <CalendarForm scheduledEventId={scheduleId} onCancel={handleClose}/>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
-          Delete
-        </MenuItem>
-      </MenuPopover> */}
+      </Dialog>
     </>
   );
 }

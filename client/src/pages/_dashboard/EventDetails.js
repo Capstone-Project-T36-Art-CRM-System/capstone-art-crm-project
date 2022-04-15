@@ -13,13 +13,12 @@ import Iconify from '../../components/Iconify';
 
 // Page Sections Import
 import {
-  EventGeneral,
+  EventGeneral, EventSchedule,
   
 } from '../../sections/_dashboard/event/details';
 
 // MOCK DATA
 import { getEventbyId } from '../../mock_data/events';
-import { ScheduleList } from '../../sections/_dashboard/event/details/schedule';
 
 
 export default function EventDetails() {
@@ -31,7 +30,7 @@ export default function EventDetails() {
     {
       value: 'schedule',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <ScheduleList eventSelected={eventSelected} />,
+      component: <EventSchedule eventId={eventId} />,
     },
     {
       value: 'tickets',
