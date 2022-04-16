@@ -70,6 +70,17 @@ export default function ArtworkList() {
 
   }, [])
 
+  // const updateArtwork = async (id, age) => {
+  //   const userDoc = doc(db, "users", id);
+  //   const newFields = { age: age + 1 };
+  //   await updateDoc(userDoc, newFields);
+  // };
+
+  // const deleteArtwork= async (id) => {
+  //   const userDoc = doc(db, "users", id);
+  //   await deleteDoc(userDoc);
+  // };
+
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
