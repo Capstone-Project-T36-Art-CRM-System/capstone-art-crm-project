@@ -1,5 +1,5 @@
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Routing
 import { Link as RouterLink } from 'react-router-dom';
@@ -28,9 +28,13 @@ import Image from '../../components/Image';
 
 // Page Sections Import
 import { ArtworkListHead, ArtworkListToolbar, ArtworkMoreMenu } from '../../sections/_dashboard/artwork/list';
+import { collection, getDocs } from 'firebase/firestore';
 
 // MOCK DATA
-import { getArtworkList } from '../../mock_data/artworks';
+// import { getArtworkList } from '../../mock_data/artworks';
+
+// FIRESTORE
+import { db } from '../../firebase';
 
 
 const TABLE_HEAD = [
@@ -45,12 +49,26 @@ const TABLE_HEAD = [
 ];
 
 export default function ArtworkList() {
-  const [artworkList, setArtworkList] = useState(getArtworkList());
+  const [artworkList, setArtworkList] = useState([]);
+  const artworlCollectionRef = collection(db, "artworks") 
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('id');
   const [filterKey, setFilterKey] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+
+    const getArtworkList = async () => {
+
+      const data = await getDocs(artworlCollectionRef)
+      setArtworkList(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+
+    }
+
+    getArtworkList();
+
+  }, [])
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -73,6 +91,7 @@ export default function ArtworkList() {
   const filteredCustomers = applySortFilter(artworkList, getComparator(order, orderBy), filterKey);
 
   const isNotFound = !filteredCustomers.length && Boolean(filterKey);
+
 
   return (
     <Page title="Artworks">
