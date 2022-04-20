@@ -13,7 +13,7 @@ const employeeList = [
         name: 'Amma Lee',
         email: 'amma.lee@artlead.ca',
         position: "Head Manager",
-        photoURL: '/static/logo.svg',
+        // photoURL: '/static/logo.svg',
         isFired: false,
         phone: "272-940-8266",
         hasAccess: true,

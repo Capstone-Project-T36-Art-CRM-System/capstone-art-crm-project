@@ -77,9 +77,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
 
 
-  const createArtwork = async () => {
-    await addDoc(artworlCollectionRef,  { name: newAuthor, cover: newCover, description: newDescription, height: Number(newHeight), width: Number(newWidth), price: Number(newPrice), material: Number(newMaterial), status: newStatus, title: newTitle, year: Number(newYear) } );
-  };
+
 
   const [newAuthor, setNewAuthor] = useState("");
   const [newCover, setNewCover] = useState("");
@@ -130,9 +128,13 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const onSubmit = async (values) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
 
-      console.log(values.cover)
+      const createArtwork = async () => {
+        await addDoc(artworlCollectionRef,  { name: values.author, cover: newCover, description: newDescription, height: Number(newHeight), width: Number(newWidth), price: Number(newPrice), material: Number(newMaterial), status: newStatus, title: newTitle, year: Number(newYear) } );
+      };
+
+      console.log(values)
       // navigate(`/dashboard/artwork/list`)
       // reset();
     } catch (error) {
@@ -332,7 +334,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
           setNewYear(event.target.value);
         }}
       />
-       <button onClick={createArtwork}> Create Art Work</button>
+       <button onClick={onSubmit}> Create Art Work</button>
     
     </div>
   );

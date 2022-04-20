@@ -14,9 +14,7 @@ export async function addCustomer(customerFields) {
         isDeleted: false,
         customerId: "C" + customerList.length + 1,
         created: getTime(new Date()),
-        updated: getTime(new Date()),
-        ticketList: [],
-        docList: [],
+        updated: getTime(new Date())
     }
 
     try {

@@ -20,7 +20,6 @@ import {
 // MOCK DATA
 import { getArtworkrbyId } from '../../mock_data/artworks';
 
-
 export default function ArtworkDetails() {
   const { artworkId } = useParams();
   const [artworkSelected, setArtworkSelected] = useState(getArtworkrbyId(artworkId));
@@ -65,7 +64,7 @@ export default function ArtworkDetails() {
                         <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
                     ))}
                 </Tabs>
-
+                
                 <Box sx={{ mb: 5 }} />
 
                 {DETAILS_TABS.map((tab) => {
