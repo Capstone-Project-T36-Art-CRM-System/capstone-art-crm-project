@@ -14,7 +14,6 @@ import { fCurrency } from '../../../../utils/formatNumber';
 
 export default function DetailsGeneral({ artworkSelected }) {
   const { id, title, cover, material, height, width, year, price, author  } = artworkSelected
-
   return (
     <Stack spacing={3}>
       <Card>

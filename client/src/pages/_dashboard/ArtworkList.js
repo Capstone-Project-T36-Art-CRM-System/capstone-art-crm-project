@@ -17,6 +17,7 @@ import {
   TableContainer,
   TablePagination,
   Stack,
+  CircularProgress,
 } from '@mui/material';
 
 // Page Components Import
@@ -28,13 +29,9 @@ import Image from '../../components/Image';
 
 // Page Sections Import
 import { ArtworkListHead, ArtworkListToolbar, ArtworkMoreMenu } from '../../sections/_dashboard/artwork/list';
-import { collection, getDocs } from 'firebase/firestore';
-
-// MOCK DATA
-// import { getArtworkList } from '../../mock_data/artworks';
 
 // FIRESTORE
-import { db } from '../../firebase';
+import { getArtworkList } from '../../mock_data/artworks';
 
 
 const TABLE_HEAD = [
@@ -50,7 +47,6 @@ const TABLE_HEAD = [
 
 export default function ArtworkList() {
   const [artworkList, setArtworkList] = useState([]);
-  const artworlCollectionRef = collection(db, "artworks") 
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('id');
@@ -58,17 +54,10 @@ export default function ArtworkList() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
-
-    const getArtworkList = async () => {
-
-      const data = await getDocs(artworlCollectionRef)
-      setArtworkList(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-
-    }
-    
-    getArtworkList();
-
-  }, [])
+    getArtworkList()
+    .then((data) => setArtworkList(data.docs.map((doc) => ({...doc.data(), id: doc.id }))))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, []);
 
 
   const handleRequestSort = (property) => {
@@ -95,9 +84,11 @@ export default function ArtworkList() {
 
 
   return (
+    !artworkList ? 
+    <CircularProgress /> 
+    :
     <Page title="Artworks">
       <Container maxWidth='xl'>
-
         {/* Page Title */}
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>

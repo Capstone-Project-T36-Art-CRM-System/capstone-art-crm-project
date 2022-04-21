@@ -6,15 +6,15 @@ import { useNavigate } from 'react-router-dom';
 
 // Form Controls
 import * as Yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Material UI
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
+import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // Components Import
-import { FormProvider, RHFUploadImage, RHFSwitch, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFUploadImage, RHFTextField } from '../../../components/hook-form';
 
 //Utils
 import { fData } from '../../../utils/formatNumber';
@@ -46,7 +46,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
     price: Yup.number().typeError('Number must be specified').required('Price is required'),
     height: Yup.number().typeError('Number must be specified').required('Height is required'),
     width: Yup.number().typeError('Number must be specified').required('Width is required'),
-    cover: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''),
+    coverPrev: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''),
   });
 
   const defaultValues = useMemo(
@@ -64,41 +64,6 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentArtwork]
   );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  const [newAuthor, setNewAuthor] = useState("");
-  const [newCover, setNewCover] = useState("");
-  const [newDescription, setNewDescription] = useState("");
-  const [newHeight, setNewHeight] = useState(0);
-  const [newWidth, setNewWidth] = useState(0);
-  const [newMaterial, setNewMaterial] = useState("");
-  const [newPrice, setNewPrice] = useState(0);
-  const [newStatus, setNewStatus] = useState("");
-  const [newTitle, setNewTitle] = useState("");
-  const [newYear, setNewYear] = useState(0);
-
-
-
-
-
-
-
-
-
-
 
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -128,13 +93,12 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const onSubmit = async (values) => {
     try {
-      // await new Promise((resolve) => setTimeout(resolve, 500));
 
       const createArtwork = async () => {
-        await addDoc(artworlCollectionRef,  { name: values.author, cover: newCover, description: newDescription, height: Number(newHeight), width: Number(newWidth), price: Number(newPrice), material: Number(newMaterial), status: newStatus, title: newTitle, year: Number(newYear) } );
+        //await addDoc(artworlCollectionRef,  { name: values.author, cover: newCover, description: newDescription, height: Number(newHeight), width: Number(newWidth), price: Number(newPrice), material: Number(newMaterial), status: newStatus, title: newTitle, year: Number(newYear) } );
       };
 
-      console.log(values)
+      console.log("ABOBA", values)
       // navigate(`/dashboard/artwork/list`)
       // reset();
     } catch (error) {
@@ -147,11 +111,18 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
       if (file) {
         setValue(
-          'cover',
+          'coverPrev',
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         );
+
+        var reader = new FileReader();
+        reader.onload = function () {
+            console.log(reader.result.replace("data:", "")
+                .replace(/^.+,/, ""));
+        }
+        reader.readAsDataURL(file);
       }
     },
     [setValue]
@@ -160,182 +131,134 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
 
   return (
-    // <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-    //   <Grid container spacing={3}>
-    //     <Grid item xs={12} md={4}>
-    //       <Card sx={{ py: 7, pt: 3, px: 3 }}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={4}>
+          <Card sx={{ py: 7, pt: 3, px: 3 }}>
 
-    //         <Box sx={{ mb: 5 }}>
-    //           <RHFUploadImage
-    //             name="cover"
-    //             accept=".jpeg, .jpg, .png"
-    //             maxSize={3145728}
-    //             onDrop={handleDrop}
-    //             helperText={
-    //               <Typography
-    //                 variant="caption"
-    //                 sx={{
-    //                   mt: 2,
-    //                   mx: 'auto',
-    //                   display: 'block',
-    //                   textAlign: 'center',
-    //                   color: 'text.secondary',
-    //                 }}
-    //               >
-    //                 Allowed *.jpeg, *.jpg, *.png,
-    //                 <br /> max size of {fData(3145728)}
-    //               </Typography>
-    //             }
-    //           />
-    //         </Box>
-            
-    //         {isEdit && (
-    //           <FormControlLabel
-    //             labelPlacement="start"
-    //             control={
-    //               <Controller
-    //                 name="status"
-    //                 control={control}
-    //                 render={({ field }) => (
-    //                   <Switch
-    //                     {...field}
-    //                     checked={field.value !== 'active'}
-    //                     onChange={(event) => field.onChange(event.target.checked ? 'banned' : 'active')}
-    //                   />
-    //                 )}
-    //               />
-    //             }
-    //             label={
-    //               <>
-    //                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-    //                   Rejected
-    //                 </Typography>
-    //                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-    //                   Customer has officially refused the company's services 
-    //                 </Typography>
-    //               </>
-    //             }
-    //             sx={{ mx: 0, mb: 3, width: 1, justifyContent: 'space-between' }}
-    //           />
-    //         )}
+            <Box sx={{ mb: 5 }}>
+              <RHFUploadImage
+                name="coverPrev"
+                accept=".jpeg, .jpg, .png"
+                maxSize={3145728}
+                onDrop={handleDrop}
+                helperText={
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      mt: 2,
+                      mx: 'auto',
+                      display: 'block',
+                      textAlign: 'center',
+                      color: 'text.secondary',
+                    }}
+                  >
+                    Allowed *.jpeg, *.jpg, *.png,
+                    <br /> max size of {fData(3145728)}
+                  </Typography>
+                }
+              />
+            </Box>
+          </Card>
+        </Grid>
 
-    //         <RHFSwitch
-    //           name="isVerified"
-    //           labelPlacement="start"
-    //           label={
-    //             <>
-    //               <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-    //                 Video/photo recording agreement
-    //               </Typography>
-    //               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-    //                 Customer allowed company the use of media content with his presence for publication on social media
-    //               </Typography>
-    //             </>
-    //           }
-    //           sx={{ mx: 0, width: 1, justifyContent: 'space-between' }}
-    //         />
-    //       </Card>
-    //     </Grid>
+        <Grid item xs={12} md={8}>
+          <Card sx={{ p: 3 }}>
+            <Box
+              sx={{
+                display: 'grid',
+                columnGap: 2,
+                rowGap: 3,
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+              }}
+            >
+              <RHFTextField name="title" label="Title" />
+              <RHFTextField name="author" label="Author Name" />
+              <RHFTextField name="material" label="Material" />
+              <RHFTextField name="price" label="Price" />
+              <RHFTextField name="height" label="Height (cm)" />
+              <RHFTextField name="width" label="Width (cm)" />
+              {/* <RHFDateTimePicker name="birthDate" label="Birth Date" /> */}
 
-    //     <Grid item xs={12} md={8}>
-    //       <Card sx={{ p: 3 }}>
-    //         <Box
-    //           sx={{
-    //             display: 'grid',
-    //             columnGap: 2,
-    //             rowGap: 3,
-    //             gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
-    //           }}
-    //         >
-    //           <RHFTextField onChange={(event) => {
+            </Box>
+            <RHFTextField sx={{mt: 3}} multiline rows={3} name="description" label="Description" />
+
+            <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+                {!isEdit ? 'Create Artwork' : 'Save Changes'}
+              </LoadingButton>
+            </Stack>
+          </Card>
+        </Grid>
+      </Grid>
+    </FormProvider>
+    // <div>
+    //   <input
+    //     placeholder="Author..."
+    //     onChange={(event) => {
+    //       setNewAuthor(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     placeholder="Cover..."
+    //     onChange={(event) => {
+    //       setNewCover(event.target.value);
+    //     }}
+    //   />
+    //    <input
+    //     placeholder="Desc..."
+    //     onChange={(event) => {
+    //       setNewDescription(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     type="number"
+    //     placeholder="Height..."
+    //     onChange={(event) => {
+    //       setNewHeight(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     type="number"
+    //     placeholder="Width..."
+    //     onChange={(event) => {
+    //       setNewWidth(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     placeholder="Material..."
+    //     onChange={(event) => {
+    //       setNewMaterial(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //   type="number"
+    //     placeholder="Price..."
+    //     onChange={(event) => {
+    //       setNewPrice(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     placeholder="Status..."
+    //     onChange={(event) => {
+    //       setNewStatus(event.target.value);
+    //     }}
+    //   />
+    //   <input
+    //     placeholder="Title..."
+    //     onChange={(event) => {
     //       setNewTitle(event.target.value);
-    //     }} name="title" label="Title" />
-    //           <RHFTextField name="author" label="Author Name" />
-    //           <RHFTextField name="material" label="Material" />
-    //           <RHFTextField name="price" label="Price" />
-    //           <RHFTextField name="height" label="Height (cm)" />
-    //           <RHFTextField name="width" label="Width (cm)" />
-    //           {/* <RHFDateTimePicker name="birthDate" label="Birth Date" /> */}
-
-    //         </Box>
-    //         <RHFTextField sx={{mt: 3}} multiline rows={3} name="description" label="Description" />
-
-    //         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
-    //           <LoadingButton onClick={createArtwork} type="submit" variant="contained" loading={isSubmitting}>
-    //             {!isEdit ? 'Create Artwork' : 'Save Changes'}
-    //           </LoadingButton>
-    //         </Stack>
-    //       </Card>
-    //     </Grid>
-    //   </Grid>
-    // </FormProvider>
-    <div>
-      <input
-        placeholder="Author..."
-        onChange={(event) => {
-          setNewAuthor(event.target.value);
-        }}
-      />
-      <input
-        placeholder="Cover..."
-        onChange={(event) => {
-          setNewCover(event.target.value);
-        }}
-      />
-       <input
-        placeholder="Desc..."
-        onChange={(event) => {
-          setNewDescription(event.target.value);
-        }}
-      />
-      <input
-        type="number"
-        placeholder="Height..."
-        onChange={(event) => {
-          setNewHeight(event.target.value);
-        }}
-      />
-      <input
-        type="number"
-        placeholder="Width..."
-        onChange={(event) => {
-          setNewWidth(event.target.value);
-        }}
-      />
-      <input
-        placeholder="Material..."
-        onChange={(event) => {
-          setNewMaterial(event.target.value);
-        }}
-      />
-      <input
-      type="number"
-        placeholder="Price..."
-        onChange={(event) => {
-          setNewPrice(event.target.value);
-        }}
-      />
-      <input
-        placeholder="Status..."
-        onChange={(event) => {
-          setNewStatus(event.target.value);
-        }}
-      />
-      <input
-        placeholder="Title..."
-        onChange={(event) => {
-          setNewTitle(event.target.value);
-        }}
-      />
-      <input
-      type="number"
-        placeholder="Year..."
-        onChange={(event) => {
-          setNewYear(event.target.value);
-        }}
-      />
-       <button onClick={onSubmit}> Create Art Work</button>
+    //     }}
+    //   />
+    //   <input
+    //   type="number"
+    //     placeholder="Year..."
+    //     onChange={(event) => {
+    //       setNewYear(event.target.value);
+    //     }}
+    //   />
+    //    <button onClick={onSubmit}> Create Art Work</button>
     
-    </div>
+    // </div>
   );
 }

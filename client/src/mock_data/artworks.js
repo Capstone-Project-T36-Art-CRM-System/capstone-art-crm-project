@@ -1,31 +1,17 @@
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
+export function getArtworkList() {
+    const collectionRef = query(collection(db, "artworks"));
 
-
-
-export async function getArtworkList() {
-    const q = query(collection(db, "artworks"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
-    });  
+    return getDocs(collectionRef);
 }
 
-getArtworkList();
-  
 export function getArtworkrbyId(artworkId) {
-    let docRef = doc(db, "artworks", artworkId);
+    const docRef = doc(db, "artworks", artworkId);
 
-    getDoc(docRef)
-      .then((doc) => {
-          console.log(doc.data());
-        return doc.data();
-    });
+    return getDoc(docRef)
 }
-
-
 
 // const artworkList = [
 //     {

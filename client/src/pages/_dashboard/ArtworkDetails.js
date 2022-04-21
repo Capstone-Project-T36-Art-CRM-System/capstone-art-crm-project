@@ -1,8 +1,8 @@
 import { capitalCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Material UI
-import { Container, Tab, Box, Tabs, Stack, Typography, Grid } from '@mui/material';
+import { Container, Tab, Box, Tabs, Stack, Typography, Grid, CircularProgress } from '@mui/material';
 
 // Routing
 import { useParams } from 'react-router-dom';
@@ -22,8 +22,14 @@ import { getArtworkrbyId } from '../../mock_data/artworks';
 
 export default function ArtworkDetails() {
   const { artworkId } = useParams();
-  const [artworkSelected, setArtworkSelected] = useState(getArtworkrbyId(artworkId));
+  const [artworkSelected, setArtworkSelected] = useState(null);
   const [currentTab, setCurrentTab] = useState('main_info');
+
+  useEffect(() => {
+    getArtworkrbyId(artworkId)
+    .then((doc) => setArtworkSelected( {...doc.data(), id: doc.id } ))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, [artworkId]);
 
   const DETAILS_TABS = [
     {
@@ -39,6 +45,9 @@ export default function ArtworkDetails() {
   ];
 
   return (
+    !artworkSelected ? 
+    <CircularProgress /> 
+    :
     <Page title={`Artworks – ${artworkSelected?.title}`}>
       <Container maxWidth='xl'>
         {/* Page Title */}
@@ -53,24 +62,24 @@ export default function ArtworkDetails() {
                 <DetailsGeneral artworkSelected={artworkSelected}/>
             </Grid>
             <Grid item xs={12} md={8.5}>
-                <Tabs
-                    value={currentTab}
-                    scrollButtons="auto"
-                    variant="scrollable"
-                    allowScrollButtonsMobile
-                    onChange={(e, value) => setCurrentTab(value)}
-                >
-                    {DETAILS_TABS.map((tab) => (
-                        <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
-                    ))}
-                </Tabs>
-                
-                <Box sx={{ mb: 5 }} />
+              <Tabs
+                value={currentTab}
+                scrollButtons="auto"
+                variant="scrollable"
+                allowScrollButtonsMobile
+                onChange={(e, value) => setCurrentTab(value)}
+              >
+                {DETAILS_TABS.map((tab) => (
+                  <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
+                ))}
+              </Tabs>
+              
+              <Box sx={{ mb: 5 }} />
 
-                {DETAILS_TABS.map((tab) => {
-                const isMatched = tab.value === currentTab;
-                return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-                })}
+              {DETAILS_TABS.map((tab) => {
+              const isMatched = tab.value === currentTab;
+              return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+              })}
             </Grid>
         </Grid>
       </Container>
