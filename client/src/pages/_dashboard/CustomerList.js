@@ -204,7 +204,7 @@ function applySortFilter(array, comparator, query) {
     return array.filter((customer) => 
       (
       customer.name.toLowerCase() + 
-      customer.phone.toLowerCase() +
+      customer.phone +
       customer.email.toLowerCase()
       )
       .indexOf(query.toLowerCase()) !== -1);

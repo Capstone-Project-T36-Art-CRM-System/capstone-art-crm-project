@@ -13,7 +13,7 @@ import { deleteCustomer } from '../../../../mock_data/customers';
 
 
 export default function AccountGeneral({customerSelected}) {
-  const { customerId, name, phone, email, status, note, birthDate, gender  } = customerSelected
+  const { id, name, phone, email, status, note, birthDate, gender  } = customerSelected
 
   return (
     <Stack spacing={3}>
@@ -59,10 +59,10 @@ export default function AccountGeneral({customerSelected}) {
         <Typography variant="body2" fontWeight={400}>{note}</Typography></>}
         
         <Stack direction='row' mt={4}>
-          <Button size="small" component={RouterLink} to={`/dashboard/customer/${customerId}/edit`} variant="outlined" sx={{ mr: 1 }}>
+          <Button size="small" component={RouterLink} to={`/dashboard/customer/${id}/edit`} variant="outlined" sx={{ mr: 1 }}>
             Edit
           </Button>
-          <Button size="small" color="inherit" variant="outlined" onClick={() => deleteCustomer(customerId)} component={RouterLink} to={`/dashboard/customer/list`}>
+          <Button size="small" color="inherit" variant="outlined" onClick={() => deleteCustomer(id)} component={RouterLink} to={`/dashboard/customer/list`}>
             Delete
           </Button>
         </Stack>

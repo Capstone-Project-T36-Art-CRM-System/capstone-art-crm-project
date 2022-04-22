@@ -11,6 +11,7 @@ import CustomerNewForm from '../../sections/_dashboard/customer/CustomerNewForm'
 
 // MOCK DATA
 import { getCustomerbyId } from '../../mock_data/customers';
+import { useEffect, useState } from 'react';
 
 
 export default function CustomerCreate() {
@@ -18,7 +19,16 @@ export default function CustomerCreate() {
   const { customerId = '' } = useParams();
   const isEdit = pathname.includes('edit');
 
-  const currentCustomer = getCustomerbyId(customerId);
+  const [currentCustomer, setCurrentCustomer] = useState(null)
+
+  useEffect(() => {
+    !isEdit ? 
+    setCurrentCustomer(null)
+    :
+    getCustomerbyId(customerId)
+    .then((doc) => setCurrentCustomer({...doc.data(), id: doc.id}))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, [customerId, isEdit]);
 
   return (
     <Page title={`Customers – ${currentCustomer ? currentCustomer?.name + ' – Edit' : 'Create customer'}`}>

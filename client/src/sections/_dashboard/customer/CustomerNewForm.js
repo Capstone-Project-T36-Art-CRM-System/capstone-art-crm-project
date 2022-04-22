@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { getTime } from "date-fns";
 
 // Routing
 import { useNavigate } from 'react-router-dom';
@@ -20,8 +21,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 import {
   collection,
-  addDoc,
-  updateDoc
+  addDoc
 } from "firebase/firestore";
 
 // FIRESTORE
@@ -58,7 +58,6 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
       isRecordingAgreed: currentCustomer?.isRecordingAgreed || false,
       ...currentCustomer
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentCustomer]
   );
 
@@ -78,16 +77,47 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
 
   const values = watch();
 
-  const onSubmit = async (data) => {
-    try {
+  useEffect(() => {
+    if (isEdit && currentCustomer) {
+      reset(defaultValues);
+    }
+    if (!isEdit) {
+      reset(defaultValues);
+    }
+  }, [isEdit, currentCustomer, defaultValues, reset]);
 
-      addDoc(customerCollectionRef,  { name: values.name, email: values.email, phone: values.phone, gender: values.gender, birthDate: Number(values.birthDate),
-      note: values.note, status: values.status, isRecordingAgreed: values.isRecordingAgreed } ).then(navigate(`/dashboard/customer/list`));
-     
-      console.log("ABOBA", values)
-     
-      // reset();
-      
+  const onSubmit = async (values) => {
+    try {
+      if (isEdit){
+        console.log(currentCustomer);
+        updateCustomer(currentCustomer.id, {
+          status: values.status, 
+          name: values.name,
+          email: values.email,
+          phone: Number(values.phone),
+          gender: values.gender,
+          birthDate: Number(getTime(values.birthDate)),
+          note: values.note,
+          isRecordingAgreed: values.isRecordingAgreed,
+          created: currentCustomer.created
+        }).then(navigate(-1))
+      }else{
+        // console.log(Number(getTime(values.birthDate)));
+        addDoc(
+          customerCollectionRef,  
+          { 
+            status: 'active', 
+            name: values.name,
+            email: values.email,
+            phone: Number(values.phone),
+            gender: values.gender,
+            birthDate: Number(getTime(values.birthDate)),
+            note: values.note,
+            isRecordingAgreed: values.isRecordingAgreed,
+            created: Number(getTime(new Date()))
+          }
+        ).then(navigate(-1))
+      }
     } catch (error) {
       console.error(error);
     }

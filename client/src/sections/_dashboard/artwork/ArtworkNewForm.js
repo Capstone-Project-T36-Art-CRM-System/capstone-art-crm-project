@@ -95,9 +95,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const onSubmit = async (values) => {
     try {
-      console.log(values.cover)
       if (isEdit){
-
         updateArtwork(currentArtwork.id, {
           author: values.author, 
           cover: values.cover, 
