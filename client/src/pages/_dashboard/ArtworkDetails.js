@@ -36,12 +36,7 @@ export default function ArtworkDetails() {
       value: 'main_info',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <DetailsMainInfo artworkSelected={artworkSelected} />,
-    },
-    {
-      value: 'docs',
-      icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
-    //   component: <AccountSocialLinks myProfile={_userAbout} />,
-    },
+    }
   ];
 
   return (

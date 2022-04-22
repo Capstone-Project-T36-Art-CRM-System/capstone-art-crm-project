@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 // Routing
@@ -20,8 +20,6 @@ import { FormProvider, RHFUploadImage, RHFTextField } from '../../../components/
 import { fData } from '../../../utils/formatNumber';
 import {
   collection,
-  addDoc,
-  updateDoc
 } from "firebase/firestore";
 
 // FIRESTORE
@@ -44,9 +42,10 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
     author: Yup.string().required('Author name is required'),
     material: Yup.string().required('Material name is required'),
     price: Yup.number().typeError('Number must be specified').required('Price is required'),
+    year: Yup.number().typeError('Number must be specified').required('Year is required'),
     height: Yup.number().typeError('Number must be specified').required('Height is required'),
     width: Yup.number().typeError('Number must be specified').required('Width is required'),
-    coverPrev: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''),
+    cover: Yup.mixed().test('required', 'Image cover is required', (value) => value !== ''),
   });
 
   const defaultValues = useMemo(
@@ -57,7 +56,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
       price: currentArtwork?.price || '',
       height: currentArtwork?.height || '',
       width: currentArtwork?.height || '',
-      // birthDate: currentArtwork?.birthDate,
+      year: currentArtwork?.year || '',
       description: currentArtwork?.description || '',
       cover: currentArtwork?.cover || '',
     }),
@@ -88,8 +87,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
     if (!isEdit) {
       reset(defaultValues);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentArtwork]);
+  }, [isEdit, currentArtwork, defaultValues, reset]);
 
   const onSubmit = async (values) => {
     try {
@@ -110,17 +108,9 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
       const file = acceptedFiles[0];
 
       if (file) {
-        setValue(
-          'coverPrev',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-
         var reader = new FileReader();
         reader.onload = function () {
-            setValue('cover', reader.result.replace("data:", "")
-                .replace(/^.+,/, ""));
+          setValue('cover', ("data:image/png;base64," + reader.result.replace(/^.+,/, "")));
         }
         reader.readAsDataURL(file);
       }
@@ -138,7 +128,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
             <Box sx={{ mb: 5 }}>
               <RHFUploadImage
-                name="coverPrev"
+                name="cover"
                 accept=".jpeg, .jpg, .png"
                 maxSize={3145728}
                 onDrop={handleDrop}
@@ -178,7 +168,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
               <RHFTextField name="price" label="Price" />
               <RHFTextField name="height" label="Height (cm)" />
               <RHFTextField name="width" label="Width (cm)" />
-              {/* <RHFDateTimePicker name="birthDate" label="Birth Date" /> */}
+              <RHFTextField name="year" label="Year" />
 
             </Box>
             <RHFTextField sx={{mt: 3}} multiline rows={3} name="description" label="Description" />
@@ -192,73 +182,5 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
         </Grid>
       </Grid>
     </FormProvider>
-    // <div>
-    //   <input
-    //     placeholder="Author..."
-    //     onChange={(event) => {
-    //       setNewAuthor(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     placeholder="Cover..."
-    //     onChange={(event) => {
-    //       setNewCover(event.target.value);
-    //     }}
-    //   />
-    //    <input
-    //     placeholder="Desc..."
-    //     onChange={(event) => {
-    //       setNewDescription(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     type="number"
-    //     placeholder="Height..."
-    //     onChange={(event) => {
-    //       setNewHeight(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     type="number"
-    //     placeholder="Width..."
-    //     onChange={(event) => {
-    //       setNewWidth(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     placeholder="Material..."
-    //     onChange={(event) => {
-    //       setNewMaterial(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //   type="number"
-    //     placeholder="Price..."
-    //     onChange={(event) => {
-    //       setNewPrice(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     placeholder="Status..."
-    //     onChange={(event) => {
-    //       setNewStatus(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     placeholder="Title..."
-    //     onChange={(event) => {
-    //       setNewTitle(event.target.value);
-    //     }}
-    //   />
-    //   <input
-    //   type="number"
-    //     placeholder="Year..."
-    //     onChange={(event) => {
-    //       setNewYear(event.target.value);
-    //     }}
-    //   />
-    //    <button onClick={onSubmit}> Create Art Work</button>
-    
-    // </div>
   );
 }

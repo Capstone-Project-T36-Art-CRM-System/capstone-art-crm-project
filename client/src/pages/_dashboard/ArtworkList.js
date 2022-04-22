@@ -36,7 +36,6 @@ import { getArtworkList } from '../../mock_data/artworks';
 
 const TABLE_HEAD = [
   { id: 'title', label: 'Artwork', alignRight: false },
-  { id: 'id', label: 'ID', alignRight: false },
   { id: 'material', label: 'Material', alignRight: false },
   { id: 'size', label: 'Size', alignRight: false },
   { id: 'year', label: 'Year', alignRight: false },
@@ -95,10 +94,10 @@ export default function ArtworkList() {
               Artworks
           </Typography>
           <Button
-              variant="contained"
-              component={RouterLink}
-              to="/dashboard/artwork/new"
-              startIcon={ <Iconify icon={'eva:plus-fill'} width={20} height={20} />}
+            variant="contained"
+            component={RouterLink}
+            to="/dashboard/artwork/new"
+            startIcon={ <Iconify icon={'eva:plus-fill'} width={20} height={20} />}
           >
               Add artwork
           </Button>
@@ -135,14 +134,13 @@ export default function ArtworkList() {
                           <Image
                             disabledEffect
                             alt={title}
-                            src={`https://artkudina.ru/images/works/webp/${cover}.webp?w=161&fit=crop&auto=format`} 
+                            src={cover} 
                             sx={{ borderRadius: 1.5, width: 64, height: 64, mr: 2 }}
                           />
                           <Typography variant="subtitle2" noWrap>
                             {title}
                           </Typography>
                         </TableCell>
-                        <TableCell align="left">{id}</TableCell>
                         <TableCell align="left">{material}</TableCell>
                         <TableCell align="left">{`${height} x ${width} cm`}</TableCell>
                         <TableCell align="left">{year}</TableCell>

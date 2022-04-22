@@ -18,7 +18,7 @@ export default function DetailsGeneral({ artworkSelected }) {
     <Stack spacing={3}>
       <Card>
         <Box sx={{ position: 'relative' }}>
-          <Image alt={title} src={`https://artkudina.ru/images/works/webp/${cover}.webp?w=161&fit=crop&auto=format`} />
+          <Image alt={title} src={cover} />
         </Box>
       </Card>
       <Card sx={{ p: 3 }}>
