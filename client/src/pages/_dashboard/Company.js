@@ -19,11 +19,6 @@ export default function Company() {
   const [currentTab, setCurrentTab] = useState('finances');
 
   const ACCOUNT_TABS = [
-    // {
-    //     value: 'company_details',
-    //     icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-    //     component: <CompanyDetails />,
-    // },
     {
         value: 'finances',
         icon: <Iconify icon={'eva:trending-up-fill'} width={20} height={20} />,

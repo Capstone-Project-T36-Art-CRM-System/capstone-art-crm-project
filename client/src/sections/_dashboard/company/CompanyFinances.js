@@ -1,15 +1,14 @@
 // Material UI
-import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
+import { Card, Grid, Stack } from '@mui/material';
 
 // MOCK DATA
-import { getTransactionList, getThisWeekTransactionList, getLastWeekTransactionList } from '../../../mock_data/transactions';
+import { getThisWeekTransactionList, getLastWeekTransactionList } from '../../../mock_data/transactions';
 
-import { FinancesTransactionTable, FinancesGraph, EcommerceWidgetSummary } from './finances'
+import { FinancesGraph, EcommerceWidgetSummary } from './finances'
+import TransactionList from './finances/TransactionList';
 
 
 export default function CompanyFinances() {
-
-  const transactionList = getTransactionList()
   const thisWeekTransactionList = getThisWeekTransactionList()
   const lastWeekTransactionList = getLastWeekTransactionList()
 
@@ -17,17 +16,12 @@ export default function CompanyFinances() {
     <Grid container spacing={5}>
         <Grid item xs={12} md={8}>
             <Stack spacing={3}>
+
+            <TransactionList />
                 <Card>
                   <FinancesGraph 
                     title="Weekly Finances"
                     />
-                </Card>
-
-                <Card>
-                  <FinancesTransactionTable 
-                    title="Recent Transactions"
-                    recordsThisWeek={thisWeekTransactionList.length}
-                  />
                 </Card>
 
 

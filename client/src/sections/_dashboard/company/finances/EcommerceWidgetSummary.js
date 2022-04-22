@@ -5,7 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Card, Typography, Stack } from '@mui/material';
 // utils
-import { fNumber, fPercent } from '../../../../utils/formatNumber';
+import { fCurrency, fNumber, fPercent } from '../../../../utils/formatNumber';
 // components
 import Iconify from '../../../../components/Iconify';
 import { BaseOptionChart } from '../../../../components/charts';
@@ -58,7 +58,7 @@ export default function EcommerceWidgetSummary({ title, percent, total, chartCol
           {title}
         </Typography>
         <Typography variant="h3" gutterBottom>
-          {fNumber(total)}
+          {(title === "Week Expence" ? "-" : "") + fCurrency(total)}
         </Typography>
 
         <Stack direction="row" alignItems="center">

@@ -1,31 +1,42 @@
 import { getTime } from "date-fns";
+import { addTicket } from "./tickets";
 
 export function getTransactionList() {
     return transactionList.sort((a,b) => b.date - a.date);
 }
 
+var weekAgo = new Date();
+weekAgo.setDate(weekAgo.getDate() - 7);
+
+var weekTwoAgo = new Date();
+weekTwoAgo.setDate(weekTwoAgo.getDate() - 14);
+
 export function getThisWeekTransactionList() {
-    return transactionList.filter((transaction) => new Date(transaction.date) >= (new Date() - 7));
+    return transactionList.filter((transaction) => new Date(transaction.date) >= weekAgo);
 }
 
 export function getLastWeekTransactionList() {
-    return transactionList.filter((transaction) => ((new Date() - 14) <= new Date(transaction.date)) >= (new Date() - 7) );
+    return transactionList.filter((transaction) => new Date(weekTwoAgo) <= new Date(transaction.date) >= new Date(weekAgo));
 }
   
 export function getTransactionListbyId(customerId) {
     return transactionList.filter((transaction) => transaction.customerId === customerId).sort((a,b) => b.date - a.date);
 }
 
-// export function getSevenDaysIncomeStat() {
-//     return transactionList.filter((transaction) => transaction.customerId === customerId).sort((a,b) => b.date - a.date);
-// }
-
 export function addTransaction(transactionFileds){
     let newTransaction = { 
         ...transactionFileds,
+        transactionId: transactionList.length +1,
         date: getTime(transactionFileds.date)
     }
-    console.log(newTransaction)
+
+    if(transactionFileds?.productId){
+        addTicket({
+        customerId: transactionFileds.customerId,
+        eventId: transactionFileds.productId,
+        created: transactionFileds.date
+        })
+    }
 
     try {
         transactionList.push(newTransaction)

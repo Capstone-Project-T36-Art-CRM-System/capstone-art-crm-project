@@ -2,9 +2,9 @@ import { getTime } from "date-fns";
 
 export function getEventList(type) {
     if (type){
-        return eventList.filter(event => event.type == type);
+        return eventList.filter(event => event.type == type && !event.isDeleted);
     }else{
-        return eventList;
+        return eventList.filter(event => !event.isDeleted);
     }
 }
 
@@ -16,9 +16,26 @@ export function getFutureEventList() {
     return eventList.filter((event) => event.start > new Date() );
 }
 
+export function addEvent(eventFields){
+    let newEvent = { 
+        ...eventFields,
+        eventId: eventList.length + 1,
+        isDeleted: false, 
+        created: getTime(new Date()),
+        updated: getTime(new Date()),
+    }
+
+    try {
+        eventList.push(newEvent)
+    } catch (error) {
+        console.log('Error!')
+    }
+}
+
 export async function updateEvent(eventId, eventFields) {
     let newEvent = { 
         ...eventFields,
+        eventId: eventId,
         updated: getTime(new Date()),
     }
 

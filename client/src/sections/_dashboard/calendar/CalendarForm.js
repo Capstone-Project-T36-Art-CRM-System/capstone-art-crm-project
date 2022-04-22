@@ -164,8 +164,6 @@ export default function CalendarForm({ scheduledEventId, range, onCancel }) {
           )}
         />
 
-        <RHFTextField name="description" label="Description" multiline rows={4} />
-
         <RHFSwitch name="allDay" label="All day" />
 
         <Controller
