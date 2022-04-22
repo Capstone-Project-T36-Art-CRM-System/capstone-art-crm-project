@@ -45,7 +45,7 @@ export default function Login() {
     <RootStyle title="Login | Minimal-UI">
       <AuthLayout>
         Don’t have an account? &nbsp;
-        <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
+        <Link underline="none" variant="subtitle2" component={Link} href="mailto: info@artlead.ca">
           Get started
         </Link>
       </AuthLayout>
