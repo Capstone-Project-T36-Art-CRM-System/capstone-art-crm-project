@@ -12,8 +12,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { FormProvider, RHFSelect, RHFTextField } from '../../../../components/hook-form';
 import { addTransaction } from '../../../../mock_data/transactions';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { getTime } from 'date-fns';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getTime } from 'date-fns';
 
 export default function NewTransactionForm({ onCloseDialog, transactionId }) {
   const currentTransaction = null
@@ -21,7 +21,7 @@ export default function NewTransactionForm({ onCloseDialog, transactionId }) {
   const NewTransactionSchema = Yup.object().shape({
     note: Yup.string().required('Note is required'),
     amount: Yup.number().typeError('Number must be specified').required('Amount is required'),
-    date: Yup.number().typeError('Number must be specified').required('Year is required'),
+    date: Yup.number().typeError('Date is required').required('Date is required'),
   });
 
   const defaultValues = useMemo(
@@ -91,20 +91,20 @@ export default function NewTransactionForm({ onCloseDialog, transactionId }) {
             <RHFTextField name="amount" label="Amount" />
         </Stack>
 
-        <Controller
-            name="date"
-            control={control}
-            render={({ field, fieldState: { error, invalid } }) => (
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DateTimePicker
-                {...field}
-                label="Transaction Date"
-                inputFormat="dd/MM/yyyy hh:mm a"
-                renderInput={(params) => <TextField error={invalid} helperText={invalid ? error.message : null} {...params} fullWidth />}
-                />
-            </LocalizationProvider>
-            )}
-        />
+            <Controller
+              name="date"
+              control={control}
+              render={({ field, fieldState: { error, invalid } }) => (
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DateTimePicker
+                    {...field}
+                    label="Payment Date"
+                    inputFormat="dd/MM/yyyy hh:mm a"
+                    renderInput={(params) => <TextField error={invalid} helperText={invalid ? error.message : null} {...params} fullWidth />}
+                  />
+                </LocalizationProvider>
+              )}
+            />
 
         <DialogActions>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>

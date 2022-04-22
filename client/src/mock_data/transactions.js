@@ -1,4 +1,5 @@
 import { getTime } from "date-fns";
+import { updateArtwork } from "./artworks";
 import { addTicket } from "./tickets";
 
 export function getTransactionList() {
@@ -30,11 +31,17 @@ export function addTransaction(transactionFileds){
         date: getTime(transactionFileds.date)
     }
 
-    if(transactionFileds?.productId){
+    if(transactionFileds?.note.includes('Ticket')){
         addTicket({
         customerId: transactionFileds.customerId,
         eventId: transactionFileds.productId,
         created: transactionFileds.date
+        })
+    }
+
+    if(transactionFileds?.note.includes('Artwork')){
+        updateArtwork(transactionFileds?.productId, {
+            status: 'sold'
         })
     }
 

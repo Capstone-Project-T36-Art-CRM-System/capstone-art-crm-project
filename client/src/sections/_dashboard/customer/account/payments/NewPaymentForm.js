@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // Material UI
-import { Button, Stack, DialogActions, Autocomplete, InputAdornment, TextField } from '@mui/material';
+import { Button, Stack, DialogActions, Autocomplete, InputAdornment, TextField, CircularProgress } from '@mui/material';
 import { DateTimePicker, LoadingButton, LocalizationProvider } from '@mui/lab';
 
 // Form Controls
@@ -20,6 +20,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { addTransaction } from '../../../../../mock_data/transactions';
 
 export default function NewPaymentForm({ onCloseDialog, customerId }) {
+  const [artworkList, setArtworkList] = useState([]);
 
   const PaymentSchema = Yup.object().shape({
     date: Yup.date().nullable().required('Date is required')
@@ -60,6 +61,10 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
     useEffect(() => {
       if (values.event){ setValue("note", `Ticket – ${values.event.title}`) }
       if (values.artwork){ setValue("note", `Artwork – ${values.artwork.title}, ${values.artwork.year}`) }
+
+      getArtworkList()
+      .then((data) => setArtworkList(data.docs.map((doc) => ({...doc.data(), id: doc.id }))))
+      .catch((error) => console.log("Firebase Error: ", error.message))
     }, [values.event, values.artwork, setValue]);
   
     const onClose = () => {
@@ -90,6 +95,9 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
     };
   
     return (
+      !artworkList ? 
+      <CircularProgress /> 
+      :
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           <RHFSelect name="productCategory" label="Category" fullWidth>
@@ -121,7 +129,7 @@ export default function NewPaymentForm({ onCloseDialog, customerId }) {
             render={({ field }) => (
               <Autocomplete
                 {...field}
-                options={getArtworkList()}
+                options={artworkList.filter(art => art.status !== 'sold')}
                 getOptionLabel={artwork => ` ${artwork.title}, ${artwork.year} – ${fCurrency(artwork.price)}`}
                 isOptionEqualToValue={(option, value) => option.id == value.id}
                 onChange={(event, newValue) => { field.onChange(newValue); setValue('amount', newValue ? newValue.price : 0 ) }}

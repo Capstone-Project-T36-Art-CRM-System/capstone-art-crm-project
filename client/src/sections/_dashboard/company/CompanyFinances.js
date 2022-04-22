@@ -18,11 +18,6 @@ export default function CompanyFinances() {
             <Stack spacing={3}>
 
             <TransactionList />
-                <Card>
-                  <FinancesGraph 
-                    title="Weekly Finances"
-                    />
-                </Card>
 
 
             </Stack>

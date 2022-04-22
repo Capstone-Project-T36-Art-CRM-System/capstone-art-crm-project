@@ -61,7 +61,7 @@ export default function EcommerceWidgetSummary({ title, percent, total, chartCol
           {(title === "Week Expence" ? "-" : "") + fCurrency(total)}
         </Typography>
 
-        <Stack direction="row" alignItems="center">
+        {/* <Stack direction="row" alignItems="center">
           <IconWrapperStyle
             sx={{
               ...(percent < 0 && {
@@ -80,7 +80,7 @@ export default function EcommerceWidgetSummary({ title, percent, total, chartCol
           <Typography variant="body2" component="span" noWrap sx={{ color: 'text.secondary' }}>
             &nbsp;than last week
           </Typography>
-        </Stack>
+        </Stack> */}
       </Box>
 
       <ReactApexChart type="line" series={[{ data: chartData }]} options={chartOptions} width={120} height={80} />
