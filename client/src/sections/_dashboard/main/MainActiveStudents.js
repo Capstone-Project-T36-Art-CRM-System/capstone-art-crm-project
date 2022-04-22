@@ -27,7 +27,7 @@ export default function MainActiveStudents() {
       <Typography variant="subtitle3">
         Active customers
       </Typography>
-      <Typography variant="h2">{customerList.length}</Typography>
+      <Typography variant="h2">{customerList.sort(customer => customer.status === 'active').length}</Typography>
     </RootStyle>
   );
 }
