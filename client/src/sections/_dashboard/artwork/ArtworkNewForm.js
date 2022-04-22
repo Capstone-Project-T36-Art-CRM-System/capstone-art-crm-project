@@ -95,7 +95,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const onSubmit = async (values) => {
     try {
-      console.log(isEdit)
+      console.log(values.cover)
       if (isEdit){
 
         updateArtwork(currentArtwork.id, {
@@ -110,7 +110,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
           title: values.title, 
           year: Number(values.year),
           created: currentArtwork.created,
-        }).then(navigate('dashboard/artwork/list'))
+        }).then(navigate(-1))
        
       }else{
         addDoc(
@@ -128,7 +128,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
             year: Number(values.year),
             created: getTime(new Date()),
           }
-        ).then(navigate(`/dashboard/artwork/list`))
+        ).then(navigate(-1))
       }
     } catch (error) {
       console.error(error);
