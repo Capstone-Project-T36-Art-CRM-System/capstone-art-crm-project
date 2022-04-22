@@ -17,12 +17,17 @@ export function getTicketbyId(ticketId) {
 }
 
 export async function addTicket(ticketFields) {
+
+    var nextMonth = new Date(ticketFields.created);
+    nextMonth.setDate(nextMonth.getDate() + 31);
+
     let newTicket = { 
         ...ticketFields,
         isUsed: false,
         isDeleted: false,
-        created: getTime(new Date()),
         updated: getTime(new Date()),
+        id: ticketList.length +1,
+        expDate: getTime(nextMonth)
     }
 
     try {

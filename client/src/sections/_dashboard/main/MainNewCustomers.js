@@ -17,9 +17,12 @@ const RootStyle = styled(Card)(({ theme }) => ({
 export default function MainNewCustomers() {
   const [customerList, setCustomerList] = useState([]);
 
+  var date = new Date();
+  date.setDate(date.getDate() - 7);
+
   useEffect(() => {
     getCustomerList()
-    .then((data) => setCustomerList(data.docs.map((doc) => ({...doc.data(), id: doc.id })).filter(customer => customer.created > getTime(new Date() - 7))))
+    .then((data) => setCustomerList(data.docs.map((doc) => ({...doc.data(), id: doc.id })).filter(customer => customer.created > getTime(date))))
     .catch((error) => console.log("Firebase Error: ", error.message))
   }, []);
 

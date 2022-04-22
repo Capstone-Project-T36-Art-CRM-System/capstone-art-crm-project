@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // Material UI
-import { Accordion, AccordionSummary, Typography, Container, Button, Stack, Card } from '@mui/material';
+import { Accordion, AccordionSummary, Typography, Container, Button, Stack, Card, Box, IconButton, Dialog, DialogTitle } from '@mui/material';
 
 // Page Components Import
 import Page from '../../components/Page';
@@ -9,6 +9,7 @@ import Iconify from '../../components/Iconify';
 
 // Page Sections Import
 import { EventInnerList } from '../../sections/_dashboard/event';
+import NewEventForm from '../../sections/_dashboard/event/NewEventForm';
 
 export default function EventList() {
     const [expanded, setExpanded] = React.useState('class');
@@ -25,12 +26,14 @@ export default function EventList() {
                 <Typography variant="h4" gutterBottom>
                     Events
                 </Typography>
+                <EventDialog>
                 <Button
                     variant="contained"
                     startIcon={ <Iconify icon={'eva:plus-fill'} width={20} height={20} />}
                 >
                     Add event
                 </Button>
+                </EventDialog>
                 </Stack>
                 <Card>
                 {/* Page Title End*/}
@@ -53,3 +56,35 @@ export default function EventList() {
         </Page>
     );
 }
+
+function EventDialog({ eventId, children }) {
+    const [open, setOpen] = React.useState(null);
+  
+    const handleOpen = (event) => {
+      setOpen(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setOpen(null);
+    };
+  
+    return (
+      <>
+        {children ? 
+        <Box onClick={handleOpen}>
+          {children}
+        </Box>
+        :
+        <IconButton onClick={handleOpen}>
+          <Iconify icon={'eva:edit-fill'} width={20} height={20} />
+        </IconButton>}
+  
+        <Dialog open={Boolean(open)} fullWidth maxWidth="xs" onCancel={handleClose}>
+          <DialogTitle>{!eventId ? 'Add Event' : 'Update Event'}</DialogTitle>
+          <Stack spacing={3} sx={{ p: 3, pb: 0 }}>
+            <NewEventForm onCloseDialog={handleClose} eventId={eventId}  />
+          </Stack>
+        </Dialog>
+      </>
+    );
+  }

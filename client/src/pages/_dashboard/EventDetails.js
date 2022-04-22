@@ -32,11 +32,6 @@ export default function EventDetails() {
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <EventSchedule eventId={eventId} />,
     },
-    {
-      value: 'tickets',
-      icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-    //   component: <AccountSocialLinks myProfile={_userAbout} />,
-    },
   ];
 
   return (
