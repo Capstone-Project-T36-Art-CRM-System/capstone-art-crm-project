@@ -18,6 +18,15 @@ import { FormProvider, RHFSelect, RHFSwitch, RHFTextField } from '../../../compo
 import { addCustomer, updateCustomer } from '../../../mock_data/customers';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
+import {
+  collection,
+  addDoc,
+  updateDoc
+} from "firebase/firestore";
+
+// FIRESTORE
+import { db } from '../../../firebase';
+
 // ----------------------------------------------------------------------
 
 CustomerNewForm.propTypes = {
@@ -26,6 +35,9 @@ CustomerNewForm.propTypes = {
 };
 
 export default function CustomerNewForm({ isEdit, currentCustomer }) {
+
+  const customerCollectionRef = collection(db, "customers") 
+
   const navigate = useNavigate();
 
   const NewUserSchema = Yup.object().shape({
@@ -68,15 +80,15 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
 
   const onSubmit = async (data) => {
     try {
-      if (isEdit) {
-        updateCustomer(currentCustomer.customerId, data)
-        reset();
-        navigate(-1);
-      }else{
-        addCustomer(data)
-        reset();
-        navigate(-1);
-      }
+
+      // const createCustomer = async () => {
+      addDoc(customerCollectionRef,  { name: values.name, email: values.email, phone: values.phone, gender: values.gender, birthDate: Number(values.birthDate),
+      note: values.note, status: values.status, isRecordingAgreed: values.isRecordingAgreed } ).then(navigate(`/dashboard/customer/list`));
+      // };
+     
+      console.log("ABOBA", values)
+     
+      // reset();
       
     } catch (error) {
       console.error(error);

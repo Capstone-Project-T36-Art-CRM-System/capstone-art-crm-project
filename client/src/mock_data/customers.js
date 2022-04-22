@@ -1,7 +1,11 @@
 import { getTime } from "date-fns";
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export function getCustomerList() {
-    return customerList.filter(customer => !customer.isDeleted).sort((a,b) => b.created - a.created);
+    const collectionRef = query(collection(db, "customers"));
+
+    return getDocs(collectionRef);
 }
   
 export function getCustomerbyId(customerId) {
