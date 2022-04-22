@@ -31,12 +31,12 @@ const sidebarConfig = [
     path: '/dashboard/calendar',
     icon: getIcon(calendarFill)
   },
-  {
-    title: 'tasks',
-    path: '/dashboard/tasks',
-    icon: getIcon(checkmarkSquare2Fill),
-    disabled: true
-  },
+  // {
+  //   title: 'tasks',
+  //   path: '/dashboard/tasks',
+  //   icon: getIcon(checkmarkSquare2Fill),
+  //   disabled: true
+  // },
   {
     title: 'company',
     path: '/dashboard/company',

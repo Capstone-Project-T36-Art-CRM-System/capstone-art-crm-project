@@ -35,7 +35,6 @@ import { getCustomerList } from '../../mock_data/customers';
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
-  { id: 'customerId', label: 'ID', alignRight: false },
   { id: 'phone', label: 'Phone', alignRight: false },
   { id: 'email', label: 'Email', alignRight: false },
   { id: 'created', label: 'Created', alignRight: false },
@@ -109,15 +108,14 @@ export default function CustomerList() {
                 />
                 <TableBody>
                   {filteredCustomers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { customerId, name, email, status, phone, created } = row;
+                    const { id, name, email, status, phone, created } = row;
 
                     return (
                       <TableRow
                         hover
-                        key={customerId}
+                        key={id}
                       >
                         <TableCell align="left">{name}</TableCell>
-                        <TableCell align="left">{customerId}</TableCell>
                         <TableCell align="left">{phone}</TableCell>
                         <TableCell align="left">{email}</TableCell>
                         <TableCell align="left">{format(created, 'dd MMM, yyyy')}</TableCell>
@@ -131,7 +129,7 @@ export default function CustomerList() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <CustomerMoreMenu customerId={customerId} />
+                          <CustomerMoreMenu customerId={id} />
                         </TableCell>
                       </TableRow>
                     );
@@ -198,7 +196,6 @@ function applySortFilter(array, comparator, query) {
     return array.filter((customer) => 
       (
       customer.name.toLowerCase() + 
-      customer.customerId.toLowerCase() +
       customer.phone.toLowerCase() +
       customer.email.toLowerCase()
       )

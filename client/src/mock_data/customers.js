@@ -56,7 +56,7 @@ export function deleteCustomer(customerId) {
 let customerList = [
     {
         "isDeleted": false,
-        "customerId": "C1",
+        "id": "C1",
         "name": "Amiah Pruitt",
         "phone": "272-940-8266",
         "email": "amiah.pruitt@gmail.com",
@@ -69,7 +69,7 @@ let customerList = [
     },
     {
         "isDeleted": false,
-        "customerId": "C2",
+        "id": "C2",
         "name": "Colten Aguilar",
         "phone": "981-699-7588",
         "email": "colten.aguilar@hotmail.com",
@@ -82,7 +82,7 @@ let customerList = [
     },
     {
         "isDeleted": false,
-        "customerId": "C3",
+        "id": "C3",
         "name": "Lenna Bergnaum",
         "phone": "226-924-4058",
         "email": "lenna_bergnaum27@hotmail.com",
