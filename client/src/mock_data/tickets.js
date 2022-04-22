@@ -64,7 +64,7 @@ export function deleteTicket(ticketId) {
 let ticketList = [
     {
         "id": 1,
-        "customerId": "C1",
+        "customerId": "uKfhEwW1jTyPQwqSbfdb",
         "eventId": 4,
         "isUsed": false,
         "expDate": 1689992228365,

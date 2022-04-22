@@ -27,7 +27,7 @@ export default function ArtworkCreate() {
     setCurrentArtwork(null)
     :
     getArtworkrbyId(artworkId)
-    .then((doc) => setCurrentArtwork(doc.data()))
+    .then((doc) => setCurrentArtwork({...doc.data(), id: doc.id}))
     .catch((error) => console.log("Firebase Error: ", error.message))
   }, [artworkId, isEdit]);
 

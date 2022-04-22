@@ -13,7 +13,7 @@ import { deleteCustomer } from '../../../../mock_data/customers';
 
 
 export default function AccountGeneral({customerSelected}) {
-  const { customerId, name, phone, email, status, note, birthDate  } = customerSelected
+  const { customerId, name, phone, email, status, note, birthDate, gender  } = customerSelected
 
   return (
     <Stack spacing={3}>
@@ -23,9 +23,9 @@ export default function AccountGeneral({customerSelected}) {
         <Stack direction='row' justifyContent='space-between'>
           <Box>
             <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>
-              Unique ID
+              Gender
             </Typography>
-            <Typography variant="h5" fontWeight={400}>{customerId}</Typography>
+            <Typography variant="h5" fontWeight={400}>{gender}</Typography>
           </Box>
           <Box>
             <Typography variant="overline" sx={{ display: 'block', color: 'text.secondary' }}>

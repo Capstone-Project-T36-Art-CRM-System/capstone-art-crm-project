@@ -19,11 +19,15 @@ import { FormProvider, RHFUploadImage, RHFTextField } from '../../../components/
 //Utils
 import { fData } from '../../../utils/formatNumber';
 import {
+  addDoc,
   collection,
+  updateDoc,
 } from "firebase/firestore";
 
 // FIRESTORE
 import { db } from '../../../firebase';
+import { getTime } from 'date-fns';
+import { getArtworkrbyId, updateArtwork } from '../../../mock_data/artworks';
 
 // Props
 ArtworkNewForm.propTypes = {
@@ -91,14 +95,41 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
   const onSubmit = async (values) => {
     try {
+      console.log(isEdit)
+      if (isEdit){
 
-      const createArtwork = async () => {
-        //await addDoc(artworlCollectionRef,  { name: values.author, cover: newCover, description: newDescription, height: Number(newHeight), width: Number(newWidth), price: Number(newPrice), material: Number(newMaterial), status: newStatus, title: newTitle, year: Number(newYear) } );
-      };
-
-      console.log("ABOBA", values)
-      // navigate(`/dashboard/artwork/list`)
-      // reset();
+        updateArtwork(currentArtwork.id, {
+          author: values.author, 
+          cover: values.cover, 
+          description: values.description, 
+          height: Number(values.height), 
+          width: Number(values.width), 
+          price: Number(values.price), 
+          material: values.material, 
+          status: 'available', 
+          title: values.title, 
+          year: Number(values.year),
+          created: currentArtwork.created,
+        }).then(navigate('dashboard/artwork/list'))
+       
+      }else{
+        addDoc(
+          artworlCollectionRef,  
+          { 
+            author: values.author, 
+            cover: values.cover, 
+            description: values.description, 
+            height: Number(values.height), 
+            width: Number(values.width), 
+            price: Number(values.price), 
+            material: values.material, 
+            status: 'available', 
+            title: values.title, 
+            year: Number(values.year),
+            created: getTime(new Date()),
+          }
+        ).then(navigate(`/dashboard/artwork/list`))
+      }
     } catch (error) {
       console.error(error);
     }

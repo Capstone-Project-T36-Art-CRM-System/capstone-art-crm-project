@@ -7,9 +7,11 @@ export function getCustomerList() {
 
     return getDocs(collectionRef);
 }
-  
+
 export function getCustomerbyId(customerId) {
-    return customerList.find((customer) => customer.customerId === customerId) || null;
+    const docRef = doc(db, "customers", customerId);
+
+    return getDoc(docRef)
 }
 
 export async function addCustomer(customerFields) {

@@ -1,4 +1,4 @@
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export function getArtworkList() {
@@ -12,6 +12,18 @@ export function getArtworkrbyId(artworkId) {
 
     return getDoc(docRef)
 }
+
+export const updateArtwork = async (artworkId, newFields) => {
+    const artWorkDoc = doc(db, "artworks", artworkId);
+    await updateDoc(artWorkDoc, newFields);
+};
+
+export const deleteArtwork = async (artworkId) => {
+    console.log('HER!!')
+    const artWorkDoc = doc(db, "artworks", artworkId);
+    await deleteDoc(artWorkDoc);
+};
+
 
 // const artworkList = [
 //     {

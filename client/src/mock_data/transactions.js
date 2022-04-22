@@ -40,7 +40,7 @@ let transactionList = [
     {
         "transactionId": 1,
         "type": 'sales',
-        "customerId": 'C1',
+        "customerId": 'uKfhEwW1jTyPQwqSbfdb',
         "employeeId": null,
         "productCategory": 'Event Ticket',
         "note": 'Ticket – Exhibition "Canadian Cubism"',
@@ -86,7 +86,7 @@ let transactionList = [
     {
         "transactionId": 5,
         "type": 'sales',
-        "customerId": 'C1',
+        "customerId": 'uKfhEwW1jTyPQwqSbfdb',
         "employeeId": null,
         "productCategory": 'Artwork',
         "note": "Autum Fruits, 2017",

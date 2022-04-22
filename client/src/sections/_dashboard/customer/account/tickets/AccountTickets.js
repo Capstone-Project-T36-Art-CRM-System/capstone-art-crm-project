@@ -14,7 +14,7 @@ export default function AccountTickets({ customerSelected }) {
     <Card>
       <CardHeader title="Tickets" sx={{ mb: 3 }}/>
         <AccountTicketList 
-          ticketList={ getTicketListByCustomerId(customerSelected.customerId)} 
+          ticketList={ getTicketListByCustomerId(customerSelected.id)} 
           setOpen={(value) => setOpen(value)}
         />
     </Card>

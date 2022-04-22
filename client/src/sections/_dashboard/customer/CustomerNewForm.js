@@ -81,10 +81,8 @@ export default function CustomerNewForm({ isEdit, currentCustomer }) {
   const onSubmit = async (data) => {
     try {
 
-      // const createCustomer = async () => {
       addDoc(customerCollectionRef,  { name: values.name, email: values.email, phone: values.phone, gender: values.gender, birthDate: Number(values.birthDate),
       note: values.note, status: values.status, isRecordingAgreed: values.isRecordingAgreed } ).then(navigate(`/dashboard/customer/list`));
-      // };
      
       console.log("ABOBA", values)
      

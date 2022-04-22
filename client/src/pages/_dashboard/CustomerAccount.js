@@ -15,7 +15,6 @@ import Iconify from '../../components/Iconify';
 import {
   AccountGeneral,
   AccountPayments,
-  AccountDocs,
   AccountTickets
 } from '../../sections/_dashboard/customer/account';
 
@@ -26,19 +25,22 @@ import { CircularProgress } from '@material-ui/core';
 
 export default function CustomerAccount() {
   const { customerId } = useParams();
-  const [customerSelected, setCustomerSelected] = useState(getCustomerbyId(customerId));
+  const [customerSelected, setCustomerSelected] = useState(null);
   const navigate = useNavigate();
   const [currentTab, setCurrentTab] = useState('payments');
 
   useEffect(() => {
-    if (!customerSelected) {navigate('/404')}
-  }, [customerSelected, navigate]);
+    getCustomerbyId(customerId)
+    .then((doc) => setCustomerSelected( {...doc.data(), id: doc.id } ))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, [customerId]);
+
 
   const ACCOUNT_TABS = [
     {
       value: 'payments',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountPayments customerId={customerSelected?.customerId} />,
+      component: <AccountPayments customerId={customerSelected?.id} />,
     },
     {
       value: 'tickets',

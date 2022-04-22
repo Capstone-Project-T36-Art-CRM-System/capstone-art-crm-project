@@ -2,17 +2,18 @@
 import { Box, Button, Card, Stack, Typography } from '@mui/material';
 
 // Routing
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 // Components Import
-import Label from '../../../../components/Label';
 import Image from '../../../../components/Image';
 
 // Utils
 import { fCurrency } from '../../../../utils/formatNumber';
+import { deleteArtwork } from '../../../../mock_data/artworks';
 
 
 export default function DetailsGeneral({ artworkSelected }) {
+  const navigate = useNavigate();
   const { id, title, cover, material, height, width, year, price, author  } = artworkSelected
   return (
     <Stack spacing={3}>
@@ -51,7 +52,9 @@ export default function DetailsGeneral({ artworkSelected }) {
           <Button size="small" component={RouterLink} to={`/dashboard/artwork/${id}/edit`} variant="outlined" sx={{ mr: 1 }}>
             Edit
           </Button>
-          <Button size="small" color="inherit" variant="outlined">
+          <Button size="small" color="inherit" variant="outlined" onClick={() => {
+            deleteArtwork(artworkSelected.id).then(navigate(-1))
+            }}>
             Delete
           </Button>
         </Stack>
