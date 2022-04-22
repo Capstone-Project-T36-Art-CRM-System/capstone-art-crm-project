@@ -119,7 +119,7 @@ export default function ArtworkNewForm({ isEdit, currentArtwork }) {
 
         var reader = new FileReader();
         reader.onload = function () {
-            console.log(reader.result.replace("data:", "")
+            setValue('cover', reader.result.replace("data:", "")
                 .replace(/^.+,/, ""));
         }
         reader.readAsDataURL(file);

@@ -1,5 +1,5 @@
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 
 // Routing
@@ -43,13 +43,21 @@ const TABLE_HEAD = [
   { id: '' },
 ];
 
+
+
 export default function CustomerList() {
-  const [customerList, setCustomerList] = useState(getCustomerList());
+  const [customerList, setCustomerList] = useState([]);
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('desc');
   const [orderBy, setOrderBy] = useState('created');
   const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    getCustomerList()
+    .then((data) => setCustomerList(data.docs.map((doc) => ({...doc.data(), id: doc.id }))))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, []);
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === 'asc';
