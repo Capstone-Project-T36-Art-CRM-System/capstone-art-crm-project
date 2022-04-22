@@ -53,6 +53,26 @@ export async function updateTicket(ticketId, ticketFields) {
     }
 }
 
+export async function markUsed(ticketId) {
+
+
+    try {
+        ticketList = ticketList.map(ticket => {
+            if (ticket.id === ticketId) { 
+                let updatedTicket = { 
+                    ...ticket,
+                    isUsed: true,
+                    updated: getTime(new Date()),
+                }
+                return updatedTicket 
+            }
+            return ticket
+        })
+    } catch (error) {
+        console.log('Error!')
+    }
+}
+
 export function deleteTicket(ticketId) {
     try {
         ticketList = ticketList.map((ticket) =>{
