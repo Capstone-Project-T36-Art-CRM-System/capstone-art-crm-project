@@ -81,7 +81,7 @@ export default function MainTasks() {
   return (
     <Card>
       <CardHeader title="Tasks" action={
-        <TaskDialog setTaskList={() => setTaskList(getTaskList)}>
+        <TaskDialog setTaskList={() => setTaskList(getTaskList())}>
           <Button size="small" startIcon={<Iconify icon={'eva:plus-fill'} />}>
             Add new task
           </Button>
