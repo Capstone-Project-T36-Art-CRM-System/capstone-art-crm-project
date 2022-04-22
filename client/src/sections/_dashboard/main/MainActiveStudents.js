@@ -1,6 +1,8 @@
 // Material UI
 import { styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { getCustomerList } from '../../../mock_data/customers';
 
 // Styling Components
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -12,12 +14,20 @@ const RootStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function MainActiveStudents() {
+  const [customerList, setCustomerList] = useState([]);
+
+  useEffect(() => {
+    getCustomerList()
+    .then((data) => setCustomerList(data.docs.map((doc) => ({...doc.data(), id: doc.id })).filter(customer => customer.status === 'active')))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, []);
+
   return (
     <RootStyle>
       <Typography variant="subtitle3">
-        Active students
+        Active customers
       </Typography>
-      <Typography variant="h2">156</Typography>
+      <Typography variant="h2">{customerList.length}</Typography>
     </RootStyle>
   );
 }

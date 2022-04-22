@@ -1,6 +1,8 @@
 // Material UI
 import { styled } from '@mui/material/styles';
-import { Card, Typography } from '@mui/material';
+import { Card, CircularProgress, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { getArtworkList } from '../../../mock_data/artworks';
 
 // Styling Components
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -12,12 +14,22 @@ const RootStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function MainLeads() {
+  const [artworkList, setArtworkList] = useState([]);
+
+  useEffect(() => {
+    getArtworkList()
+    .then((data) => setArtworkList(data.docs.map((doc) => ({...doc.data(), id: doc.id }))))
+    .catch((error) => console.log("Firebase Error: ", error.message))
+  }, []);
+
   return (
+    !artworkList ? <CircularProgress /> 
+    :
     <RootStyle>
       <Typography variant="subtitle3">
-        Leads
+        Artworks
       </Typography>
-      <Typography variant="h2">23</Typography>
+      <Typography variant="h2">{artworkList.length}</Typography>
     </RootStyle>
   );
 }

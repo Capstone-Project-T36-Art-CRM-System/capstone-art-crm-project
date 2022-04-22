@@ -1,6 +1,7 @@
 // Material UI
 import { styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
+import { getSchedule } from '../../../mock_data/schedule';
 
 // Styling Components
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -18,7 +19,7 @@ export default function MainClassesComplited() {
       <Typography variant="subtitle3">
         Classes complited
       </Typography>
-      <Typography variant="h2">138</Typography>
+      <Typography variant="h2">{getSchedule().length}</Typography>
     </RootStyle>
   );
 }
